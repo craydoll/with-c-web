@@ -1,0 +1,113 @@
+//============================【MIXIN】============================
+
+// text（文字スタイル）
+@mixin txt_style($clr: #000, $size: 16px, $weight: normal, $align: left) {
+  color: $clr;
+  font-size: $size;
+  font-weight: $weight;
+  text-align: $align;
+  @include max768() {
+    &._tal {
+      text-align: left;
+    }
+    &._tar {
+      text-align: right;
+    }
+    &._tac {
+      text-align: center;
+    }
+  }
+}
+// 可変アイテム
+@mixin variable_item($itemWidth) {
+  max-width: $itemWidth;
+  width: 100%;
+}
+// 上下左右中央寄せ（※flex使用）
+@mixin flx_center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+// 横並び（2個）
+@mixin col2($margin_col2) {
+  .col2 {
+    display: flex;
+    column-gap: $margin_col2;
+    &_item {
+      width: 100%;
+      max-width: calc((100% - #{$margin_col2}) / 2);
+    }
+    @include media(768) {
+      flex-direction: column;
+      .col2_item {
+        max-width: 375px;
+        margin: 0 auto 30px;
+      }
+    }
+  }
+}
+// 横並び（3個）
+@mixin col3($margin_col3) {
+  .col3 {
+    display: flex;
+    &_item {
+      width: 100%;
+      max-width: calc((100% - (#{$margin_col3} * 2)) / 3);
+    }
+    @include media(768) {
+      flex-direction: column;
+      .col2_item {
+        max-width: 375px;
+        margin: 0 auto 30px;
+      }
+    }
+  }
+}
+// 表示非表示切り替え（表示）
+@mixin show_display($max_width) {
+  .max#{$max_width}_b {
+    display: none;
+    @include media($max_width) {
+      display: block;
+    }
+  }
+}
+// 表示非表示切り替え（非表示）
+@mixin hide_display($max_width) {
+  .max#{$max_width}_n {
+    @include media($max_width) {
+      display: none;
+    }
+  }
+}
+// mediaQuery(※呼出し時は引数に適用したいwidthを指定)
+@mixin media($width) {
+  @media screen and (max-width: $width + 'px') {
+    @content;
+  }
+}
+// min-width
+@mixin media_min($width) {
+  @media screen and (min-width: $width + 'px') {
+    @content;
+  }
+}
+// mediaQuery(768以下)
+@mixin max768 {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+// mediaQuery(1080以下)
+@mixin max1080 {
+  @media screen and (max-width: 1080px) {
+    @content;
+  }
+}
+// mediaQuery(768以下)
+@mixin max500 {
+  @media screen and (max-width: 500px) {
+    @content;
+  }
+}
