@@ -31,19 +31,11 @@ export default {
           }
         },
         signInSuccessUrl: this.successUrl,
-        signInFlow: 'redirect'
+        signInFlow: 'popup'
       }
       console.log('nextUrld:' + this.successUrl)
       const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth())
       ui.start('#firebaseui-auth-container', config)
-      // Is there an email link sign-in?
-      /* if (ui.isPendingRedirect()) {
-        ui.start('#firebaseui-auth-container', config)
-      }
-      // This can also be done via:
-      if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
-        ui.start('#firebaseui-auth-container', config)
-      } */
     }, 0)
   }
 }

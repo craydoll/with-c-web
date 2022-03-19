@@ -35,9 +35,10 @@
           <h2 class="txt1">どうやって測定するの？</h2>
           <div class="bl_media_chr">
             <div class="bl_media_chr_explain">
-              <h3 class="txt2">Withの使い方</h3>
+              <h3 class="txt2">測定の仕方</h3>
               <p class="txt3">
-                テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります
+                書画カメラやwebカメラを頭に装着できる「with※※」を用いた「手元測定」、自分の顔を映して測定する「顔測定」の二種類の方法があるよ！
+                商品交換のできる「withポイント」をためるには、「手元測定」を選んでね！
               </p>
             </div>
             <div class="bl_media_chr_fig">
@@ -61,40 +62,40 @@
               </div>
               <div class="bl_circleList_body">
                 <p class="bl_circleList_txt">
-                  テキストが入りますテキストが入りますテキストが入ります
+                  WebカメラをパソコンにUSB接続し、カメラを機器を認識させる。
                 </p>
               </div>
             </li>
             <li class="bl_circleList_item">
-              <p class="bl_circleList_step">STEP1</p>
+              <p class="bl_circleList_step">STEP2</p>
               <div class="bl_circleList_frame">
                 <img src="" alt="" />
               </div>
               <div class="bl_circleList_body">
                 <p class="bl_circleList_txt">
-                  テキストが入りますテキストが入りますテキストが入ります
+                  webカメラを頭に装着、または自分の利き腕とノートが映る位置にカメラを固定し、(1)書画カメラモード(2)withモードを選ぶ。
                 </p>
               </div>
             </li>
             <li class="bl_circleList_item">
-              <p class="bl_circleList_step">STEP1</p>
+              <p class="bl_circleList_step">STEP3</p>
               <div class="bl_circleList_frame">
                 <img src="" alt="" />
               </div>
               <div class="bl_circleList_body">
                 <p class="bl_circleList_txt">
-                  テキストが入りますテキストが入りますテキストが入ります
+                  ログイン後、「測定スタート」ボタンを押す。
                 </p>
               </div>
             </li>
             <li class="bl_circleList_item">
-              <p class="bl_circleList_step">STEP1</p>
+              <p class="bl_circleList_step">STEP4</p>
               <div class="bl_circleList_frame">
                 <img src="" alt="" />
               </div>
               <div class="bl_circleList_body">
                 <p class="bl_circleList_txt">
-                  テキストが入りますテキストが入りますテキストが入ります
+                  勉強をやめる時に「測定終了」ボタンを押す。
                 </p>
               </div>
             </li>
@@ -284,6 +285,11 @@
                 <p class="recordBox_item_subject">数学、英語</p>
               </li>
             </ul>
+            <ChartContainer
+              :labels="labels"
+              :val="data"
+            >
+            </ChartContainer>
           </div>
         </div>
       </section>
@@ -445,12 +451,20 @@
 </template>
 <script>
 import StudyRecords from '@/plugins/firestore/studyRecords'
+import ChartContainer from '@/components/ChartContainer'
+import moment from '@/plugins/moment-ja'
+
 export default {
   name: 'IndexPage',
+  components: {
+    ChartContainer
+  },
   layout: 'protected',
   data() {
     return {
-      studyRecords: []
+      studyRecords: [],
+      labels: [],
+      data: [],
     }
   },
   async mounted() {
@@ -458,6 +472,16 @@ export default {
     this.user = await this.$store.getters['auth/user']
     if (this.user) {
       this.studyRecords = await StudyRecords.getItems(this.user.id)
+      this.labels = this.studyRecords.map((item) => {
+        return moment(item.date.toDate()).format('MM/DD')
+      })
+      this.data = this.studyRecords.map((item) => {
+        return item.concentration
+      })
+    } else {
+      // ダミー
+      this.labels = ['3/1','3/2','3/3','3/4','3/5']
+      this.data = [50,74,68,70,78]
     }
   },
 }

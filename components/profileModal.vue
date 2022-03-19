@@ -24,9 +24,9 @@
             hide-delimiters
             >
               <v-carousel-item
-                v-for="(item) in items"
-                :key="item.value"
-                :value="item.value"
+                v-for="(item) in pics"
+                :key="item.src"
+                :value="item.src"
                 :src="`assets/img/chr/${item.src}`"
                 width="150"
                 reverse-transition="fade-transition"
@@ -48,14 +48,23 @@
             v-model="name"
             label="氏名"
           ></v-text-field>
-          <v-text-field
-            v-model="schoolyear"
-            label="学年"
-          ></v-text-field>
-          <v-text-field
+          <DatePicker
+            label="誕生日"
+            :adate="birth"
+            @ok="setBirth"
+          />
+          <v-select
+            v-model="gender"
+            :items="genderList"
+            label="性別"
+            dense
+          ></v-select>
+          <v-select
             v-model="area"
+            :items="prefs"
             label="住んでいる地域"
-          ></v-text-field>
+            dense
+          ></v-select>
         </v-col>
       </v-row>
       </v-card-text>
@@ -90,8 +99,12 @@
 <script>
 import appError, { ApplicationError } from '@/plugins/firestore/appError'
 import Users from '@/plugins/firestore/users'
+import DatePicker from '@/components/datePicker'
 
 export default {
+  components: {
+    DatePicker
+  },
   props: {
     modalShow: {
       type: Boolean,
@@ -109,11 +122,61 @@ export default {
       avatar: '',
       name: '',
       nickname: '',
-      schoolyear: '',
+      birth: '',
       area: '',
       mail: '',
+      gender: '',
       show: false,
-      items: [
+      prefs: [
+        '北海道',
+        '青森県',
+        '岩手県',
+        '宮城県',
+        '秋田県',
+        '山形県',
+        '福島県',
+        '茨城県',
+        '栃木県',
+        '群馬県',
+        '埼玉県',
+        '千葉県',
+        '東京都',
+        '神奈川県',
+        '新潟県',
+        '富山県',
+        '石川県',
+        '福井県',
+        '山梨県',
+        '長野県',
+        '岐阜県',
+        '静岡県',
+        '愛知県',
+        '三重県',
+        '滋賀県',
+        '京都府',
+        '大阪府',
+        '兵庫県',
+        '奈良県',
+        '和歌山県',
+        '鳥取県',
+        '島根県',
+        '岡山県',
+        '広島県',
+        '山口県',
+        '徳島県',
+        '香川県',
+        '愛媛県',
+        '高知県',
+        '福岡県',
+        '佐賀県',
+        '長崎県',
+        '熊本県',
+        '大分県',
+        '宮崎県',
+        '鹿児島県',
+        '沖縄県'
+      ],
+      pics: [
         {
           src: 'fig_chr_kizoku.png',
         },
@@ -129,6 +192,17 @@ export default {
         {
           src: 'fig_chr_samurai.png',
         },
+        {
+          src: 'fig_chr_shogun.png',
+        },
+        {
+          src: 'fig_chr_sumo.png',
+        },
+      ],
+      genderList: [
+        '男性',
+        '女性',
+        'その他',
       ],
     }
   },
@@ -137,15 +211,12 @@ export default {
   watch: {
     modalShow() {
       this.show = this.modalShow
-      this.message = ''
-      console.log('modalshow changed:' + this.show)
     },
   },
   mounted() {
     setTimeout(async () => {
       // 会員情報
       const id = await this.$store.getters['auth/id']
-      const tmpUser = await this.$store.getters['auth/user'] 
       console.log('id is:' + id)
       if (id) {
         this.user = await Users.getItem(id)
@@ -153,11 +224,12 @@ export default {
           this.avatar = this.user.avatar
           this.nickname = this.user.nickname
           this.name = this.user.name
-          this.schoolyear = this.user.schoolyear
+          this.birth = this.user.birth
+          this.gender = this.user.gender
           this.area = this.user.area
+      console.log('birth is:' + this.birth)
         }
         this.id = id
-        this.mail = tmpUser.mail
       }
     })
   },
@@ -168,15 +240,17 @@ export default {
     },
     async pressOk() {
       console.log('in pressOK ' + this.avatar)
+      console.log('genderList:', JSON.stringify(this.genderList))
+      console.log('gender:', this.gender)
       try {
         this.user = {
           name: this.name,
-          avatar: this.items[this.avatar].src,
+          avatar: this.avatar,
           nickname: this.nickname,
-          schoolyear: this.schoolyear,
+          birth: this.birth,
+          gender: this.gender,
           area: this.area,
           id: this.id,
-          mail: this.mail,
         }
         await Users.save(this.id , this.user)
       } catch (err) {
@@ -191,13 +265,16 @@ export default {
           appError.sendError('', err, 'changereq:planChangeReq')
         }
       }
-      this.$emit('close', this.items[this.avatar].src)
+      this.$emit('close', this.avatar)
       this.show = false
     },
     async logout() {
       await this.$store.dispatch('auth/logout')
-      this.$emit('close', this.items[this.avatar].src)
+      this.$emit('close', 'fig_chr_noimage.png')
       this.show = false
+    },
+    setBirth(birth) {
+      this.birth = birth
     }
   },
 }

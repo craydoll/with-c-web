@@ -1,6 +1,6 @@
 <template>
     <v-dialog
-      id="profile-modal"
+      id="login-modal"
       v-model="show"
       max-width="500"
       persistent

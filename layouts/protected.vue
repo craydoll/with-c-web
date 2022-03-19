@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app absolute prominent flat class="justify-center" color="#c9bc9c">
+    <v-app-bar app prominent fixed flat class="justify-center" color="#c9bc9c" scroll-target="#body">
       <div class="ly_headerInner header_flx">
         <v-app-bar-title>
           <a href=""><img src="assets/img/logo/logo.svg" alt="ロゴ" /></a>
@@ -33,10 +33,10 @@
           <ProfileModal
             :modal-show="showProfile"
             @close="modalClosed"
-          />          
+          />        
         </div>
     </v-app-bar>
-     <v-main>
+    <v-main id="#body">
       <v-container fluid class="ma-0 pa-0">
         <Nuxt />
       </v-container>

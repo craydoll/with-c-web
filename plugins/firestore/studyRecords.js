@@ -14,7 +14,7 @@ export default {
     }
   },
   async getItems (parentId) {
-    const docRef = db.collection('users').doc(parentId).collection(tbName)
+    const docRef = db.collection('users').doc(parentId).collection(tbName).orderBy('date')
     return await this.getFromDB(docRef)
   },
   async getFromDB (docRef) {
