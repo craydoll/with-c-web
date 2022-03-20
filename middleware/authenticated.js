@@ -17,7 +17,7 @@ export default function ({ route, store, redirect }) {
               console.log('ユーザー情報あり:'+ uid)
               await store.dispatch('auth/setUser', userObj)
             } else {
-              // 新規登録
+              // 新規登録（ユーザー登録は未実装）
               console.log('ユーザー情報未登録')
             }
           } else {

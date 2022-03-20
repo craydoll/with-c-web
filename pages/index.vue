@@ -468,6 +468,7 @@ export default {
     }
   },
   async mounted() {
+    // storeよりユーザー取ってくる
     this.isLoggedIn = await this.$store.getters['auth/isLoggedIn']
     this.user = await this.$store.getters['auth/user']
     if (this.user) {
