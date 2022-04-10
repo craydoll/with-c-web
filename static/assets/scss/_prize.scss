@@ -1,0 +1,14 @@
+.prize{
+
+  .bl_circleList_txt{
+    dl{
+      display: flex;
+    }
+  }
+
+  .bl_circleList_frame{
+    background-color: $c_wt;
+    border: 4px solid $c_lylw;
+  }
+
+}

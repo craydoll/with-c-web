@@ -1,7 +1,13 @@
+
 //============================【MIXIN】============================
 
 // text（文字スタイル）
-@mixin txt_style($clr: #000, $size: 16px, $weight: normal, $align: left) {
+@mixin txt_style(
+  $clr: #000,
+  $size: 16px,
+  $weight: normal,
+  $align: left
+) {
   color: $clr;
   font-size: $size;
   font-weight: $weight;
@@ -33,7 +39,7 @@
 @mixin col2($margin_col2) {
   .col2 {
     display: flex;
-    column-gap: $margin_col2;
+    column-gap: $margin_col2 ;
     &_item {
       width: 100%;
       max-width: calc((100% - #{$margin_col2}) / 2);
@@ -83,19 +89,24 @@
 }
 // mediaQuery(※呼出し時は引数に適用したいwidthを指定)
 @mixin media($width) {
-  @media screen and (max-width: $width + 'px') {
+  @media screen and (max-width: $width + "px") {
     @content;
   }
 }
 // min-width
 @mixin media_min($width) {
-  @media screen and (min-width: $width + 'px') {
+  @media screen and (min-width: $width + "px") {
     @content;
   }
 }
 // mediaQuery(768以下)
 @mixin max768 {
   @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+@mixin max970 {
+  @media screen and (max-width:970px) {
     @content;
   }
 }

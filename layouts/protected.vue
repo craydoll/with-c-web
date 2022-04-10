@@ -3,17 +3,41 @@
     <v-app-bar app prominent fixed flat class="justify-center" color="#c9bc9c" scroll-target="#body">
       <div class="ly_headerInner header_flx">
         <v-app-bar-title>
-          <a href=""><img src="assets/img/logo/logo.svg" alt="ロゴ" /></a>
+          <NuxtLink to="/"><img src="assets/img/logo/logo.svg" alt="ロゴ" /></NuxtLink>
         </v-app-bar-title>
         <nav class="max768_n">
           <ul class="header_nav">
-            <li class="nav__item"><a href="">使い方</a></li>
-            <li class="nav__item"><a href="">これまでの学習記録</a></li>
-            <li class="nav__item"><a href="">ポイントについて</a></li>
-            <li class="nav__item"><a href="">規約</a></li>
-            <li class="nav__item"><a href="">お問合せ</a></li>
+            <li class="nav__item"><NuxtLink to="/#howTo">使い方</NuxtLink></li>
+            <li class="nav__item"><NuxtLink to="/#record">これまでの学習記録</NuxtLink></li>
+            <li class="nav__item"><NuxtLink to="/#aboutPoint">ポイントについて</NuxtLink></li>
+            <li class="nav__item"><NuxtLink to="/#terms">規約</NuxtLink></li>
+            <li class="nav__item"><NuxtLink to="/privacyPage">個人情報保護方針</NuxtLink></li>
+            <li class="nav__item"><a href="/#contact">お問合せ</a></li>
           </ul>
         </nav>
+        <!-- Hamburger-icon -->
+        <div class="max970_b hamburger_icon">
+          <button class="openMenu">
+            <span class="openMenu__icon line01"></span>
+            <span class="openMenu__icon line02"></span>
+            <span class="openMenu__icon line03"></span>
+          </button>
+        </div>
+        <!-- Hamburger-icon -->
+        <div class="sp-menu">
+          <ul>
+            <li class="header-nav-item"><a href="#howTo">使い方</a></li>
+            <li class="header-nav-item">
+              <a href="#record">これまでの学習記録</a>
+            </li>
+            <li class="header-nav-item">
+              <a href="#point">ポイントについて</a>
+            </li>
+            <li class="header-nav-item"><a href="#terms">規約</a></li>
+            <li class="header-nav-item"><NuxtLink to="privacyPage">個人情報保護方針</NuxtLink></li>
+            <li class="header-nav-item"><a href="#contact">お問合せ</a></li>
+          </ul>
+        </div>
       </div>
         <div class="align-self-center">
         <v-btn v-if="isLoggedIn" name="profile" fab @click="showProfile=true">

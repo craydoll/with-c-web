@@ -3,6 +3,7 @@ import 'firebase/auth'
 import 'firebase/analytics'
 import 'firebase/firestore'
 import 'firebase/functions'
+import 'firebase/storage'
 // import { firebaseConfig } from '@/plugins/firebaseProd'
 import { firebaseConfig } from '@/plugins/firebaseDev'
 

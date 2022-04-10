@@ -1,36 +1,14 @@
 //============================【display】============================
 
 // 表示非表示切り替え（例max○○○_b,max○○○_n）
+@include show_display(970);
 @include show_display(768);
 @include show_display(500);
+@include hide_display(970);
 @include hide_display(768);
 @include hide_display(500);
 
-//============================【text】============================
 
-// 文字装飾（色,サイズ,太さ,配列）
-.txt1 {
-  @include txt_style($c_bk, 2.5rem, 800, center);
-  background-color: $c_lylw;
-  padding: 10px;
-  border-radius: 5px;
-}
-.txt2 {
-  @include txt_style($c_bk, 2rem, 800, left);
-  padding: 10px 0;
-  border-bottom: 2px solid $c_br;
-}
-.txt3 {
-  @include txt_style($c_bk, 1.4rem, 400, left);
-  padding: 15px 0;
-  line-height: 1.5;
-}
-.txt4 {
-  @include txt_style($c_bk, 1.8rem, 800, center);
-  background-color: $c_wt;
-  padding: 10px;
-  border-radius: 5px;
-}
 
 //============================【layout】============================
 
@@ -55,6 +33,7 @@
     max-width: 400px;
   }
 }
+
 
 //============================【baseColor】============================
 // 背景色

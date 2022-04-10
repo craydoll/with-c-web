@@ -34,7 +34,7 @@ button {
 }
 // 各種タグのCSSリセット
 button,
-input[type='submit'] {
+input[type="submit"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -43,10 +43,10 @@ input[type='submit'] {
   outline: none;
   background: transparent;
 }
-input[type='text'],
-input[type='email'],
-input[type='tel'],
-input[type='reset'] {
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="reset"] {
   padding: 0;
   border: none;
   border-radius: 0;

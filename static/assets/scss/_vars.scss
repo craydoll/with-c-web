@@ -1,7 +1,7 @@
 //============================【変数定義】============================
 
 // contents
-$contInnterWidth: 1000px;
+$contInnterWidth: 1050px;
 $headerInnterWidth: 1400px;
 $contInnterPadding: 30px;
 $headerInnterPadding: 20px;
@@ -12,17 +12,17 @@ $c_lgr: #edffd0;
 $c_og: #ff9938;
 $c_bk: #000;
 $c_wt: #fff;
-$c_gry: #f0f0f0;
-$c_br: #c9bc9c;
-$c_ylw: #fff500;
-$c_lylw: #fff0c9;
-$c_red: #ff3700;
+$c_gry: #F0F0F0;
+$c_br: #C9BC9C;
+$c_ylw: #FFF500;
+$c_lylw: #FFF0C9;
+$c_red: #FF3700;
 
 // font-family
-$corp: corporate-logo-ver2, sans-serif;
+$corp:corporate-logo-ver2, sans-serif;
 
 /* 可変する文字サイズ（calc + vwの公式） */
-$variable_size: unquote('calc(30 + 150 * (100vw - 800px)/400)');
+$variable_size: unquote("calc(30 + 150 * (100vw - 800px)/400)");
 // 他の計算式 → （例）calc(100vw / 12);
 // A・・・最小文字サイズ
 // B・・・最大文字サイズ – 最小文字サイズ
