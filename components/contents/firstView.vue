@@ -24,7 +24,7 @@
         <p class="fv_ttl">集中力を<span>レベルアップ</span>しよう！</p>
         <div class="el_btn_location">
           <p class="el_deco_bracket">キミの集中力レベルは？</p>
-          <a class="el_btn el_btn__arrowRight" href="">測定スタート</a>
+          <nuxt-link class="el_btn el_btn__arrowRight" to="/measureConc">測定スタート</nuxt-link>
         </div>
       </div>
       <!-- fvタイトル -->

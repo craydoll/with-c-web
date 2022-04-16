@@ -14,7 +14,7 @@
           </div>
           <div class="ctaArea_btn el_btn_location">
             <p class="el_deco_bracket">キミの集中力レベルは？</p>
-            <a class="el_btn el_btn__arrowRight" href="">測定スタート</a>
+            <nuxt-link class="el_btn el_btn__arrowRight" to="/measureConc">測定スタート</nuxt-link>
           </div>
         </div>
       </section>
@@ -66,9 +66,11 @@
             </div>
             <h3 class="cmp_heading_04">これまでの学習記録</h3>
             <ul class="recordBox_list">
-              <li class="recordBox_item"
+              <li
                 v-for="(item, i) in studyRecords"
-                :key="i">
+                :key="i"
+                class="recordBox_item"
+                >
                 <p class="recordBox_item_time">{{item.date.toDate() | format-date}}</p>
                 <p class="recordBox_item_subject">教科：{{item.subject}}  時間：{{item.study_hours | miliSecToTime}} 集中力：{{item.concentration}}</p>
               </li>
@@ -97,7 +99,7 @@
 import StudyRecords from '@/plugins/firestore/studyRecords'
 import ChartContainer from '@/components/ChartContainer'
 
-import Fv from '@/components/contents/fv'
+import Fv from '@/components/contents/firstView'
 import HowTo from '@/components/contents/howTo'
 import AboutRecording from '@/components/contents/aboutRecording'
 import AboutPoint from '@/components/contents/aboutPoint'
