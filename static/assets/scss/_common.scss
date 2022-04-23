@@ -2,11 +2,15 @@
 
 // 表示非表示切り替え（例max○○○_b,max○○○_n）
 @include show_display(970);
-@include show_display(768);
-@include show_display(500);
 @include hide_display(970);
+@include show_display(1090);
+@include hide_display(1090);
+@include show_display(768);
 @include hide_display(768);
+@include show_display(500);
 @include hide_display(500);
+
+
 
 
 

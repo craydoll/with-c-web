@@ -617,6 +617,27 @@ select {
   }
 }
 
+@media screen and (max-width: 970px) {
+  .max970_n {
+    display: none;
+  }
+}
+
+.max1090_b {
+  display: none;
+}
+@media screen and (max-width: 1090px) {
+  .max1090_b {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 1090px) {
+  .max1090_n {
+    display: none;
+  }
+}
+
 .max768_b {
   display: none;
 }
@@ -626,24 +647,18 @@ select {
   }
 }
 
+@media screen and (max-width: 768px) {
+  .max768_n {
+    display: none;
+  }
+}
+
 .max500_b {
   display: none;
 }
 @media screen and (max-width: 500px) {
   .max500_b {
     display: block;
-  }
-}
-
-@media screen and (max-width: 970px) {
-  .max970_n {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .max768_n {
-    display: none;
   }
 }
 
@@ -864,7 +879,11 @@ header .header_flx .header_nav li a {
   justify-content: center;
   align-items: center;
 }
-header .openMenu, header .openMenu__icon {
+header .header_flx .header_nav li:last-child a {
+  background: #FFF500;
+}
+header .openMenu,
+header .openMenu__icon {
   display: inline-block;
   transition: all 0.4s;
 }
@@ -897,6 +916,9 @@ header .sp-menu {
   background-color: #fff;
   transition: all 0.3s;
 }
+header .sp-menu ul {
+  width: 60%;
+}
 header .sp-menu ul li {
   margin-bottom: 40px;
 }
@@ -906,6 +928,10 @@ header .sp-menu ul li:last-child {
 header .sp-menu ul li a {
   color: #000;
   letter-spacing: 0.1em;
+}
+header .sp-menu .el_btn {
+  min-width: auto;
+  width: 100%;
 }
 
 .is_menuOpen .line01:nth-of-type(1) {
@@ -930,8 +956,7 @@ header .sp-menu ul li a {
   right: 20px;
 }
 .fv .fv_container {
-  width: 100%;
-  max-width: 700px;
+  width: 85%;
   margin: 0 auto;
   padding: 30px 0;
   position: relative;
@@ -966,13 +991,6 @@ header .sp-menu ul li a {
   text-stroke: 1px #000;
 }
 @media screen and (max-width: 768px) {
-  .fv .fv_container {
-    width: 80%;
-  }
-  .fv .fv_container .el_btn {
-    margin-top: 30px;
-    min-width: auto;
-  }
   .fv .sdgs_logo {
     width: 70px;
   }
@@ -1201,11 +1219,31 @@ header .sp-menu ul li a {
   min-width: 100px;
 }
 
-footer {
-  padding: 20px 0;
+footer > div {
+  display: flex;
+  justify-content: space-between;
 }
 footer .footer_logo {
   width: 100px;
+}
+footer .footer_menu {
+  display: flex;
+  gap: 30px;
+  flex: 1;
+}
+@media screen and (max-width: 768px) {
+  footer .footer_menu {
+    flex-direction: column;
+  }
+}
+footer .footer_menu ul {
+  flex: 1;
+}
+footer .footer_menu li {
+  margin-bottom: 10px;
+}
+footer .footer_menu a {
+  display: block;
 }
 
 .adjust_chrSize.w40 {

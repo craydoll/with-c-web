@@ -84,14 +84,10 @@
           </div>
         </div>
       </section>
-
       <Charactors />
       <Terms/>
       <Contacts/>
     </main>
-    <footer class="bgc_br tac">
-      <img class="footer_logo" src="assets/img/logo/logo.svg" alt="" />
-    </footer>
   </body>
 </v-container>
 </template>

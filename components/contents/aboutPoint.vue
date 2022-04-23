@@ -1,5 +1,5 @@
 <template>
-  <section class="aboutPoint" id="aboutPoint">
+  <section id="point" class="aboutPoint">
     <div class="ly_contInner">
       <h2 class="cmp_heading_01">ポイントを利用しよう</h2>
       <div class="bl_media_chr">
@@ -32,7 +32,14 @@
           <div>
             <h3 class="cmp_heading_02">ポイントで交換できるもの</h3>
             <p class="cmp_heading_03">
-              ポイントで交換できるものに関しては<NuxtLink class="link_init" to="prizeList">こちら</NuxtLink>。
+              文房具やノートなど、様々な商品と交換できます。<br />
+              ポイントで交換できるものに関しては詳しくは下のボタンから。<br />
+              <br />
+              <NuxtLink
+                class="el_btn el_btn__lor el_btn__arrowRight"
+                to="prizeList"
+                >商品を見てみる</NuxtLink
+              >
             </p>
             <p>
               ※
@@ -51,9 +58,7 @@
           <div class="bl_media_chr_fig chr_ninja">
             <div class="el_bubble">
               ポイントを貯めて<br />
-              <span>
-                お宝（景品）
-              </span>
+              <span> お宝（景品） </span>
               をゲットだぜ！<br />オイラも集中して勉強するぞ〜
             </div>
             <div class="bl_media_chr_character">
@@ -67,5 +72,4 @@
       </div>
     </div>
   </section>
-
 </template>

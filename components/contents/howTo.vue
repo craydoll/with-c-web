@@ -1,5 +1,5 @@
 <template>
-  <section class="howTo" id="howTo">
+  <section id="howTo" class="howTo">
     <div class="ly_contInner">
       <h2 class="cmp_heading_01">どうやって測定するの？</h2>
       <div class="bl_media_chr">
@@ -26,8 +26,8 @@
       <ul class="bl_circleList bl_circleList__SPcol1 el_arrow_right_list">
         <li class="bl_circleList_item">
           <p class="bl_circleList_step">STEP1</p>
-          <div class="bl_circleList_frame">
-            <img src="assets/img/ico/ico_webCam_01.svg" alt="" />
+          <div class="">
+            <img src="assets/img/ico/ico_webCam_01.png" alt="" />
           </div>
           <div class="bl_circleList_body">
             <p class="bl_circleList_txt">
@@ -37,8 +37,8 @@
         </li>
         <li class="bl_circleList_item">
           <p class="bl_circleList_step">STEP2</p>
-          <div class="bl_circleList_frame">
-            <img src="assets/img/ico/ico_pc_01.svg" alt="" />
+          <div class="">
+            <img src="assets/img/ico/ico_pc_01.png" alt="" />
           </div>
           <div class="bl_circleList_body">
             <p class="bl_circleList_txt">
@@ -48,8 +48,8 @@
         </li>
         <li class="bl_circleList_item">
           <p class="bl_circleList_step">STEP3</p>
-          <div class="bl_circleList_frame">
-            <img src="assets/img/ico/ico_stBtn_01.svg" alt="" />
+          <div class="">
+            <img src="assets/img/ico/ico_stBtn_01.png" alt="" />
           </div>
           <div class="bl_circleList_body">
             <p class="bl_circleList_txt">
@@ -59,8 +59,8 @@
         </li>
         <li class="bl_circleList_item">
           <p class="bl_circleList_step">STEP4</p>
-          <div class="bl_circleList_frame">
-            <img src="assets/img/ico/ico _endBtn_01.svg" alt="" />
+          <div class="">
+            <img src="assets/img/ico/ico _endBtn_01.png" alt="" />
           </div>
           <div class="bl_circleList_body">
             <p class="bl_circleList_txt">
@@ -73,7 +73,11 @@
         ※AIが動きを全く検知しなくなると3(仮)分後に自動終了します。ノートに書く行為は、ポイント獲得率が1.2倍(仮)になります。<br />
         ※30分以上継続すると、ポイント獲得率が1.2倍(仮)になりますので、休憩する場合一時停止ボタンを押してください。<br />
         ※測定データを残すためには、利用登録およびログインが必要です。<br />
-        ※webカメラ・ヘッドマウントシステム「with」の詳細は<a class="link_init" href="">こちら</a>
+        ※webカメラ・ヘッドマウントシステム「with」の詳細は<a
+          class="link_init"
+          href=""
+          >こちら</a
+        >
       </p>
     </div>
   </section>
