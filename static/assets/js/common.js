@@ -1,5 +1,10 @@
 
 $(function(){
+
+
+  $(".record_screen_btn").on("click", function(){
+    $('.record').toggleClass("clicked");  
+  });
 	
   // チェックボタンは一つだけ押せる仕様に
 	$(".checkbox").on("click", function(){
@@ -130,70 +135,4 @@ $(function(){
 		});
 	});
 
-
-	// サブ写真をメイン写真に表示させる処理
-	$(function(){
-		$('#subImg img').on('click',function(){
-			//mainに切り替えるimgのsrc取得
-			img = $(this).attr('src');
-			//currentクラス付け替え
-			$('#subImg li').removeClass('current');
-			$(this).parent().addClass('current');
-			//fadeOutできたらsrc変更してfadeIn
-			$('#mainImg img').fadeOut(50, function() {
-				$('#mainImg img').attr('src', img).on('load', function() {
-					$(this).fadeIn();
-				})
-			})
-		});
-	});
-
-	// 数量スピーナーボタンの処理
-	$(function(){
-		var arySpinnerCtrl = [];
-		var spin_speed = 20; //変動スピード
-		
-		//長押し押下時
-		$('.btnspinner').on('touchstart mousedown click', function(e){
-			if(arySpinnerCtrl['interval']) return false;
-			var target = $(this).data('target');
-			arySpinnerCtrl['target'] = target;
-			arySpinnerCtrl['timestamp'] = e.timeStamp;
-			arySpinnerCtrl['cal'] = Number($(this).data('cal'));
-			//クリックは単一の処理に留める
-			if(e.type == 'click'){
-				spinnerCal();
-				arySpinnerCtrl = [];
-				return false;
-			}
-			//長押し時の処理
-			setTimeout(function(){
-				//インターバル未実行中 + 長押しのイベントタイプスタンプ一致時に計算処理
-				if(!arySpinnerCtrl['interval'] && arySpinnerCtrl['timestamp'] == e.timeStamp){
-					arySpinnerCtrl['interval'] = setInterval(spinnerCal, spin_speed);
-				}
-			}, 500);
-		});
-		
-		//長押し解除時 画面スクロールも解除に含む
-		$(document).on('touchend mouseup scroll', function(e){
-			if(arySpinnerCtrl['interval']){
-				clearInterval(arySpinnerCtrl['interval']);
-				arySpinnerCtrl = [];
-			}
-		});
-		//変動計算関数
-		function spinnerCal(){
-			var target = $(arySpinnerCtrl['target']);
-			var num = Number(target.val());
-			num = num + arySpinnerCtrl['cal'];
-			if(num > Number(target.data('max'))){
-				target.val(Number(target.data('max')));
-			}else if(Number(target.data('min')) > num){
-				target.val(Number(target.data('min')));
-			}else{
-				target.val(num);
-			}
-		}
-	});
 });

@@ -1,5 +1,5 @@
 <template>
-      <section class="terms" id="terms">
+      <section id="terms" class="terms">
         <div class="ly_contInner">
           <h2 class="cmp_heading_01">規約</h2>
           <div class="terms_notice">
@@ -131,10 +131,10 @@
                 <h3 class="terms_cont_article">第7条 個人情報等の取扱い</h3>
                 <ol class="terms_cont_txt cmp_numList_01">
                   <li>プライバシーポリシー
-                    <p>弊社は、本規約のほか、<NuxtLink to="privacyPage">プライバシーポリシー</NuxtLink>に従って個人情報等を取り扱います。</p>
+                    <p>弊社は、本規約のほか、<NuxtLink to="privacy">プライバシーポリシー</NuxtLink>に従って個人情報等を取り扱います。</p>
                   </li>
                   <li>プライバシーポリシーへの同意
-                    <p>ユーザーは、<NuxtLink to="privacyPage">プライバシーポリシー</NuxtLink>を必ず確認し、その内容に同意した上で、本サイトを利用するものとします。</p>
+                    <p>ユーザーは、<NuxtLink to="privacy">プライバシーポリシー</NuxtLink>を必ず確認し、その内容に同意した上で、本サイトを利用するものとします。</p>
                   </li>
                   <li>ユーザーによる利用
                     <p>ユーザーは、本サイトを通じて得た個人情報等に関し、本サイトの利用範囲内においてのみ利用することができ、それ以外の利用は不可とします。</p>

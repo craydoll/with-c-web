@@ -1,6 +1,6 @@
 import { db } from '../firebase'
 
-const tbName = 'product'
+const tbName = 'prizes'
 
 export default {
   async getItem (id) {

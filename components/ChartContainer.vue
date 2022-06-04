@@ -36,8 +36,6 @@ export default {
   },
   methods: {
     fillData() {
-      console.log('labels:' + JSON.stringify(this.labels))
-      console.log('vals:' + JSON.stringify(this.val))
       this.chartData = {
         labels: this.labels,
         datasets: [
@@ -58,7 +56,7 @@ export default {
           display: true, // タイトルを表示します。
           position: "top", // タイトルの位置
           fontSize: 12, // タイトルのフォントサイズ
-          padding: 10, // タイトルテキストの上下に追加するピクセル数
+          padding: 5, // タイトルテキストの上下に追加するピクセル数
           text: "集中力のグラフ"
         },
         legend: {
@@ -83,11 +81,10 @@ export default {
             radius: 8, // 点の半径
           },
           line: {
-            tension: 0,  // ベジェ曲線の張力
-            backgroundColor: 'rgb(232, 234, 246, 0.1)', // 線の塗りつぶしの色。
+            tension: 0.2,  // ベジェ曲線の張力
+            backgroundColor: 'rgb(232, 234, 246, 0.2)', // 線の塗りつぶしの色。
             borderWidth: 5, // 線の太さ。
             borderColor: "red", // 線のストロークの色。
-
           }
         },
         scales: {
@@ -97,7 +94,7 @@ export default {
               color: "#E8EAF6",
             },
             grid: {
-              color: "rgb(232, 234, 246, 0.1)"
+              color: "rgb(232, 234, 246, 0.1)",
             },
           },
           x: {

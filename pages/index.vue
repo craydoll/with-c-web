@@ -1,5 +1,5 @@
 <template>
-<v-container fluid class="ma-0 pa-0">
+<div>
   <body>
     <main>
       <Fv/>
@@ -14,7 +14,7 @@
           </div>
           <div class="ctaArea_btn el_btn_location">
             <p class="el_deco_bracket">キミの集中力レベルは？</p>
-            <nuxt-link class="el_btn el_btn__arrowRight" to="/measureConc">測定スタート</nuxt-link>
+            <nuxt-link class="el_btn el_btn__arrowRight" to="/record">測定スタート</nuxt-link>
           </div>
         </div>
       </section>
@@ -38,49 +38,7 @@
           </div>
           <div class="ctaArea_btn el_btn_location">
             <p class="el_deco_bracket">キミの集中力レベルは？</p>
-            <a class="el_btn el_btn__arrowRight" href="">測定スタート</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="record">
-        <div class="ly_contInner">
-          <div class="recordBox">
-            <h2 class="cmp_heading_01 el_deco_line">学習記録</h2>
-            <div class="col2">
-              <div class="col2_item">
-                <h3 class="cmp_heading_04">学習総量</h3>
-                <ul class="cmp_heading_03">
-                  <li>算数：〇〇時間</li>
-                  <li>国語：〇〇時間</li>
-                  <li>社会：〇〇時間</li>
-                  <li>理科：〇〇時間</li>
-                </ul>
-              </div>
-              <div class="col2_item">
-                <h3 class="cmp_heading_04">おすすめ勉強法</h3>
-                <p class="cmp_heading_03">
-                  テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りま
-                </p>
-              </div>
-            </div>
-            <h3 class="cmp_heading_04">これまでの学習記録</h3>
-            <ul class="recordBox_list">
-              <li
-                v-for="(item, i) in studyRecords"
-                :key="i"
-                class="recordBox_item"
-                >
-                <p class="recordBox_item_time">{{item.date.toDate() | format-date}}</p>
-                <p class="recordBox_item_subject">教科：{{item.subject}}  時間：{{item.study_hours | miliSecToTime}} 集中力：{{item.concentration}}</p>
-              </li>
-            </ul>
-            <!-- グラフ -->
-            <ChartContainer
-              :labels="labels"
-              :val="data"
-            >
-            </ChartContainer>
+            <NuxtLink class="el_btn el_btn__arrowRight" to="/record">測定スタート</NuxtLink>
           </div>
         </div>
       </section>
@@ -89,11 +47,10 @@
       <Contacts/>
     </main>
   </body>
-</v-container>
+</div>
 </template>
 <script>
 import StudyRecords from '@/plugins/firestore/studyRecords'
-import ChartContainer from '@/components/ChartContainer'
 
 import Fv from '@/components/contents/firstView'
 import HowTo from '@/components/contents/howTo'
@@ -108,7 +65,6 @@ import moment from '@/plugins/moment-ja'
 export default {
   name: 'IndexPage',
   components: {
-    ChartContainer,
     Fv,
     HowTo,
     AboutRecording,

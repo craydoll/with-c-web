@@ -20,15 +20,15 @@
           >
             <v-carousel
             v-model="avatar"
-            height="200"
+            height="250"
             hide-delimiters
             >
               <v-carousel-item
-                v-for="(item) in pics"
-                :key="item.src"
-                :value="item.src"
-                :src="`assets/img/chr/${item.src}`"
-                width="150"
+                v-for="(item) in avatarList"
+                :key="item.id"
+                :value="item.id"
+                :src="item.img"
+                width="250"
                 reverse-transition="fade-transition"
                 transition="fade-transition"
                 class="flex justify-center"
@@ -99,6 +99,7 @@
 <script>
 import appError, { ApplicationError } from '@/plugins/firestore/appError'
 import Users from '@/plugins/firestore/users'
+import Avatars from '@/plugins/firestore/avatars'
 import DatePicker from '@/components/datePicker'
 
 export default {
@@ -119,7 +120,7 @@ export default {
       level: 'Info',
       user: null,
       id: '',
-      avatar: '',
+      avatar: 0,
       name: '',
       nickname: '',
       birth: '',
@@ -176,29 +177,7 @@ export default {
         '鹿児島県',
         '沖縄県'
       ],
-      pics: [
-        {
-          src: 'fig_chr_kizoku.png',
-        },
-        {
-          src: 'fig_chr_musume.png',
-        },
-        {
-          src: 'fig_chr_ninja.png',
-        },
-        {
-          src: 'fig_chr_queen.png',
-        },
-        {
-          src: 'fig_chr_samurai.png',
-        },
-        {
-          src: 'fig_chr_shogun.png',
-        },
-        {
-          src: 'fig_chr_sumo.png',
-        },
-      ],
+      avatarList:[],
       genderList: [
         '男性',
         '女性',
@@ -215,6 +194,7 @@ export default {
   },
   mounted() {
     setTimeout(async () => {
+      this.avatarList = await Avatars.getAllItems()
       // 会員情報
       const id = await this.$store.getters['auth/id']
       console.log('id is:' + id)
@@ -227,7 +207,6 @@ export default {
           this.birth = this.user.birth
           this.gender = this.user.gender
           this.area = this.user.area
-      console.log('birth is:' + this.birth)
         }
         this.id = id
       }

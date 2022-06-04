@@ -21,10 +21,7 @@
         <div class="align-self-center">
         <v-btn name="profile" fab @click="showModal=true">
           <v-avatar size="62">
-            <img
-            src="~assets/avatars/Eco貴族.png"
-            alt="John"
-          >
+            
           </v-avatar>
         </v-btn>
         </div>

@@ -91,10 +91,6 @@ select {
   border-radius: 100vh;
   font-weight: 600;
 }
-.el_btn:hover, .el_btn:focus {
-  background-color: #fff;
-  border-color: currentColor;
-}
 
 .el_btn__lor {
   background-color: #FFF0C9;
@@ -411,27 +407,18 @@ select {
   align-items: center;
   justify-content: space-between;
 }
-.el_deco_line::before {
+.el_deco_line::before, .el_deco_line::after {
   content: "";
   display: inline-block;
   width: 100%;
   max-width: 40%;
-  height: 70px;
+  height: 100px;
   background-image: url(../../assets/img/deco/deco_chr_line.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
 }
 .el_deco_line::after {
-  content: "";
-  display: inline-block;
-  width: 100%;
-  max-width: 40%;
-  height: 70px;
-  background-image: url(../../assets/img/deco/deco_chr_line.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
   transform: scale(-1, 1);
 }
 @media screen and (max-width: 768px) {
@@ -1256,4 +1243,148 @@ footer .footer_menu a {
 .prize .bl_circleList_frame {
   background-color: #fff;
   border: 4px solid #FFF0C9;
+}
+
+.record .bg_screen {
+  background-color: #000;
+  max-width: 700px;
+  width: 100%;
+  aspect-ratio: 3/2;
+  margin: 0 auto;
+}
+
+.record_screen .record_screen_btn_wrapper {
+  margin-top: 30px;
+}
+.record_screen .record_screen_btn_wrapper .record_screen_btn {
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+.record_screen .record_screen_btn_wrapper .record_notice {
+  text-align: left;
+}
+.record_screen .record_icon_wrapper {
+  text-align: center;
+  margin-bottom: 20px;
+  align-items: center;
+}
+.record_screen .record_icon_wrapper .record_icon_txt {
+  font-size: 1.3rem;
+}
+.record_screen .record_icon {
+  display: inline-block;
+  background-color: gray;
+  width: 20px;
+  height: 20px;
+  border-radius: 50vh;
+  transition: 0.2s;
+  flex-direction: column;
+  position: relative;
+}
+.record_screen .record_icon::before {
+  content: "未測定";
+  display: inline-block;
+  font-size: 1.1rem;
+  position: absolute;
+  width: 40px;
+  top: -23px;
+  left: -10px;
+}
+.record_screen .record_icon::after {
+  content: "";
+  width: 200px;
+  display: inline-block;
+  background-image: url(../../assets/img/record/fig_record_chr.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.record_screen .record_stop_wrapper {
+  margin-bottom: 40px;
+}
+.record_screen .record_stop_wrapper .record_stop_btn {
+  padding-bottom: 6px;
+  border-bottom: 2px solid #000;
+}
+
+.clicked .record_icon {
+  background: #FF3700;
+  box-shadow: 0 0 10px #FF3700, 0 0 40px #FF3700, 0 0 80px #FF3700;
+}
+.clicked .record_icon::before {
+  content: "測定中";
+  color: #FF3700;
+}
+
+.record_result_body {
+  width: 90%;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+@media screen and (max-width: 768px) {
+  .record_result_body {
+    width: 100%;
+    padding: 20px;
+  }
+}
+.record_result_body .record_result_screen {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #000;
+  aspect-ratio: 2/1;
+}
+.record_result_body .record_result_ttl {
+  font-size: 2.7rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.record_result_body .record_result_date {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.record_score {
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #FFF0C9;
+  margin-bottom: 30px;
+}
+.record_score dl {
+  display: flex;
+  font-size: 2.2rem;
+}
+.record_score dl dt {
+  width: 30%;
+  margin-right: 30px;
+}
+@media screen and (max-width: 768px) {
+  .record_score dl {
+    font-size: 1.6rem;
+    justify-content: space-between;
+  }
+  .record_score dl dt {
+    width: 40%;
+  }
+}
+
+.record_closing {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+@media screen and (max-width: 768px) {
+  .record_closing {
+    flex-direction: column;
+    gap: 15px 0;
+  }
+}
+.record_closing .record_closing_end {
+  background-color: #FF3700;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 3px;
+  letter-spacing: normal;
 }

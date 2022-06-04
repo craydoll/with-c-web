@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- レスポンシブ対応 -->
+    <title>withプラス|集中力測定アプリ</title>
+    <meta
+      name="description"
+      content="withプラスは、集中力の測定ができるアプリケーションです。"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- Safari、電話番号の自動リンク機能をオフ -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- IEの「標準モード」レイアウト崩れ防止 -->
+    <link rel="icon" href="favicon.ico" />
+    <link rel="canonical" href="正規ページのURL" />
+    <!-- ▼CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <!-- ▼js -->
+    <script src="assets/js/libs/jquery-3.4.1.js"></script>
+    <script src="assets/js/libs/jquery.depend-1.1.7.js"></script>
+    <script src="assets/js/common.js"></script>
+    <!-- ▼font -->
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+    <!-- ▼font コーポレートロゴ読込 -->
+    <script>
+      (function (d) {
+        var config = {
+            kitId: "sod3pbl",
+            scriptTimeout: 3000,
+            async: true,
+          },
+          h = d.documentElement,
+          t = setTimeout(function () {
+            h.className =
+              h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+          }, config.scriptTimeout),
+          tk = d.createElement("script"),
+          f = false,
+          s = d.getElementsByTagName("script")[0],
+          a;
+        h.className += " wf-loading";
+        tk.src = "https://use.typekit.net/" + config.kitId + ".js";
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+          a = this.readyState;
+          if (f || (a && a != "complete" && a != "loaded")) return;
+          f = true;
+          clearTimeout(t);
+          try {
+            Typekit.load(config);
+          } catch (e) {}
+        };
+        s.parentNode.insertBefore(tk, s);
+      })(document);
+    </script>
+  </head>
+  <body>
+    <header id="header">
+      <div class="ly_headerInner header_flx">
+        <h1 class="header_logo">
+          <a href="index.html">
+            <img src="assets/img/logo/logo.svg" alt="withプラス" />
+          </a>
+        </h1>
+        <div class="header_logo_eco">
+          <img src="assets/img/logo/logo_eco.svg" alt="ecoの志士">
+        </div>
+        <nav class="max1090_n">
+          <ul class="header_nav">
+            <li class="nav__item"><a href="index.html#howTo">使い方</a></li>
+            <li class="nav__item"><a href="study_record.html">これまでの<br>学習記録</a></li>
+            <li class="nav__item"><a href="index.html#point">ポイントについて</a></li>
+            <li class="nav__item"><a href="prize.html">ゲットできる商品</a></li>
+            <li class="nav__item"><a class="el_btn el_btn__arrowRight" href="">測定スタート</a></li>
+          </ul>
+        </nav>
+        <!-- Hamburger-icon -->
+        <div class="max1090_b hamburger_icon">
+          <button class="openMenu">
+            <span class="openMenu__icon line01"></span>
+            <span class="openMenu__icon line02"></span>
+            <span class="openMenu__icon line03"></span>
+          </button>
+        </div>
+        <!-- Hamburger-icon -->
+        <div class="sp-menu">
+          <ul>
+            <li class="header-nav-item">
+              <a href="index.html#howTo">使い方</a>
+            </li>
+            <li class="header-nav-item">
+              <a href="study_record.html">これまでの学習記録</a>
+            </li>
+            <li class="header-nav-item">
+              <a href="index.html#point">ポイントについて</a>
+            </li>
+            <li class="header-nav-item"><a href="index.html#terms">規約</a></li>
+            <li class="header-nav-item"><a href="privacy.html">個人情報保護方針</a></li>
+            <li class="header-nav-item"><a href="index.html#contact">お問合せ</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main class="record">
+      <section class="record_screen">
+        <div class="ly_contInner ly_contInner_bg">
+          <h2 class="cmp_heading_05">集中力を記録しよう</h2>
+          <div>
+            <div class="record_icon_wrapper">
+              <span class="record_icon"></span>
+              <!-- <p class="record_icon_txt">
+                ※測定時には上のランプが赤く点灯します
+              </p> -->
+            </div>
+            <div class="bg_screen"></div>
+          </div>
+          <div class="tac record_screen_btn_wrapper">
+            <p class="el_deco_bracket">集中力を測るにはここをクリック</p>
+            <button class="el_btn el_btn__lor record_screen_btn" href="">
+              測定開始
+            </button>
+            <div class="record_notice">
+              <p>【注意点】</p>
+              <p>
+                他の動画・通話アプリやツール等をすでに起動している場合、本アプリの測定画面が表示されずエラーになることがあります。<br />
+                その場合は一度、他のアプリを閉じてから再度本アプリを開いいただくようにお願いします。
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="record_stop_wrapper tac">
+          <a class="record_stop_btn" href="">測定を終了する</a>
+        </div> -->
+      </section>
+      <section class="record_result">
+        <div class="ly_contInner ly_contInner_bg">
+          <div class="record_result_body">
+            <p class="record_result_ttl el_deco_line">測定結果</p>
+            <p class="record_result_date">2022/04/01 10:00~12:00</p>
+            <div class="record_score">
+              <dl>
+                <dt>スコア</dt>
+                <dd>〇〇点</dd>
+              </dl>
+              <dl>
+                <dt>全国平均</dt>
+                <dd>〇〇点</dd>
+              </dl>
+            </div>
+            <div class="record_result_screen"></div>
+            <div class="record_closing">
+              <div>
+                <p>■ポイントが貯まったら商品と交換しよう！</p>
+                <a class="link_init record_closing_prize" href="prize.html">
+                  商品交換ページはこちら
+                </a>
+              </div>
+              <a class="record_closing_end" href="index.html">完了</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="bgc_br">
+      <div class="ly_contInner">
+        <div class="footer_menu">
+          <ul class="">
+            <li class="nav__item"><a href="index.html#howTo">使い方</a></li>
+            <li class="nav__item"><a href="study_record.html">これまでの学習記録</a></li>
+            <li class="nav__item"><a href="index.html#point">ポイントについて</a></li>
+            <li class="nav__item"><a href="prize.html">ゲットできる商品</a></li>
+            <li class="nav__item">
+              <a href="character.html">キャラクター紹介</a>
+            </li>
+          </ul>
+          <ul class="">
+            <li class="nav__item"><a href="index.html#terms">規約</a></li>
+            <li class="nav__item">
+              <a href="privacy.html">個人情報保護方針</a>
+            </li>
+            <li class="nav__item"><a href="index.html#contact">お問合せ</a></li>
+          </ul>
+        </div>
+        <img class="footer_logo" src="assets/img/logo/logo.svg" alt="" />
+      </div>
+    </footer>
+  </body>
+</html>

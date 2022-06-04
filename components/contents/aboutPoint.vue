@@ -37,7 +37,7 @@
               <br />
               <NuxtLink
                 class="el_btn el_btn__lor el_btn__arrowRight"
-                to="prizeList"
+                to="prize"
                 >商品を見てみる</NuxtLink
               >
             </p>

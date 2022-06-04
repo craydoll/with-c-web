@@ -26,7 +26,7 @@
       <!-- fvタイトル -->
       <div class="el_btn_location">
         <p class="el_deco_bracket">キミの集中力レベルは？</p>
-        <a class="el_btn el_btn__arrowRight" href="">測定スタート</a>
+        <NuxtLink class="el_btn el_btn__arrowRight" to="/record">測定スタート</NuxtLink>
       </div>
     </div>
   </section>

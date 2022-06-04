@@ -1,6 +1,6 @@
 import { db } from '../firebase'
 
-const tbName = 'avatar'
+const tbName = 'prizes'
 
 export default {
   async getItem (id) {
@@ -14,21 +14,19 @@ export default {
     }
   },
   async getAllItems () {
-    const docRef = db.collection(tbName).orderBy('order','asc')
+    const docRef = db.collection(tbName)
     return await this.getFromDB(docRef)
   },
-  async getItemsFirst4() {
-    const docRef = db.collection(tbName).orderBy('order','asc').limit(4)
-    return await this.getFromDB(docRef)
-  },
-  async getFromDB(docRef) {
+  async getFromDB (docRef) {
     const snapshot = await docRef.get()
     const items = await Promise.all(snapshot.docs.map((doc) => {
       const item = doc.data()
       // 個別の変換処理
       item.id = doc.id
+      item.reg_date = item.reg_date.toDate()
       return item
     }))
+    console.log(`get list: ${JSON.stringify(items)}`)
     return items
   },
   async save (docId, obj) {

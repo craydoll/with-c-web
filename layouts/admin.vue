@@ -1,35 +1,37 @@
 <template>
   <v-app>
-    <v-app-bar app prominent fixed flat class="justify-center" color="#c9bc9c" scroll-target="#body">
-      <div class="ly_headerInner header_flx">
-        <v-app-bar-title>
-          <a href=""><img src="assets/img/logo/logo.svg" alt="ロゴ" /></a>
-        </v-app-bar-title>
-        <v-spacer></v-spacer>
-        <p class="txt2">管理システム</p>
-        <v-spacer></v-spacer>
-      </div>
-        <div class="align-self-center">
-        <v-btn v-if="isLoggedIn" name="profile" fab @click="showProfile=true">
-          <v-avatar size="62">
-            <img
-            :src="`assets/img/chr/${avatar}`"
-            alt="avatar"
-          >
-          </v-avatar>
-        </v-btn>
-        <v-btn v-else large @click="loginBtn">
-          ログイン
-          <LoginModal
-            :modal-show="showLogin"
-          />          
-        </v-btn>
-          <ProfileModal
-            :modal-show="showProfile"
-            @close="modalClosed"
-          />        
-        </div>
+    <v-app-bar app color="#c9bc9c" scroll-target="#body">
+      <NuxtLink to="/"><img src="/assets/img/logo/logo.svg" alt="withプラス" /></NuxtLink>
+      <v-app-bar-title class="text-h3">
+        管理システム
+      </v-app-bar-title>
+              <v-spacer></v-spacer>
     </v-app-bar>
+    <v-navigation-drawer
+      v-model="drawer"
+      :mini-variant="miniVariant"
+      :clipped="clipped"
+      fixed
+      permanent
+      app
+    >
+      <v-list>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
     <v-main id="#body">
       <v-container fluid class="ma-0 pa-0">
         <Nuxt />
@@ -38,22 +40,19 @@
   </v-app>
 </template>
 <script>
-import ProfileModal from '@/components/profileModal'
-import LoginModal from '@/components/loginModal'
 export default {
   name: 'DefaultLayout',
-  components: {
-    ProfileModal,
-    LoginModal
-  },
   middleware: 'authenticated',
   data() {
     return {
-      isLoggedIn: false,
-      user: null,
-      avatar: 'fig_chr_noimage.png',
-      showProfile: false,
-      showLogin: false
+      drawer: true,
+      miniVariant: 0,
+      clipped: true,
+      items:[
+        {title:'景品登録',to:'/productList',icon:'mdi-shopping'},
+        {title:'ユーザー登録',to:'/userList',icon:'mdi-account-group'},
+        {title:'キャラクタ登録',to:'/avatarList',icon:'mdi-cat'},
+      ]
     }
   },
   async mounted() {

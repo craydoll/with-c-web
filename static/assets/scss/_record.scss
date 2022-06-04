@@ -1,0 +1,146 @@
+.record {
+  .bg_screen {
+    background-color: $c_bk;
+    max-width: 700px;
+    width: 100%;
+    aspect-ratio: 3/2;
+    margin: 0 auto;
+  }
+}
+
+.record_screen {
+  .record_screen_btn_wrapper {
+    margin-top: 30px;
+    .record_screen_btn {
+      cursor: pointer;
+      margin-bottom: 30px;
+    }
+    .record_notice {
+      text-align: left;
+    }
+  }
+  .record_icon_wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+    align-items: center;
+    .record_icon_txt {
+      font-size: 1.3rem;
+    }
+  }
+  .record_icon {
+    display: inline-block;
+    background-color: gray;
+    width: 20px;
+    height: 20px;
+    border-radius: 50vh;
+    transition: 0.2s;
+    flex-direction: column;
+    position: relative;
+    &::before {
+      content: "未測定";
+      display: inline-block;
+      font-size: 1.1rem;
+      position: absolute;
+      width: 40px;
+      top: -23px;
+      left: -10px;
+    }
+    &::after {
+      content: "";
+      width: 200px;
+      display: inline-block;
+      background-image: url(../../assets/img/record/fig_record_chr.png);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+  }
+  .record_stop_wrapper {
+    margin-bottom: 40px;
+    .record_stop_btn {
+      padding-bottom: 6px;
+      border-bottom: 2px solid #000;
+    }
+  }
+}
+
+// 測定開始ボタンをクリックしたとき
+.clicked {
+  .record_icon {
+    background: $c_red;
+    box-shadow: 0 0 10px $c_red, 0 0 40px $c_red, 0 0 80px $c_red;
+    &::before {
+      content: "測定中";
+      color: $c_red;
+    }
+  }
+}
+
+.record_result_body {
+  width: 90%;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  @include max768 {
+    width: 100%;
+    padding: 20px;
+  }
+  .record_result_screen {
+    width: 100%;
+    margin: 0 auto;
+    background-color: $c_bk;
+    aspect-ratio: 2/1;
+  }
+  .record_result_ttl {
+    font-size: 2.7rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .record_result_date {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
+.record_score {
+  border-radius: 5px;
+  padding: 20px;
+  background-color: $c_lylw;
+  margin-bottom: 30px;
+  dl {
+    display: flex;
+    font-size: 2.2rem;
+    dt {
+      width: 30%;
+      margin-right: 30px;
+    }
+  }
+  @include max768 {
+    dl {
+      font-size: 1.6rem;
+      justify-content: space-between;
+      dt {
+        width: 40%;
+      }
+    }
+  }
+}
+
+.record_closing {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  @include max768 {
+    flex-direction: column;
+    gap: 15px 0;
+  }
+  .record_closing_end {
+    background-color: $c_red;
+    color: $c_wt;
+    padding: 5px 15px;
+    border-radius: 3px;
+    letter-spacing: normal;
+  }
+}

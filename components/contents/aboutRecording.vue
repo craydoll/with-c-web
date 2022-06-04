@@ -1,5 +1,5 @@
 <template>
-  <section class="howTo" id="howTo">
+  <section id="howTo" class="howTo">
     <div class="ly_contInner">
       <h2 class="cmp_heading_01">学習を記録しよう</h2>
       <div class="bl_media_chr">
@@ -24,8 +24,8 @@
             ※
             自分の成績を記入することで、自分の成長を確認することも可能です。
           </p>
-          <a class="el_btn el_btn__lor el_btn__arrowRight" href=""
-            >学習記録を見る</a
+          <NuxtLink class="el_btn el_btn__lor el_btn__arrowRight" to="study_record"
+            >学習記録を見る</NuxtLink
           >
         </div>
         <div class="bl_media_chr_fig">

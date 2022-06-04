@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- レスポンシブ対応 -->
+    <title>withプラス|集中力測定アプリ</title>
+    <meta
+      name="description"
+      content="withプラスは、集中力の測定ができるアプリケーションです。"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- Safari、電話番号の自動リンク機能をオフ -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- IEの「標準モード」レイアウト崩れ防止 -->
+    <link rel="icon" href="favicon.ico" />
+    <link rel="canonical" href="正規ページのURL" />
+    <!-- ▼CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <!-- ▼js -->
+    <script src="assets/js/libs/jquery-3.4.1.js"></script>
+    <script src="assets/js/libs/jquery.depend-1.1.7.js"></script>
+    <script src="assets/js/common.js"></script>
+    <!-- ▼font -->
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+    <!-- ▼font コーポレートロゴ読込 -->
+    <script>
+      (function (d) {
+        var config = {
+            kitId: "sod3pbl",
+            scriptTimeout: 3000,
+            async: true,
+          },
+          h = d.documentElement,
+          t = setTimeout(function () {
+            h.className =
+              h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+          }, config.scriptTimeout),
+          tk = d.createElement("script"),
+          f = false,
+          s = d.getElementsByTagName("script")[0],
+          a;
+        h.className += " wf-loading";
+        tk.src = "https://use.typekit.net/" + config.kitId + ".js";
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+          a = this.readyState;
+          if (f || (a && a != "complete" && a != "loaded")) return;
+          f = true;
+          clearTimeout(t);
+          try {
+            Typekit.load(config);
+          } catch (e) {}
+        };
+        s.parentNode.insertBefore(tk, s);
+      })(document);
+    </script>
+  </head>
+  <body class="privacy">
+    <header id="header">
+      <div class="ly_headerInner header_flx">
+        <h1 class="header_logo">
+          <a href="index.html">
+            <img src="assets/img/logo/logo.svg" alt="withプラス" />
+          </a>
+        </h1>
+        <div class="header_logo_eco">
+          <img src="assets/img/logo/logo_eco.svg" alt="ecoの志士">
+        </div>
+        <nav class="max1090_n">
+          <ul class="header_nav">
+            <li class="nav__item"><a href="index.html#howTo">使い方</a></li>
+            <li class="nav__item"><a href="study_record.html">これまでの<br>学習記録</a></li>
+            <li class="nav__item"><a href="index.html#point">ポイントについて</a></li>
+            <li class="nav__item"><a href="prize.html">ゲットできる商品</a></li>
+            <li class="nav__item"><a class="el_btn el_btn__arrowRight" href="">測定スタート</a></li>
+          </ul>
+        </nav>
+        <!-- Hamburger-icon -->
+        <div class="max1090_b hamburger_icon">
+          <button class="openMenu">
+            <span class="openMenu__icon line01"></span>
+            <span class="openMenu__icon line02"></span>
+            <span class="openMenu__icon line03"></span>
+          </button>
+        </div>
+        <!-- Hamburger-icon -->
+        <div class="sp-menu">
+          <ul>
+            <li class="header-nav-item">
+              <a href="index.html#howTo">使い方</a>
+            </li>
+            <li class="header-nav-item">
+              <a href="study_record.html">これまでの学習記録</a>
+            </li>
+            <li class="header-nav-item">
+              <a href="index.html#point">ポイントについて</a>
+            </li>
+            <li class="header-nav-item"><a href="index.html#terms">規約</a></li>
+            <li class="header-nav-item"><a href="privacy.html">個人情報保護方針</a></li>
+            <li class="header-nav-item"><a href="index.html#contact">お問合せ</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section>
+        <div class="ly_contInner ly_contInner_bg">
+          <section class="intro">
+            <div class="ly_contInner">
+              <h2 class="cmp_heading_05">キャラクター紹介</h2>
+              <ul class="intro_list">
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_souryo.png"
+                        alt="エコ僧侶"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco僧侶</h3>
+                      <p class="intro_desc_belief">信条：子どもはみんなの宝物</p>
+                      <p></p>
+                      <p class="intro_desc_txt">
+                        たくさんの子どもを里親として受け入れる、慈悲深い上人。<br>
+                        途上国の絶対的貧困はもちろん、パッと見でわかりにくい相対的貧困問題に関心が強い。家畜のCO2問題に敏感で、菜食主義。<br>
+                        <br>
+                        意外にもパイロット免許を持ち、所有する旧式のプロペラ機を用いて途上国で食糧等物資の支援を行っている。<br>
+                        廃油で動くディーゼルエンジンに換装しようか、悩んでいる。<br>
+                        ※一〇〇式重爆撃機を支援物資運搬用に改造
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_01.png" alt="">
+                    <div>
+                      <span class="intro_sdgsNum_ttl">担当SDGS項目</span>
+                      <p>貧困をなくそう</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_nouhu.png"
+                        alt="エコ侍"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco農夫</h3>
+                      <p class="intro_desc_belief">信条：食べるものに困らない世の中を</p>
+                      <p class="intro_desc_txt">
+                        年貢の取り立てが厳しい中、死罪になることを承知の上で直訴を決行して命を落とした義人・茂左衛門の子孫。<br>
+                        ご先祖様の想いを引き継ぎ、飢餓で苦しむ人が一人でも減るよう日々農業に勤しむ。<br>
+                        冷害に強い新しい種子の開発をはじめ、古代種の保存や有機農法にも熱心。<br>
+                        利益を独り占めにしようとする人がとても嫌い。新開発した果物の種を奪う、外国人も嫌い。<br>
+                        水を節約できる水耕栽培のIT化を実践している。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_02.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>飢餓をゼロに</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_doctor.png"
+                        alt="Eco典医"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco典医</h3>
+                      <p class="intro_desc_belief">信条：肥満は万病の元</p>
+                      <p class="intro_desc_txt">
+                        Eco将軍の御典医でありながら、お金のない庶民からはお金を取らずに治療を続ける名医。<br>
+                        腸活をはじめ、予防医療を推進する総合診療医でもある。<br>
+                        <br>
+                        健康管理に関心が低い人に厳しい。「食いすぎなんだよ！」が口癖。<br>
+                        <br>
+                        使い捨てメスを研ぎ、こっそりカッターとして使うのが趣味。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_03.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>すべての人に健康と福祉を</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_teacher.png"
+                        alt="Eco教師"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco教師</h3>
+                      <p class="intro_desc_belief">信条：勉強と同等に、人格教育を</p>
+                      <p class="intro_desc_txt">
+                        「勉強も運動も、苦手な子どもがいるのは仕方がない。ただ道徳心や礼儀作法だけは身につけないとその子どもが大人になった時に恥をかく。」と、人格教育の重要性を説く教育者・学者。<br>
+                        <br>
+                        同時に外国語教育を推進し、黒船の船員と無料英会話教室を運営している。<br>
+                        筆記練習はもっぱら裏紙を使うように指導。<br>
+                        <br>
+                        友達は黒船のパリー提督。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_04.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>質の高い教育をみんなに</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_hime.png"
+                        alt="Eco姫"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco姫</h3>
+                      <p class="intro_desc_belief">信条：女性は男の道具じゃない</p>
+                      <p class="intro_desc_txt">
+                        基本的に贅沢が大好きなのだが、温暖化を懸念し夏場はクールビズを推奨、十二単の袖を切り捨ててしまう。<br>
+                        昭和の政治家が着ていた省エネスーツを引き合いに出されると怒り狂う。<br>
+                        冬場は十二単（袖つき）を着こなウォームビズを実践。<br>
+                        <br>
+                        政略結婚の道具として娘を利用する旧家の風習が嫌いで、密かにEco町奉行に好意を寄せている。<br>
+                        <br>
+                        薙刀の腕前は一流。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_05.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>ジェンダー平等を実現しよう</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_ninja.png"
+                        alt="Eco忍者"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco忍者</h3>
+                      <p class="intro_desc_belief">信条：モノは大切に</p>
+                      <p class="intro_desc_txt">
+                        使い捨てが大嫌い。手裏剣も必ず回収、再利用。<br>
+                        忍術は超一流なのだが、成人した今でも「勿体無いオバケ」が怖い。<br>
+                        <br>
+                        また、大の綺麗好きのため任務中も野外で用を足すことを嫌い、何度となく厠で敵に見つかった過去を持つ。<br>
+                        <br>
+                        雨水や海水を濾過し、安全に飲む方法を日々研究している。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_06.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>安全な水とトイレを世界中に</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_samurai.png"
+                        alt="Eco侍"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco侍</h3>
+                      <p class="intro_desc_belief">信条：エネルギー問題を解決し、争いのない世の中を</p>
+                      <p class="intro_desc_txt">
+                        馬術も得意なのだが、移動手段は専ら徒歩。馬以外の乗り物は駕籠（かご）、人力車、自転車など人力の物のみ、認めている。<br>
+                        健康オタクで、志士達の間では一番ストイックな性格。<br>
+                        「NO CAR DAY」の水曜に渋滞を見つけると、すさまじく憤る。<br>
+                        自然エネルギー以外は嫌い。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_07.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>エネルギーをみんなに。そしてクリーンに</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_shounin.png"
+                        alt="Eco商人"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco商人</h3>
+                      <p class="intro_desc_belief">信条：子どもが働かなくても良い世の中を</p>
+                      <p class="intro_desc_txt">
+                        子どもを働かせる必要がない世の中を作るため、従業員により多くのお給料を渡せるように努力をしている商人の鏡。<br>
+                        <br>
+                        実直が故に、悪代官と結託し暴利をむさぼる越後屋や武器商人が嫌い。<br>
+                        <br>
+                        温和だが算盤ヌンチャクの達人で、煤竹素材にこだわる
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_08.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>働きがいも経済成長も</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_daiku.png"
+                        alt="Eco大工"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco大工</h3>
+                      <p class="intro_desc_belief">信条：魚を与えるのではなく、釣り方を教えよ</p>
+                      <p class="intro_desc_txt">
+                        手先がとても器用な大工で電気回路やPC、インターネットの仕組みづくりにも詳しい。<br>
+                        <br>
+                        車も含めて大抵のものは直すことができるため、買い換えをすることは滅多にない。<br>
+                        <br>
+                        お裁縫だけは苦手で、破れた着物は小言を言われながら奥さんに繕ってもらう。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_09.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>産業と技術革新の基盤を作ろう</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_kizoku.png"
+                        alt="Eco貴族"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco貴族</h3>
+                      <p class="intro_desc_belief">信条：不平等な貿易は、差別心から生まれる</p>
+                      <p class="intro_desc_txt">
+                        砂漠化や間伐材の有効利用に興味があるため、「MY箸」を持ち歩いている。<br>
+                        <br>
+                        森林伐採の問題を解決するためには、開発途上国の産業構造を変える必要があるとの自論を持つ。<br>
+                        <br>
+                        育ちが良いため正義感が強く、不平等条約を求める黒船と弱腰な幕府が嫌い。<br>
+                        <br>
+                        攘夷論者ではないが、尊攘主義者。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_10.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>人や国の不平等をなくそう</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_hikeshi.png"
+                        alt="Eco貴族"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco火消し</h3>
+                      <p class="intro_desc_belief">信条：建設コストの低い住まいづくり</p>
+                      <p class="intro_desc_txt">
+                        町火消し・いろは四十八組「め組」に属し、普段は鳶人足の頭として街づくりに携わっている。<br>
+                        <br>
+                        勝気な江戸っ子で、タバコのポイ捨てを見つけると、烈火の如く怒る。<br>
+                        自然素材が好き。<br>
+                        <br>
+                        喧嘩は好きだが、弱い。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_11.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>住み続けられるまちづくりを</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_sumo.png"
+                        alt="Eco力士"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco力士</h3>
+                      <p class="intro_desc_belief">信条：三度のちゃんこより、GOMI拾い</p>
+                      <p class="intro_desc_txt">
+                        常に風呂敷を携帯しており、買い物やゴミ袋としてフル活用している。道端に落ちている空き缶やペットボトルを見つけるとついつい拾って包んでしまう。<br>_
+                        <br>
+                        ３度のちゃんこよりもゴミ拾いが好きなきれい好きな力士。<br>
+                        <br>
+                        食いしん坊でフードロス問題に敏感であるため、食事は残さず全ていただくのがモットー。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_12.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>つくる責任、つかう責任</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_musume.png"
+                        alt="Eco町娘"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco町娘</h3>
+                      <p class="intro_desc_belief">信条：打ち水は世界を救う</p>
+                      <p class="intro_desc_txt">
+                        「暑いなぁ」と思うとすぐに打ち水をする快活で行動力のある町娘。<br>
+                        ちんぴら浪人の足に一度水をかけてしまい、絡まれているところをエコ侍に救われてから一途に彼を想っている。<br>
+                        <br>
+                        燃料問題に敏感で、化石に変わる燃料情報収集が趣味。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_13.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>気候変動に具体的な対策を</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_fisher.png"
+                        alt="Eco漁師"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco漁師</h3>
+                      <p class="intro_desc_belief">信条：漁業関係者こそ、海でゴミを捨てない意識を</p>
+                      <p class="intro_desc_txt">
+                        海にタバコをポイ捨てする漁業関係者が多いことに胸を痛める、心優しい漁師。<br>
+                        <br>
+                        また海洋プラスチックゴミを減らすため、原因とされる十川(長江、黄河、海河、珠江、アムール川、メコン川、インダス川、ガンジス川、ナイル川、ニジェール川)周辺で、地域住民達と清掃活動をするのが、密かな夢。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_14.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>海の豊かさを守ろう</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_kizoku.png"
+                        alt="Ecoマタギ"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Ecoマタギ</h3>
+                      <p class="intro_desc_belief">信条：山と水源は共有財産</p>
+                      <p class="intro_desc_txt">
+                        山頂に生える木々の樹皮が大型動物に食べられ、山の森林保護を目的にかけられた樹皮ネットをハイキング中に見つけ、ハンターになることを決意した新米マタギ。<br>
+                        <br>
+                        土壌汚染を避けるため猟場で鉛の弾は使わないことをポリシーとするも、非鉛弾を撃つたびに頭の中で「ラーメンが一杯！ラーメンが二杯！」などと無意識のうちにコスト計算をしてしまう性格を直したいと考えている。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_15.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>陸の豊かさも守ろう</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_bugyou.png"
+                        alt="Eco奉行"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco奉行</h3>
+                      <p class="intro_desc_belief">信条：見て見ぬふりはしない</p>
+                      <p class="intro_desc_txt">
+                        若かりし頃から町人との交流も多くさまざまな友達がいるため、人権問題に敏感。<br>
+                        <br>
+                        地位を利用した隠蔽工作などの不正を憎み、正当な裁きが出来ない場合はEco忍者に証拠集めを命じる時が多い。<br>
+                        <br>
+                        「お任せあれ！」が口癖。日の丸扇子を好んで使う。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_16.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>平和と公正をすべての人に</p>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="intro_item">
+                  <div class="intro_item_body">
+                    <div class="intro_pic">
+                      <img
+                        class=""
+                        src="assets/img/chr/fig_chr_shougun.png"
+                        alt="Eco将軍"
+                      />
+                    </div>
+                    <div class="intro_desc">
+                      <h3 class="intro_desc_name">Eco将軍</h3>
+                      <p class="intro_desc_belief">信条：四海兄弟</p>
+                      <p class="intro_desc_txt">
+                        為政者として常に下々の幸せを願う、心優しい三代目将軍。<br>
+                        日本は勿論、全世界にとって危惧すべき食糧問題と水問題、疾病対策には特に敏感。<br>
+                        <br>
+                        経済力が下がりつつある日本において、食糧自給率についての国民意識を高めねば日本の将来は危ういと、危機意識を募らせている。<br>
+                        <br>
+                        途上国からの搾取を行う列強国に対して、日本がどのようなバランサーになるべきか常に考えている優秀な為政者。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="intro_sdgsNum">
+                    <img class="intro_sdgsNum_fig" src="assets/img/ico/ico_sdgs_17.png" alt="">
+                    <div>
+                      <p class="intro_sdgsNum_ttl">担当SDGS項目</p>
+                      <p>パートナーシップで目標を達成しよう</p>
+                    </div>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+          </section>
+
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="bgc_br">
+      <div class="ly_contInner">
+        <div class="footer_menu">
+          <ul class="">
+            <li class="nav__item"><a href="index.html#howTo">使い方</a></li>
+            <li class="nav__item"><a href="study_record.html">これまでの学習記録</a></li>
+            <li class="nav__item"><a href="index.html#point">ポイントについて</a></li>
+            <li class="nav__item"><a href="prize.html">ゲットできる商品</a></li>
+            <li class="nav__item">
+              <a href="character.html">キャラクター紹介</a>
+            </li>
+          </ul>
+          <ul class="">
+            <li class="nav__item"><a href="index.html#terms">規約</a></li>
+            <li class="nav__item">
+              <a href="privacy.html">個人情報保護方針</a>
+            </li>
+            <li class="nav__item"><a href="index.html#contact">お問合せ</a></li>
+          </ul>
+        </div>
+        <img class="footer_logo" src="assets/img/logo/logo.svg" alt="" />
+      </div>
+    </footer>
+  </body>
+</html>
+

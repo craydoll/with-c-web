@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- レスポンシブ対応 -->
+    <title>withプラス|集中力測定アプリ</title>
+    <meta
+      name="description"
+      content="withプラスは、集中力の測定ができるアプリケーションです。"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- Safari、電話番号の自動リンク機能をオフ -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- IEの「標準モード」レイアウト崩れ防止 -->
+    <link rel="icon" href="favicon.ico" />
+    <link rel="canonical" href="正規ページのURL" />
+    <!-- ▼CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <!-- ▼js -->
+    <script src="assets/js/libs/jquery-3.4.1.js"></script>
+    <script src="assets/js/libs/jquery.depend-1.1.7.js"></script>
+    <script src="assets/js/common.js"></script>
+    <!-- ▼font -->
+    <link
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      rel="stylesheet"
+    />
+    <!-- ▼font コーポレートロゴ読込 -->
+    <script>
+      (function (d) {
+        var config = {
+            kitId: "sod3pbl",
+            scriptTimeout: 3000,
+            async: true,
+          },
+          h = d.documentElement,
+          t = setTimeout(function () {
+            h.className =
+              h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+          }, config.scriptTimeout),
+          tk = d.createElement("script"),
+          f = false,
+          s = d.getElementsByTagName("script")[0],
+          a;
+        h.className += " wf-loading";
+        tk.src = "https://use.typekit.net/" + config.kitId + ".js";
+        tk.async = true;
+        tk.onload = tk.onreadystatechange = function () {
+          a = this.readyState;
+          if (f || (a && a != "complete" && a != "loaded")) return;
+          f = true;
+          clearTimeout(t);
+          try {
+            Typekit.load(config);
+          } catch (e) {}
+        };
+        s.parentNode.insertBefore(tk, s);
+      })(document);
+    </script>
+  </head>
+  <body class="prize">
+    <header id="header">
+      <div class="ly_headerInner header_flx">
+        <h1 class="header_logo">
+          <a href="index.html">
+            <img src="assets/img/logo/logo.svg" alt="withプラス" />
+          </a>
+        </h1>
+        <div class="header_logo_eco">
+          <img src="assets/img/logo/logo_eco.svg" alt="ecoの志士">
+        </div>
+        <nav class="max1090_n">
+          <ul class="header_nav">
+            <li class="nav__item"><a href="index.html#howTo">使い方</a></li>
+            <li class="nav__item"><a href="study_record.html">これまでの<br>学習記録</a></li>
+            <li class="nav__item"><a href="index.html#point">ポイントについて</a></li>
+            <li class="nav__item"><a href="prize.html">ゲットできる商品</a></li>
+            <li class="nav__item"><a class="el_btn el_btn__arrowRight" href="">測定スタート</a></li>
+          </ul>
+        </nav>
+        <!-- Hamburger-icon -->
+        <div class="max1090_b hamburger_icon">
+          <button class="openMenu">
+            <span class="openMenu__icon line01"></span>
+            <span class="openMenu__icon line02"></span>
+            <span class="openMenu__icon line03"></span>
+          </button>
+        </div>
+        <!-- Hamburger-icon -->
+        <div class="sp-menu">
+          <ul>
+            <li class="header-nav-item">
+              <a href="index.html#howTo">使い方</a>
+            </li>
+            <li class="header-nav-item">
+              <a href="study_record.html">これまでの学習記録</a>
+            </li>
+            <li class="header-nav-item">
+              <a href="index.html#point">ポイントについて</a>
+            </li>
+            <li class="header-nav-item"><a href="index.html#terms">規約</a></li>
+            <li class="header-nav-item"><a href="privacy.html">個人情報保護方針</a></li>
+            <li class="header-nav-item"><a href="index.html#contact">お問合せ</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="prize_prizeList">
+        <div class="ly_contInner">
+          <h1 class="cmp_heading_05">ポイントで交換できるもの</h1>
+          <ul class="bl_circleList bl_circleList__SPcol1">
+            <li class="bl_circleList_item">
+              <a href="">
+                <div class="bl_circleList_frame">
+                  <img src="assets/img/fig/fig_pencil_01.png" alt="" />
+                </div>
+                <div class="bl_circleList_body">
+                  <p class="bl_circleList_ttl">三菱鉛筆 12本セット</p>
+                  <div class="bl_circleList_txt">
+                    <dl>
+                      <dt>交換ポイント：</dt>
+                      <dd>〇〇pt</dd>
+                    </dl>
+                    <dl>
+                      <dt>市場価格：</dt>
+                      <dd>¥xxx</dd>
+                    </dl>
+                    <dl>
+                      <dt>残り：</dt>
+                      <dd>xセット</dd>
+                    </dl>
+                    <dl>
+                      <dt>掲載日：</dt>
+                      <dd>2022年x月x日</dd>
+                    </dl>
+                    <dl>
+                      <dt>提供者：</dt>
+                      <dd>炭谷宇紀子</dd>
+                    </dl>
+                  </div>
+                  <p class="bl_circleList_btnPos">
+                    <span class="bl_circleList_btn">
+                      交換する
+                    </span>
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="bl_circleList_item">
+              <a href="">
+                <div class="bl_circleList_frame">
+                  <img src="assets/img/fig/fig_sahne_01.jpg" alt="" />
+                </div>
+                <div class="bl_circleList_body">
+                  <p class="bl_circleList_ttl">ザーネクリーム</p>
+                  <div class="bl_circleList_txt">
+                    <dl>
+                      <dt>交換ポイント：</dt>
+                      <dd>〇〇pt</dd>
+                    </dl>
+                    <dl>
+                      <dt>市場価格：</dt>
+                      <dd>¥xxx</dd>
+                    </dl>
+                    <dl>
+                      <dt>残り：</dt>
+                      <dd>x本</dd>
+                    </dl>
+                    <dl>
+                      <dt>掲載日：</dt>
+                      <dd>2022年x月x日</dd>
+                    </dl>
+                    <dl>
+                      <dt>提供者：</dt>
+                      <dd>エーザイ㈱</dd>
+                    </dl>
+                  </div>
+                  <p class="bl_circleList_btnPos">
+                    <span class="bl_circleList_btn">
+                      交換する
+                    </span>
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="bl_circleList_item">
+              <a href="">
+                <div class="bl_circleList_frame">
+                  <img src="assets/img/fig/fig_note_01.jpg" alt="" />
+                </div>
+                <div class="bl_circleList_body">
+                  <p class="bl_circleList_ttl">ジャポニカノート</p>
+                  <div class="bl_circleList_txt">
+                    <dl>
+                      <dt>交換ポイント：</dt>
+                      <dd>〇〇pt</dd>
+                    </dl>
+                    <dl>
+                      <dt>市場価格：</dt>
+                      <dd>¥xxx</dd>
+                    </dl>
+                    <dl>
+                      <dt>残り：</dt>
+                      <dd>x本</dd>
+                    </dl>
+                    <dl>
+                      <dt>掲載日：</dt>
+                      <dd>2022年x月x日</dd>
+                    </dl>
+                    <dl>
+                      <dt>提供者：</dt>
+                      <dd>岡三証券㈱</dd>
+                    </dl>
+                  </div>
+                  <p class="bl_circleList_btnPos">
+                    <span class="bl_circleList_btn">
+                      交換する
+                    </span>
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="bl_circleList_item">
+              <a href="">
+                <div class="bl_circleList_frame">
+                  <img src="assets/img/fig/fig_pencil_01.png" alt="" />
+                </div>
+                <div class="bl_circleList_body">
+                  <p class="bl_circleList_ttl">三菱鉛筆 12本セット</p>
+                  <div class="bl_circleList_txt">
+                    <dl>
+                      <dt>交換ポイント：</dt>
+                      <dd>〇〇pt</dd>
+                    </dl>
+                    <dl>
+                      <dt>市場価格：</dt>
+                      <dd>¥xxx</dd>
+                    </dl>
+                    <dl>
+                      <dt>残り：</dt>
+                      <dd>xセット</dd>
+                    </dl>
+                    <dl>
+                      <dt>掲載日：</dt>
+                      <dd>2022年x月x日</dd>
+                    </dl>
+                    <dl>
+                      <dt>提供者：</dt>
+                      <dd>炭谷宇紀子</dd>
+                    </dl>
+                  </div>
+                  <p class="bl_circleList_btnPos">
+                    <span class="bl_circleList_btn">
+                      交換する
+                    </span>
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="bl_circleList_item">
+              <a href="">
+                <div class="bl_circleList_frame">
+                  <img src="assets/img/fig/fig_sahne_01.jpg" alt="" />
+                </div>
+                <div class="bl_circleList_body">
+                  <p class="bl_circleList_ttl">ザーネクリーム</p>
+                  <div class="bl_circleList_txt">
+                    <dl>
+                      <dt>交換ポイント：</dt>
+                      <dd>〇〇pt</dd>
+                    </dl>
+                    <dl>
+                      <dt>市場価格：</dt>
+                      <dd>¥xxx</dd>
+                    </dl>
+                    <dl>
+                      <dt>残り：</dt>
+                      <dd>x本</dd>
+                    </dl>
+                    <dl>
+                      <dt>掲載日：</dt>
+                      <dd>2022年x月x日</dd>
+                    </dl>
+                    <dl>
+                      <dt>提供者：</dt>
+                      <dd>エーザイ㈱</dd>
+                    </dl>
+                  </div>
+                  <p class="bl_circleList_btnPos">
+                    <span class="bl_circleList_btn">
+                      交換する
+                    </span>
+                  </p>
+                </div>
+              </a>
+            </li>
+            <li class="bl_circleList_item">
+              <a href="">
+                <div class="bl_circleList_frame">
+                  <img src="assets/img/fig/fig_note_01.jpg" alt="" />
+                </div>
+                <div class="bl_circleList_body">
+                  <p class="bl_circleList_ttl">ジャポニカノート</p>
+                  <div class="bl_circleList_txt">
+                    <dl>
+                      <dt>交換ポイント：</dt>
+                      <dd>〇〇pt</dd>
+                    </dl>
+                    <dl>
+                      <dt>市場価格：</dt>
+                      <dd>¥xxx</dd>
+                    </dl>
+                    <dl>
+                      <dt>残り：</dt>
+                      <dd>x本</dd>
+                    </dl>
+                    <dl>
+                      <dt>掲載日：</dt>
+                      <dd>2022年x月x日</dd>
+                    </dl>
+                    <dl>
+                      <dt>提供者：</dt>
+                      <dd>岡三証券㈱</dd>
+                    </dl>
+                  </div>
+                  <p class="bl_circleList_btnPos">
+                    <span class="bl_circleList_btn">
+                      交換する
+                    </span>
+                  </p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <div class="ly_contInner">
+          <div class="col2">
+            <div class="col2_item">
+              <h2 class="cmp_heading_02">
+                交換会場
+              </h2>
+              <p class="cmp_heading_03">
+                商品は、以下会場にて受け取りが可能です。要予約となります。<br>
+                <br>
+                ●新宿会場：東京都新宿区西新宿6-12-30芸能花伝舎内<br>
+                ●新江古田会場：東京都中野区江原町2-14-17サニー第三熊の坂201
+              </p>
+            </div>
+            <div class="col2_item">
+              <h2 class="cmp_heading_02">
+                ポイントの使い方
+              </h2>
+              <p class="cmp_heading_03">
+                欲しい商品の＜交換するボタン＞を押し、<br>
+                <br>
+                ・数量<br>
+                ・受取日<br>
+                ・会場選択<br>
+                ・残りポイント<br>
+                <br>
+                を確認の上、「決定」ボタンを押してください。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bgc_br">
+      <div class="ly_contInner">
+        <div class="footer_menu">
+          <ul class="">
+            <li class="nav__item"><a href="index.html#howTo">使い方</a></li>
+            <li class="nav__item"><a href="study_record.html">これまでの学習記録</a></li>
+            <li class="nav__item"><a href="index.html#point">ポイントについて</a></li>
+            <li class="nav__item"><a href="prize.html">ゲットできる商品</a></li>
+            <li class="nav__item">
+              <a href="character.html">キャラクター紹介</a>
+            </li>
+          </ul>
+          <ul class="">
+            <li class="nav__item"><a href="index.html#terms">規約</a></li>
+            <li class="nav__item">
+              <a href="privacy.html">個人情報保護方針</a>
+            </li>
+            <li class="nav__item"><a href="index.html#contact">お問合せ</a></li>
+          </ul>
+        </div>
+        <img class="footer_logo" src="assets/img/logo/logo.svg" alt="" />
+      </div>
+    </footer>
+  </body>
+</html>
+
+

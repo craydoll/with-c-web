@@ -7,11 +7,11 @@
       fixed-header
       hide-default-footer
       disable-pagination
-      :height="$vuetify.breakpoint.height - 250"
+      :height="$vuetify.breakpoint.height - 350"
     >
       <template #top>
         <v-toolbar flat color="white">
-          <v-toolbar-title>アバター一覧</v-toolbar-title>
+          <v-toolbar-title>ユーザ一覧</v-toolbar-title>
           <v-divider
             class="mx-4"
             inset
@@ -37,27 +37,22 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-text-field v-model="editedItem.order" label="No." />
+                    <v-text-field v-model="editedItem.area" label="エリア" />
                   </v-row>
                   <v-row>
-                    <v-file-input v-model="editedItem.img" accept="image/*" show-size label="アバター画像" @change="onImagePicked" />
-                    <img v-if="uploadImageUrl" :src="uploadImageUrl" width="100">
+                    <v-text-field v-model="editedItem.avatar" label="アバター" />
                   </v-row>
                   <v-row>
-                    <v-text-field v-model="editedItem.name" label="アバター名" />
+                    <v-text-field v-model="editedItem.birth" label="誕生日" />
                   </v-row>
                   <v-row>
-                    <v-text-field v-model="editedItem.belief" label="信条" />
+                    <v-text-field v-model="editedItem.gender" label="性別" />
                   </v-row>
                   <v-row>
-                    <v-textarea v-model="editedItem.summary" label="説明" />
+                    <v-text-field v-model="editedItem.name" label="氏名" />
                   </v-row>
                   <v-row>
-                    <v-text-field v-model="editedItem.sdgs" label="担当SDGS項目" />
-                  </v-row>
-                  <v-row>
-                    <v-file-input v-model="editedItem.sdgs_img" accept="image/*" show-size label="SDGS画像" @change="onImagePicked2" />
-                    <img v-if="sdgsImageUrl" :src="sdgsImageUrl" width="100">
+                    <v-text-field v-model="editedItem.nickname" label="ニックネーム" />
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -89,16 +84,8 @@
           mdi-delete
         </v-icon>
       </template>
-      <template #[`item.summary`]="data">
-        <pre class="pre"> {{data.item.summary}} </pre>
-      </template>
       <template #[`item.img`]="data">
-        {{data.item.name}}
-        <v-img :src="data.item.img" width="100"/>
-      </template>
-      <template #[`item.sdgs`]="data">
-        {{data.item.sdgs}}
-        <v-img :src="data.item.sdgs_img" width="50" />
+        <v-img width="50" :src="data.item.img" />
       </template>
       <template #no-data>
         明細はありません
@@ -107,24 +94,22 @@
   </v-container>
 </template>
 <script>
-import Avatars from '@/plugins/firestore/avatars'
+import Users from '@/plugins/firestore/users'
 import appError, { ApplicationError } from '@/plugins/firestore/appError'
 
 export default {
-  components: {
-  },
   layout: 'admin',
   data () {
     return {
       dialog: false,
       fields: [
-        { value: 'edit', text: '編集', width:'7%' },
-        { value: 'order', text: 'NO.' },
-        { value: 'img', text: '画像', class:'img'},
-        { value: 'name', text: '名称'},
-        { value: 'belief', text: '信条', width:'15%' },
-        { value: 'summary', text: '説明', width: '40%' },
-        { value: 'sdgs', text: '担当SDGS項目' },
+        { value: 'edit', text: '編集' },
+        { value: 'area', text: 'エリア' },
+        { value: 'avatar', text: 'アバター' },
+        { value: 'birth', text: '誕生日' },
+        { value: 'gender', text: '性別' },
+        { value: 'name', text: '氏名' },
+        { value: 'nickname', text: 'ニックネーム' },
       ],
       rows: [],
       editedItem: {},
@@ -132,8 +117,7 @@ export default {
       editedIndex: -1,
       message: '',
       level: '',
-      uploadImageUrl: null,
-      sdgsImageUrl: null
+      uploadImageUrl: null
     }
   },
   computed: {
@@ -141,13 +125,14 @@ export default {
       return this.editedIndex === -1 ? '新規登録' : '編集'
     }
   },
-  mounted () {
-    this.getRows()
+  async mounted () {
+    await this.getRows()
   },
   methods: {
     async getRows () {
       try {
-        const ret = await Avatars.getAllItems()
+        console.log('in getRows')
+        const ret = await Users.getAllItems()
         this.rows = ret
         this.message = ''
         return ret
@@ -166,13 +151,11 @@ export default {
     editItem (item) {
       this.editedIndex = this.rows.indexOf(item)
       this.editedItem = item
-      this.sdgsImageUrl = null
-      this.uploadImageUrl = null
       this.dialog = true
     },
     async deleteItem (item) {
       try {
-        await Avatars.delete(item.id)
+        await Users.delete(item.id)
         return await this.getRows()
       } catch (err) {
         if (err instanceof ApplicationError) {
@@ -195,18 +178,14 @@ export default {
     },
     async save () {
       const doc = {
+        area: this.editedItem.area,
+        avatar: this.editedItem.avatar,
+        birth: this.editedItem.birth,
+        gender: this.editedItem.gender,
         name: this.editedItem.name,
-        belief: this.editedItem.belief,
-        summary: this.editedItem.summary,
-        sdgs: this.editedItem.sdgs,
+        nickname: this.editedItem.nickname
       }
-      if (this.uploadImageUrl) {
-        doc.img = this.uploadImageUrl
-      }
-      if (this.sdgsImageUrl) {
-        doc.sdgs_img = this.sdgsImageUrl
-      }
-      await Avatars.save(this.editedItem.id, doc)
+      await Users.save(this.editedItem.id, doc)
       this.close()
       this.uploadImageUrl = null
       return await this.getRows()
@@ -229,26 +208,6 @@ export default {
         })
       } else {
         this.uploadImageUrl = null
-      }
-    },
-    onImagePicked2 (file) {
-      if (file !== undefined && file !== null) {
-        if (file.name.lastIndexOf('.') <= 0) {
-          return
-        }
-        const fr = new FileReader()
-        fr.readAsDataURL(file)
-        fr.addEventListener('load', () => {
-          this.ImgB64Resize(fr.result, 100,
-            (imgB64) => {
-            // Destination Image
-              console.log('uploadImageUrl:', imgB64)
-              this.sdgsImageUrl = imgB64
-            }
-          )
-        })
-      } else {
-        this.sdgsImageUrl = null
       }
     },
     // Resize Base64 Image
@@ -277,11 +236,11 @@ export default {
 }
 </script>
 <style scoped>
+.td {
+  font-size: 16px !important;
+}
 .pre {
   white-space:pre-wrap;
   word-wrap:break-word;
-}
-.img {
-  vertical-align: middle;
 }
 </style>

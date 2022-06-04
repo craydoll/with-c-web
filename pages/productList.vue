@@ -21,7 +21,7 @@
           <v-dialog v-model="dialog" max-width="500px">
             <template #activator="{ on, attrs }">
               <v-btn
-                color="primary"
+                color="green"
                 dark
                 class="mb-2"
                 v-bind="attrs"
@@ -40,7 +40,16 @@
                     <v-text-field v-model="editedItem.name" label="商品名" />
                   </v-row>
                   <v-row>
-                    <v-text-field v-model="editedItem.summary" label="説明" />
+                    <v-text-field v-model="editedItem.point" label="交換ポイント" />
+                  </v-row>
+                  <v-row>
+                    <v-text-field v-model="editedItem.market_price" label="市場価格" />
+                  </v-row>
+                  <v-row>
+                    <v-text-field v-model="editedItem.stock" label="在庫" />
+                  </v-row>
+                  <v-row>
+                    <v-text-field v-model="editedItem.donor" label="提供者" />
                   </v-row>
                   <v-row>
                     <v-file-input v-model="editedItem.img" accept="image/*" show-size label="画像" @change="onImagePicked" />
@@ -77,7 +86,7 @@
         </v-icon>
       </template>
       <template #[`item.img`]="data">
-        <v-img :src="data.item.img" width="100" />
+        <v-img width="50" :src="data.item.img" />
       </template>
       <template #no-data>
         明細はありません
@@ -86,7 +95,7 @@
   </v-container>
 </template>
 <script>
-import Product from '@/plugins/firestore/product'
+import Prizes from '@/plugins/firestore/prizes'
 import appError, { ApplicationError } from '@/plugins/firestore/appError'
 
 export default {
@@ -100,7 +109,10 @@ export default {
         { value: 'edit', text: '編集' },
         { value: 'img', text: '画像' },
         { value: 'name', text: '名称' },
-        { value: 'summary', text: '説明' },
+        { value: 'point', text: 'ポイント' },
+        { value: 'market_price', text: '価格' },
+        { value: 'stock', text: '在庫' },
+        { value: 'donor', text: '提供者' },
       ],
       rows: [],
       editedItem: {},
@@ -122,7 +134,7 @@ export default {
   methods: {
     async getRows () {
       try {
-        const ret = await Product.getAllItems()
+        const ret = await Prizes.getAllItems()
         this.rows = ret
         this.message = ''
         return ret
@@ -145,7 +157,7 @@ export default {
     },
     async deleteItem (item) {
       try {
-        await Product.delete(item.id)
+        await Prizes.delete(item.id)
         return await this.getRows()
       } catch (err) {
         if (err instanceof ApplicationError) {
@@ -169,12 +181,16 @@ export default {
     async save () {
       const doc = {
         name: this.editedItem.name,
-        summary: this.editedItem.summary,
+        point: this.editedItem.point,
+        market_price: this.editedItem.market_price,
+        stock: this.editedItem.stock,
+        donor: this.editedItem.donor,
+        reg_date: new Date()
       }
       if (this.uploadImageUrl) {
         doc.img = this.uploadImageUrl
       }
-      await Product.save(this.editedItem.id, doc)
+      await Prizes.save(this.editedItem.id, doc)
       this.close()
       this.uploadImageUrl = null
       return await this.getRows()
@@ -225,6 +241,9 @@ export default {
 }
 </script>
 <style scoped>
+.td {
+  font-size: 16px !important;
+}
 .pre {
   white-space:pre-wrap;
   word-wrap:break-word;
