@@ -26,8 +26,29 @@
       <!-- fvタイトル -->
       <div class="el_btn_location">
         <p class="el_deco_bracket">キミの集中力レベルは？</p>
-        <NuxtLink class="el_btn el_btn__arrowRight" to="/record">測定スタート</NuxtLink>
+          <RecordButton :loggedin="loggedin" @login="pressLogin"/>
       </div>
     </div>
   </section>
 </template>
+<script>
+import RecordButton from '@/components/recordButton'
+export default {
+  components: {
+    RecordButton
+  },
+  props: {
+    loggedin: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+  },
+  methods: {
+    pressLogin() {
+      console.log('in pressLogin')
+      this.$nuxt.$emit('showLoginModal')
+    }
+  }
+}
+</script>

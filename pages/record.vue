@@ -1,19 +1,33 @@
 <template>
-  <v-card v-bind:class='{clicked:isRecording}'>
+  <v-card :class='{clicked:isRecording}'>
       <section class="record_screen">
         <div class="ly_contInner ly_contInner_bg">
           <h2 class="cmp_heading_05">集中力を記録しよう</h2>
-          <div>
-            <div class="record_icon_wrapper">
+          <v-row align="center">
+            <v-col class="justify-center record_icon_wrapper">
               <span class="record_icon"></span>
               <!-- <p class="record_icon_txt">
                 ※測定時には上のランプが赤く点灯します
               </p> -->
-            </div>
-            <div class="d-flex justify-center">
+            </v-col>
+          </v-row>
+          <v-row justify="center" class="py-0 my-0">
+            <v-col cols="4" class="py-0 my-0">
+              <v-select
+                v-model="selected"
+                :items="camera"
+                item-text="name"
+                item-value="id"
+                return-object
+                single-line
+              ></v-select>
+            </v-col>
+          </v-row>
+          <v-row justify="center" class="py-0 my-0">
+            <v-col class="d-flex justify-center">
               <video  id="video" ref="video" width="400" height="300" autoplay playsinline></video>
-            </div>
-          </div>
+            </v-col>
+          </v-row>
           <div class="tac record_screen_btn_wrapper">
             <p class="el_deco_bracket">集中力を測るにはここをクリック</p>
             <div v-if="!isRecording">
@@ -45,11 +59,17 @@
 <script>
 import firebase from '@/plugins/firebase'
 import ResultModal from '@/components/resultModal'
+import moment from '@/plugins/moment-ja'
 export default {
   components: {
     ResultModal
   },
   layout: 'protected',
+  watch: {
+    selected() {
+      this.changeCamera();
+    }
+  },
   data() {
     return {
         video: {},
@@ -59,22 +79,36 @@ export default {
         isRecording: false,
         user: null,
         finished: false,
+        measureId: '',
+        camera: [],
+        selected: '',
       }
   },
   async mounted () {
-    this.video = this.$refs.video
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-        this.video.srcObject = stream
-        this.video.play()
+    const sourcesInfo = await navigator.mediaDevices.enumerateDevices()
+    const camera = [];
+    // 取得できたカメラとマイクを含むデバイスからカメラだけをフィルターする
+    const videoSroucesArray = sourcesInfo.filter(function(elem) {
+        return elem.kind === 'videoinput';
+    });
+    videoSroucesArray.forEach(function(source, idx) {
+      camera.push({
+        name: source.label,
+        id: source.deviceId
       })
-    }
+      console.log('camera1:' + JSON.stringify(camera))
+    })
+    console.log('camera:' + JSON.stringify(camera))
+    this.camera = camera
+    this.selected = camera[0].id
+    console.log('this.camera:' + JSON.stringify(this.camera))
+    this.video = this.$refs.video
+    this.changeCamera();
     this.user = await this.$store.getters['auth/user']
   },
-  methods : {
+  methods: {
     start() {
       const capture = () => {
-        console.log('in caputure:' + JSON.stringify(this.user))
         const id = this.user.id
         const storageRef = firebase.storage().ref();
 
@@ -85,11 +119,14 @@ export default {
         this.canvas.toBlob(async (blob) => {
           try {
             await storageRef.child("image/" + id).put(blob);
+            // 番号を作る（日付）
+            this.measureId = moment().format('YYYYMMDDHHmmss')
             const url = "https://us-central1-with-c-web.cloudfunctions.net/Detector"
-            console.log('request:' + url + " param:" + id)
+            console.log('request:' + url + " param:" + id + " : " + this.measureId)
             const res = await this.$axios.$get(url, {
               params: {
-                id
+                id,
+                measure_id: this.measureId
               }
             })
             console.log('respose:' + JSON.stringify(res))
@@ -101,10 +138,32 @@ export default {
       this.timerId = setInterval(capture, 5000);
       this.isRecording = true
     },
-    stop() {
+    async stop() {
       clearInterval(this.timerId);
+      try {
+        const url = "https://us-central1-with-c-web.cloudfunctions.net/calc_data"
+        console.log('stop request:' + url + " param:" + this.user.id + " : " + this.measureId )
+        const res = await this.$axios.$get(url, {
+          params: {
+            id: this.user.id,
+            measure_id: this.measureId
+          }
+        })
+        console.log('respose:' + JSON.stringify(res))
+      } catch (err) {
+        console.log('err is:' + JSON.stringify(err))
+      }
       this.isRecording = false
       this.finished = true
+    },
+    changeCamera() {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        console.log('in changeCamera:' + this.selected.id)
+        navigator.mediaDevices.getUserMedia({ video: { optional: [{sourceId: this.selected.id}] }}).then(stream => {
+          this.video.srcObject = stream
+          this.video.play()
+        })
+      }
     },
     modalClosed() {
       this.finished = false

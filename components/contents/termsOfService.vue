@@ -9,7 +9,7 @@
               規約には、本サービスを使用するに当たってのあなたの権利と義務が規定されております。「同意して会員登録へ」ボタンをクリックすると、あなたが本規約の全ての条件に同意したことになります。
             </p>
             <div class="el_btn_location">
-              <a class="el_btn el_btn__arrowRight" href="">同意して会員登録へ</a>
+              <RecordButton :loggedin="loggedin" @login="pressLogin"/>
             </div>
           </div>
           <div class="terms_cont scroll_wrapper">
@@ -311,3 +311,24 @@
         </div>
       </section>
 </template>
+<script>
+import RecordButton from '@/components/recordButton'
+export default {
+  components: {
+    RecordButton
+  },
+  props: {
+    loggedin: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+  },
+  methods: {
+    pressLogin() {
+      console.log('in pressLogin')
+      this.$nuxt.$emit('showLoginModal')
+    }
+  }
+}
+</script>

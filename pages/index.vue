@@ -2,7 +2,7 @@
 <div>
   <body>
     <main>
-      <Fv/>
+      <Fv :loggedin="isLoggedIn"/>
       <HowTo/>
       <section class="ctaArea bgc_br">
         <div class="ly_contInner flx">
@@ -14,7 +14,7 @@
           </div>
           <div class="ctaArea_btn el_btn_location">
             <p class="el_deco_bracket">キミの集中力レベルは？</p>
-            <nuxt-link class="el_btn el_btn__arrowRight" to="/record">測定スタート</nuxt-link>
+            <RecordButton :loggedin="isLoggedIn" @login="pressLogin"/>
           </div>
         </div>
       </section>
@@ -38,12 +38,12 @@
           </div>
           <div class="ctaArea_btn el_btn_location">
             <p class="el_deco_bracket">キミの集中力レベルは？</p>
-            <NuxtLink class="el_btn el_btn__arrowRight" to="/record">測定スタート</NuxtLink>
+            <RecordButton :loggedin="isLoggedIn" @login="pressLogin"/>
           </div>
         </div>
       </section>
       <Charactors />
-      <Terms/>
+      <Terms :loggedin="isLoggedIn"/>
       <Contacts/>
     </main>
   </body>
@@ -59,6 +59,7 @@ import AboutPoint from '@/components/contents/aboutPoint'
 import Charactors from '@/components/contents/charactorsIntro'
 import Terms from '@/components/contents/termsOfService'
 import Contacts from '@/components/contents/contContacts'
+import RecordButton from '@/components/recordButton'
 
 import moment from '@/plugins/moment-ja'
 
@@ -71,7 +72,8 @@ export default {
     AboutPoint,
     Charactors,
     Terms,
-    Contacts
+    Contacts,
+    RecordButton
   },
   layout: 'protected',
   data() {
@@ -79,6 +81,7 @@ export default {
       studyRecords: [],
       labels: [],
       data: [],
+      isLoggedIn: false,
     }
   },
   async mounted() {
@@ -99,5 +102,11 @@ export default {
       this.data = [50,74,68,70,78]
     }
   },
+  methods: {
+    pressLogin() {
+      console.log('in pressLogin')
+      this.$nuxt.$emit('showLoginModal')
+    }
+  }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar id="header" app prominent flat color="#c9bc9c" >
+    <v-app-bar id="header" app :prominent="!isMobile" flat color="#c9bc9c" >
       <div class="ly_headerInner header_flx" app>
         <h1 class="header_logo">
           <NuxtLink to="/">
@@ -10,7 +10,16 @@
         <div class="header_logo_eco">
           <img src="assets/img/logo/logo_eco.svg" alt="ecoの志士" />
         </div>
-        <nav class="max1090_n">
+        <!-- Hamburger-icon -->
+        <v-app-bar-nav-icon v-if="isMobile" class="max1090_b hamburger_icon" @click="drawer = true">
+        <button class="openMenu">
+          <span class="openMenu__icon line01"></span>
+          <span class="openMenu__icon line02"></span>
+          <span class="openMenu__icon line03"></span>
+        </button>
+        </v-app-bar-nav-icon>
+        <!-- Hamburger-icon -->
+        <nav v-else class="max1090_n">
           <ul class="header_nav">
             <li class="nav__item"><NuxtLink to="/#howTo">使い方</NuxtLink></li>
             <li class="nav__item">
@@ -19,64 +28,62 @@
             <li class="nav__item"><NuxtLink to="/#point">ポイントについて</NuxtLink></li>
             <li class="nav__item"><NuxtLink to="/prize">ゲットできる商品</NuxtLink></li>
             <li class="nav__item">
-              <NuxtLink class="el_btn el_btn__arrowRight" to="/record">測定スタート</NuxtLink>
+            <RecordButton :loggedin="isLoggedIn" @login="loginBtn"/>
             </li>
           </ul>
         </nav>
-        <!-- Hamburger-icon -->
-        <div class="max1090_b hamburger_icon">
-          <button class="openMenu">
-            <span class="openMenu__icon line01"></span>
-            <span class="openMenu__icon line02"></span>
-            <span class="openMenu__icon line03"></span>
-          </button>
-        </div>
-        <!-- Hamburger-icon -->
-        <div class="sp-menu">
-          <ul>
-            <li class="header-nav-item"><a href="#howTo">使い方</a></li>
-            <li class="header-nav-item">
-              <a href="#record">これまでの学習記録</a>
-            </li>
-            <li class="header-nav-item">
-              <a href="#point">ポイントについて</a>
-            </li>
-            <li class="header-nav-item">
-              <a href="prize">ゲットできる商品</a>
-            </li>
-            <li class="header-nav-item">
-              <a class="el_btn" href="">測定スタート</a>
-            </li>
-          </ul>
-        </div>
       </div>
       <div class="align-self-center">
-        <v-btn v-if="isLoggedIn" name="profile" fab @click="showProfile=true">
-          <v-avatar size="62">
+        <v-btn v-if="isLoggedIn" name="profile" :small="isMobile" fab @click="showProfile=true">
+          <v-avatar size="50">
             <img
             :src="avatar.img"
             alt="avatar"
-          >
+            >
           </v-avatar>
         </v-btn>
-        <v-btn v-else large @click="loginBtn">
-          ログイン
           <LoginModal
             :modal-show="showLogin"
-          />          
-        </v-btn>
+          />
         <ProfileModal
           :modal-show="showProfile"
           @close="modalClosed"
-        />        
+        />
       </div>
     </v-app-bar>
+    <v-navigation-drawer
+      v-if="isMobile"
+      v-model="drawer"
+      fixed
+      temporary
+      app
+    >
+      <div class="sp-menu">
+     <v-list
+        nav
+      >
+          <v-list-item class="header-nav-item"><a href="#howTo">使い方</a></v-list-item>
+          <v-list-item class="header-nav-item">
+            <a href="#record">これまでの学習記録</a>
+          </v-list-item>
+          <v-list-item class="header-nav-item">
+            <a href="#point">ポイントについて</a>
+          </v-list-item>
+          <v-list-item class="header-nav-item">
+            <a href="prize">ゲットできる商品</a>
+          </v-list-item>
+          <v-list-item class="header-nav-item">
+            <RecordButton :loggedin="isLoggedIn" @login="loginBtn"/>
+          </v-list-item>
+     </v-list>
+      </div>
+    </v-navigation-drawer>    
     <v-main id="#body" app>
         <Nuxt />
     </v-main>
-    <v-footer height="180px"  class="bgc_br" color="#c9bc9c">
-      <div class="d-flex justify-space-between ly_contInner">
-        <div class="">
+    <footer class="bgc_br" color="#c9bc9c">
+      <div class="ly_contInner">
+        <div class="footer_menu">
           <ul class="">
             <li class="nav__item"><a href="/index#howTo">使い方</a></li>
             <li class="nav__item"><NuxtLink to="/study_record">これまでの学習記録</NuxtLink></li>
@@ -86,8 +93,6 @@
               <NuxtLink to="characterList">キャラクター紹介</NuxtLink>
             </li>
           </ul>
-        </div>
-        <div>
           <ul class="">
             <li class="nav__item"><a href="#terms">規約</a></li>
             <li class="nav__item">
@@ -98,18 +103,21 @@
         </div>
         <img class="footer_logo" src="/assets/img/logo/logo.svg" alt="" />
       </div>
-    </v-footer>    
+    </footer>    
   </v-app>
 </template>
 <script>
 import ProfileModal from '@/components/profileModal'
 import LoginModal from '@/components/loginModal'
 import Avatars from '@/plugins/firestore/avatars'
+import RecordButton from '@/components/recordButton'
+
 export default {
   name: 'DefaultLayout',
   components: {
     ProfileModal,
-    LoginModal
+    LoginModal,
+    RecordButton
   },
   middleware: 'authenticated',
   data() {
@@ -118,8 +126,18 @@ export default {
       user: null,
       avatar: 'fig_chr_noimage.png',
       showProfile: false,
-      showLogin: false
+      showLogin: false,
+      drawer: false,
     }
+  },
+  computed: {
+    isMobile () {
+      return this.$vuetify.breakpoint.mobile
+    }
+  },
+  created() {
+    // emitイベントを補足
+     this.$nuxt.$on('showLoginModal', this.loginBtn)
   },
   async mounted() {
     this.$adobeFonts(document)
