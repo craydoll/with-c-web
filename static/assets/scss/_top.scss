@@ -15,7 +15,7 @@ header {
   background-color: $c_br;
   .header_flx {
     display: flex;
-    gap: 30px;
+    gap: 15px;
     align-items: center;
     .header_logo {
       width: 15%;
@@ -26,13 +26,18 @@ header {
         }
       }
       @include max970 {
-        width: 120px;
+        width: 159px;
       }
     }
     .header_logo_eco {
-      width: 50px;
+      border: 1px solid #000;
+      width: 57px;
+      background-color: $c_wt;
+      border-radius: 5px;
+      padding: 5px;
       @include max970 {
-        width: 30px;
+        width: 49px;
+        padding: 3px 5px 0 5px;
       }
     }
     .hamburger_icon {
@@ -264,6 +269,12 @@ header {
   .flx {
     column-gap: 15px;
   }
+  .aboutPoint_expain{
+    width: 50%;
+    @include max768{
+      width: 100%;
+    }
+  }
   @include max768 {
     .flx {
       flex-direction: column;
@@ -455,7 +466,10 @@ footer {
     justify-content: space-between;
   }
   .footer_logo {
-    width: 100px;
+    width:200px;
+    @include max768{
+      width: 150px;
+    }
   }
   .footer_menu {
     display: flex;

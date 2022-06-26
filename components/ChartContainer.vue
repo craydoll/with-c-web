@@ -3,6 +3,8 @@
     <line-chart
       :chart-data="chartData"
       :options="options"
+      :styles="myStyles"
+      :height="height"
     />
   </div>
 </template>
@@ -24,7 +26,9 @@ export default {
   },
   data: () => ({
     chartData: null,
-    options: {}
+    options: {},
+    myStyles: null,
+    height: 240
   }),
   watch: {
     val() {
@@ -36,6 +40,7 @@ export default {
   },
   methods: {
     fillData() {
+      console.log('in fillData:' + this.val)
       this.chartData = {
         labels: this.labels,
         datasets: [
@@ -43,27 +48,26 @@ export default {
             type: "line",
             label: "集中力", // 凡例とツールチップに表示されるデータセットのラベル
             data: this.val,
-            fill: true
+            fill: true,
+            borderColor: (ctx) => {
+              const canvas = ctx.chart.ctx;
+              const gradient = canvas.createLinearGradient(0,0,0,220);
+              gradient.addColorStop(0, 'green');
+              gradient.addColorStop(.5, 'yellow');
+              gradient.addColorStop(1, 'red');
+              return gradient;
+            },
           }
         ]
       }
       this.options = {
         responsive: true, // コンテナサイズが変更された際に、チャートキャンバスサイズを変更します
         maintainAspectRatio: false,
-        title: {
-          // タイトル
-          // See https://misc.0o0o.org/chartjs-doc-ja/configuration/title.html
-          display: true, // タイトルを表示します。
-          position: "top", // タイトルの位置
-          fontSize: 12, // タイトルのフォントサイズ
-          padding: 5, // タイトルテキストの上下に追加するピクセル数
-          text: "集中力のグラフ"
-        },
         legend: {
           // 凡例に関する設定
           // See https://misc.0o0o.org/chartjs-doc-ja/configuration/legend.html
-          display: true, // 凡例を表示します。
-          position: "bottom" // 凡例の位置
+          display: false, // 凡例を表示します。
+          // position: "bottom" // 凡例の位置
         },
         tooltips: {
           // ツールチップに関する設定
@@ -105,7 +109,11 @@ export default {
               color: "rgb(232, 234, 246, 0.1)"
             }
           }
-        }
+        },
+      }
+      this.myStyles = {
+        height: '50%',
+        position:'relative'
       }
     }
   }

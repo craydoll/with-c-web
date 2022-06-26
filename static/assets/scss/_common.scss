@@ -33,10 +33,47 @@
   margin: 0 auto;
   padding: $contInnterPadding 15px;
   @include max768() {
-    padding: $contInnterPadding * 0.8;
+    padding: 20px;
     max-width: 400px;
   }
 }
+
+// 余白指定（縦）
+.ly_pdg_bottom_sm{
+  padding-bottom: 50px;
+}
+.ly_pdg_top_sm{
+  padding-top: 50px;
+}
+
+.ly_pdg_upDown_sm {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  @include max768() {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+}
+.ly_pdg_upDown_md {
+  padding-top: 150px;
+  padding-bottom: 150px;
+  @include max768() {
+    padding-top: 75px;
+    padding-bottom: 75px;
+  }
+}
+.ly_pdg_upDown_bg {
+  padding-top: 250px;
+  padding-bottom: 250px;
+  @include max768() {
+    padding-top: 125px;
+    padding-bottom: 125px;
+  }
+}
+
+
+
+
 
 
 //============================【baseColor】============================

@@ -4,7 +4,7 @@
       <div class="ly_headerInner header_flx" app>
         <h1 class="header_logo">
           <NuxtLink to="/">
-            <img src="assets/img/logo/logo.svg" alt="withプラス" />
+            <img src="assets/img/logo/logo_02.svg" alt="withプラス" />
           </NuxtLink>
         </h1>
         <div class="header_logo_eco">
@@ -28,7 +28,7 @@
             <li class="nav__item"><NuxtLink to="/#point">ポイントについて</NuxtLink></li>
             <li class="nav__item"><NuxtLink to="/prize">ゲットできる商品</NuxtLink></li>
             <li class="nav__item">
-            <RecordButton :loggedin="isLoggedIn" @login="loginBtn"/>
+            <RecordButton :loggedin="isLoggedIn" @login="termsModal"/>
             </li>
           </ul>
         </nav>
@@ -42,9 +42,13 @@
             >
           </v-avatar>
         </v-btn>
-          <LoginModal
-            :modal-show="showLogin"
-          />
+        <TermsModal
+          :modal-show="showTerms"
+          @login="loginBtn"
+        />
+        <LoginModal
+          :modal-show="showLogin"
+        />
         <ProfileModal
           :modal-show="showProfile"
           @close="modalClosed"
@@ -85,23 +89,23 @@
       <div class="ly_contInner">
         <div class="footer_menu">
           <ul class="">
-            <li class="nav__item"><a href="/index#howTo">使い方</a></li>
+            <li class="nav__item"><a href="/#howTo">使い方</a></li>
             <li class="nav__item"><NuxtLink to="/study_record">これまでの学習記録</NuxtLink></li>
-            <li class="nav__item"><a href="/index#point">ポイントについて</a></li>
+            <li class="nav__item"><a href="/#point">ポイントについて</a></li>
             <li class="nav__item"><NuxtLink to="/prize">ゲットできる商品</NuxtLink></li>
             <li class="nav__item">
               <NuxtLink to="characterList">キャラクター紹介</NuxtLink>
             </li>
           </ul>
           <ul class="">
-            <li class="nav__item"><a href="#terms">規約</a></li>
+            <li class="nav__item"><a href="/terms">規約</a></li>
             <li class="nav__item">
               <NuxtLink to="privacy">個人情報保護方針</NuxtLink>
             </li>
-            <li class="nav__item"><a href="#contact">お問合せ</a></li>
+            <li class="nav__item"><a href="/#contact">お問合せ</a></li>
           </ul>
         </div>
-        <img class="footer_logo" src="/assets/img/logo/logo.svg" alt="" />
+        <img class="footer_logo" src="assets/img/logo/logo_02.svg" alt="" />
       </div>
     </footer>    
   </v-app>
@@ -109,6 +113,7 @@
 <script>
 import ProfileModal from '@/components/profileModal'
 import LoginModal from '@/components/loginModal'
+import TermsModal from '@/components/termsModal'
 import Avatars from '@/plugins/firestore/avatars'
 import RecordButton from '@/components/recordButton'
 
@@ -117,7 +122,8 @@ export default {
   components: {
     ProfileModal,
     LoginModal,
-    RecordButton
+    TermsModal,
+    RecordButton,
   },
   middleware: 'authenticated',
   data() {
@@ -127,6 +133,7 @@ export default {
       avatar: 'fig_chr_noimage.png',
       showProfile: false,
       showLogin: false,
+      showTerms: false,
       drawer: false,
     }
   },
@@ -137,7 +144,7 @@ export default {
   },
   created() {
     // emitイベントを補足
-     this.$nuxt.$on('showLoginModal', this.loginBtn)
+     this.$nuxt.$on('showLoginModal', this.termsModal)
   },
   async mounted() {
     this.$adobeFonts(document)
@@ -162,6 +169,10 @@ export default {
         this.avatar = avatar
       }
       location.reload();
+    },
+    termsModal() {
+      console.log('in showTerms')
+      this.showTerms = true
     },
     loginBtn() {
       console.log('in loginBtn')

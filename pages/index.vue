@@ -43,25 +43,20 @@
         </div>
       </section>
       <Charactors />
-      <Terms :loggedin="isLoggedIn"/>
       <Contacts/>
     </main>
   </body>
 </div>
 </template>
 <script>
-import StudyRecords from '@/plugins/firestore/studyRecords'
 
 import Fv from '@/components/contents/firstView'
 import HowTo from '@/components/contents/howTo'
 import AboutRecording from '@/components/contents/aboutRecording'
 import AboutPoint from '@/components/contents/aboutPoint'
 import Charactors from '@/components/contents/charactorsIntro'
-import Terms from '@/components/contents/termsOfService'
 import Contacts from '@/components/contents/contContacts'
 import RecordButton from '@/components/recordButton'
-
-import moment from '@/plugins/moment-ja'
 
 export default {
   name: 'IndexPage',
@@ -71,7 +66,6 @@ export default {
     AboutRecording,
     AboutPoint,
     Charactors,
-    Terms,
     Contacts,
     RecordButton
   },
@@ -88,19 +82,6 @@ export default {
     // storeよりユーザー取ってくる
     this.isLoggedIn = await this.$store.getters['auth/isLoggedIn']
     this.user = await this.$store.getters['auth/user']
-    if (this.user) {
-      this.studyRecords = await StudyRecords.getItems(this.user.id)
-      this.labels = this.studyRecords.map((item) => {
-        return moment(item.date.toDate()).format('MM/DD')
-      })
-      this.data = this.studyRecords.map((item) => {
-        return item.concentration
-      })
-    } else {
-      // ダミー
-      this.labels = ['3/1','3/2','3/3','3/4','3/5']
-      this.data = [50,74,68,70,78]
-    }
   },
   methods: {
     pressLogin() {

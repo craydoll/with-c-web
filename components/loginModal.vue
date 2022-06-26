@@ -1,19 +1,19 @@
 <template>
-    <v-dialog
-      id="login-modal"
-      v-model="show"
-      max-width="500"
-      persistent
-    >
-  <v-card>
-    <v-app-bar>
-      <v-card-title>
-        ログイン
-      </v-card-title>
-    </v-app-bar>
-      <firebase-auth :success-url="nextUrl" />
-  </v-card>
-    </v-dialog>
+  <v-dialog
+    id="login-modal"
+    v-model="show"
+    max-width="500"
+    persistent
+  >
+    <v-card>
+      <v-app-bar>
+        <v-card-title>
+          ログイン
+        </v-card-title>
+      </v-app-bar>
+        <firebase-auth :success-url="nextUrl" />
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>

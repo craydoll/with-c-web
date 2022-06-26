@@ -19,3 +19,22 @@ exports.sampleDetector = functions.region("asia-northeast1")
 
       return response.send("filepath is '/image/" + uid + "'");
     });
+exports.calcPoint = functions.region("asia-northeast1")
+    .firestore.document("/users/{userId}/study_records/{recId}")
+    .onCreate(async (snap, context) => {
+      // 挿入されたレコードから必要な内容をとってくる
+      const doc = snap.data();
+      const givePoint = doc.point;
+
+      const db = admin.firestore();
+      const id = snap.ref.parent.parent.id;
+      const userRef = db.collection("users").doc(id);
+      await userRef.update({
+        point: admin.firestore.FieldValue.increment(givePoint),
+      });
+      await userRef.collection("point_log").add({
+        date: new Date(),
+        summary: "学習によるポイント付与",
+        point: givePoint,
+      });
+    });
