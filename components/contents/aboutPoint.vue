@@ -65,7 +65,7 @@ export default {
     // storeよりユーザー取ってくる
     this.isLoggedIn = await this.$store.getters['auth/isLoggedIn']
     this.user = await this.$store.getters['auth/user']
-    if (this.user) {
+    if (this.user && this.user.point) {
       this.point = this.user.point
     } else {
       this.point = '--'

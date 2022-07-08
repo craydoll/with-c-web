@@ -17,6 +17,37 @@
     }
     .record_notice {
       text-align: left;
+      padding-left: 1em;
+      text-indent: -1em;
+    }
+    .selected_camera{
+      margin-bottom: 20px;
+      display: flex;
+      > *{
+        padding: 8px;
+        font-size: 1.4rem;
+      }
+      dt{
+        background-color: $c_br;
+        border-radius: 3px 0 0 3px;
+        color: $c_wt;
+        width: 30%;
+      }
+      dd{
+        flex:1;
+        background-color: $c_wt;
+        border: 1px solid $c_br;
+      }
+    }
+  }
+  .record_btn_wrapper{
+    display: flex;
+    gap: 30px;
+    max-width: 500px;
+    margin: 0 auto;
+    .el_btn{
+      width: calc((100% - 30px)/2);
+      min-width: auto;
     }
   }
   .record_icon_wrapper {
@@ -91,52 +122,7 @@
   }
 }
 
-.record_type{
-  text-align: center;
-  margin-bottom: 30px;
-  .select_type{
-    overflow: hidden;
-    border: 1px solid #000;
-    padding: 15px 20px;
-    padding-right:40px;
-    border-radius: 50vh;
-    background-color: $c_wt;
-    cursor: pointer;
-    font-family: $corp;
-    width: 100%;
-  }
-  .select_wrapper{
-    display: inline-block;
-    position: relative;
-    width: 300px;
-    max-width: 100%;
-    &::after{
-      content:'';
-      display:inline-block;
-      width: 5px;
-      height: 5px;
-      border-top: 3px solid black;
-      border-right: 3px solid black;
-      -webkit-transform: rotate(135deg);
-      transform: rotate(135deg);
-      position: absolute;
-      margin: auto;
-      bottom: 0;
-      right: 20px;
-      top: 0;
-      pointer-events: none;
-      transition: all 0.5s;
-    }
-    &:checked{ 
-      &::after{
-        content:'';
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-        display: none;
-      }
-    }
-  }
-}
+
 
 // 測定開始ボタンをクリックしたとき
 .clicked {
@@ -203,14 +189,12 @@
 
 .record_closing {
   margin-top: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  @include max768 {
-    flex-direction: column;
-    gap: 15px 0;
+  .closing_btn_wrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
   }
-  .record_closing_end {
+  .closing_btn{
     background-color: $c_red;
     color: $c_wt;
     padding: 5px 15px;

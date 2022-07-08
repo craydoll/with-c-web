@@ -7,34 +7,29 @@
   >
     <v-card>
       <v-card-title>
-        <span class="text-h5">プロフィール</span>
+        <h3 class="cmp_heading_03">プロフィール</h3>
       </v-card-title>
       <v-card-text>
         <v-row>
         <v-col
           cols="6"
         >
-          <v-card
-            width="250"
-            class="mx-auto"
-          >
-            <v-carousel
-            v-model="avatar"
-            height="250"
-            hide-delimiters
-            >
-              <v-carousel-item
-                v-for="(item) in avatarList"
-                :key="item.id"
-                :value="item.id"
-                :src="item.img"
-                width="250"
-                reverse-transition="fade-transition"
-                transition="fade-transition"
-                class="flex justify-center"
-              ></v-carousel-item>
-            </v-carousel>
-          </v-card>
+              <v-carousel
+              v-model="avatar"
+              height="200"
+              hide-delimiters
+              >
+                <v-carousel-item
+                  v-for="(item) in avatarList"
+                  :key="item.id"
+                  :value="item.id"
+                  :src="item.img"
+                  width="200"
+                  reverse-transition="fade-transition"
+                  transition="fade-transition"
+                  class="flex justify-center"
+                ></v-carousel-item>
+              </v-carousel>
         </v-col>
         <v-col
           cols="6"
@@ -65,6 +60,20 @@
             label="住んでいる地域"
             dense
           ></v-select>
+          <v-select
+            v-model="schoolDiv"
+            :items="schoolDivs"
+            label="通っている学校（区分)"
+            dense
+          ></v-select>
+          <v-text-field
+            v-model="schoolNm"
+            label="通っている学校"
+          ></v-text-field>
+          <v-checkbox
+            v-model="cramSchool"
+            label="私は塾や予備校などに通っています"
+          ></v-checkbox>          
         </v-col>
       </v-row>
       </v-card-text>
@@ -127,6 +136,9 @@ export default {
       area: '',
       mail: '',
       gender: '',
+      schoolDiv: '',
+      schoolNm: '',
+      cramSchool: false,
       show: false,
       prefs: [
         '北海道',
@@ -183,6 +195,9 @@ export default {
         '女性',
         'その他',
       ],
+      schoolDivs: [
+        '国立','都道府県立','市立','私立',
+      ]
     }
   },
   computed: {
@@ -207,6 +222,9 @@ export default {
           this.birth = this.user.birth
           this.gender = this.user.gender
           this.area = this.user.area
+          this.schoolDiv = this.user.schoolDiv
+          this.schoolNm = this.user.schoolNm
+          this.cramSchool = this.user.cramSchool
         }
         this.id = id
       }
@@ -230,6 +248,10 @@ export default {
           gender: this.gender,
           area: this.area,
           id: this.id,
+          schoolDiv: this.schoolDiv,
+          schoolNm: this.schoolNm,
+          cramSchool: this.cramSchool,
+          regDate: new Date(),
         }
         await Users.save(this.id , this.user)
       } catch (err) {

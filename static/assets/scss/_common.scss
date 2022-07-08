@@ -33,10 +33,27 @@
   margin: 0 auto;
   padding: $contInnterPadding 15px;
   @include max768() {
-    padding: 20px;
+    padding: 10px;
     max-width: 400px;
   }
 }
+
+
+// サイズ指定
+.ly_size_sm {
+  max-width: 500px;
+  margin: 0 auto;
+  @include max500() {
+    max-width: 400px;
+  }
+}
+.ly_size_md {
+  max-width: 1000px;
+  @include max500() {
+    max-width: 400px;
+  }
+}
+
 
 // 余白指定（縦）
 .ly_pdg_bottom_sm{

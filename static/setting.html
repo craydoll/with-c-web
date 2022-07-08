@@ -121,71 +121,39 @@
       <section class="record_screen">
         <div class="ly_contInner ly_contInner_bg">
           <h2 class="cmp_heading_05">集中力を記録しよう</h2>
-          <div>
-            <div class="record_icon_wrapper">
-              <span class="record_icon"></span>
-            </div>
-            <div class="bg_screen"></div>
-          </div>
-          <div class="tac record_screen_btn_wrapper">
-            <div class="ly_size_sm">
-              <dl class="selected_camera">
-                <dt>選択した<br class="max768_b">カメラ</dt>
-                <dd>FaceTime HDカメラ(内蔵) (05ac:8514)</dd>
-              </dl>
-              <div class="record_btn_wrapper">
-                <button class="el_btn el_btn__lor record_screen_btn" href="">
-                  一時停止する
-                </button>
-                <button class="el_btn el_btn__lor record_screen_btn" href="">
-                  測定開始
-                </button>
-              </div>
-            </div>
-            <div class="record_notice">
-              <p>【注意点】</p>
-              <p>
-                ※集中力測定のために撮影された映像・画像等が保存されることはありません。
-              </p>
-              <p>
-                ※他の動画・通話アプリやツール等をすでに起動している場合、本アプリの測定画面が表示されずエラーになることがあります。<br />
-                その場合は一度、他のアプリを閉じてから再度本アプリを開いいただくようにお願いします。
-              </p>
+          <div class="record_type">
+            <p class="el_deco_bracket">カメラの種類を選んでね</p>
+            <div class="select_wrapper">
+              <select class="select_type" name="select_type">
+                <option value="FaceTime">
+                  FaceTime HDカメラ(内蔵) (05ac:8514)
+                </option>
+                <option value="">カメラの種類が入ります</option>
+                <option value="">カメラの種類が入ります</option>
+              </select>
             </div>
           </div>
-        </div>
-      </section>
-      <section class="record_result">
-        <div class="ly_contInner ly_contInner_bg">
-          <div class="record_result_body">
-            <p class="record_result_ttl el_deco_line">測定結果</p>
-            <p class="record_result_date">2022/04/01 10:00~12:00</p>
-            <div class="record_score">
-              <dl>
-                <dt>スコア</dt>
-                <dd>〇〇点</dd>
-              </dl>
-              <dl>
-                <dt>全国平均</dt>
-                <dd>〇〇点</dd>
-              </dl>
+          <div class="record_type">
+            <p class="el_deco_bracket">勉強する教科を選んでね</p>
+            <div class="select_wrapper">
+              <select class="select_type" name="select_type">
+                <option value="Japanese">国語</option>
+                <option value="math">算数</option>
+                <option value="science">理科</option>
+                <option value="social">社会</option>
+                <option value="social">英語</option>
+                <option value="social">その他</option>
+                <option value="social">不要</option>
+              </select>
             </div>
-            <div class="record_result_screen"></div>
-            <div class="record_closing">
-              <div>
-                <p>■ポイントが貯まったら商品と交換しよう！</p>
-                <a class="link_init record_closing_prize" href="prize.html">
-                  商品交換ページはこちら
-                </a>
-              </div>
-              <div class="closing_btn_wrapper">
-                <a class="closing_btn closing_btn_continue" href="index.html">
-                  勉強を続ける
-                </a>
-                <a class="closing_btn closingbtn_end" href="index.html">
-                  終了する
-                </a>
-              </div>
+          </div>
+          <div class="record_type">
+            <p class="el_deco_bracket">計測方法を選んでね</p>
+            <div class="select_wrapper">
+              <select class="select_type" name="select_type">
+                <option value="Japanese">手元で計測する</option>
+                <option value="math">顔で計測する（※ポイントは付きません）</option>
+              </select>
             </div>
           </div>
         </div>

@@ -19,6 +19,11 @@
 .el_btn__lor {
   background-color: $c_lylw;
 }
+.el_btn__sm {
+  min-width: 200px;
+  font-size: 1.4rem;
+  border: 2px solid $c_bk;
+}
 
 // \テキスト/の装飾
 .el_deco_bracket {
@@ -283,7 +288,7 @@
     width: 100%;
     max-width: 40%;
     height: 100px;
-    background-image: url(../../assets/img/deco/deco_chr_line.svg);
+    background-image: url(../../assets/img/deco/deco_chr_line.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;

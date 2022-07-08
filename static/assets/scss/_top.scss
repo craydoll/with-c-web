@@ -283,36 +283,6 @@ header {
 }
 // aboutPoint_end
 
-// recordBox
-
-.recordBox {
-  background-color: $c_lylw;
-  padding: 40px;
-  border-radius: 15px;
-  h2 {
-    margin-bottom: 40px;
-  }
-  .recordBox_list {
-    padding: 30px 0;
-    .recordBox_item {
-      font-size: 2rem;
-      padding: 20px 0;
-      border-top: 2px solid $c_br;
-      &:last-child {
-        border-bottom: 2px solid $c_br;
-      }
-      .recordBox_item_time {
-        padding-bottom: 20px;
-      }
-    }
-  }
-  @include max768 {
-    padding: 20px;
-  }
-}
-
-// recordBox_end
-
 // intro
 
 .intro {

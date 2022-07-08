@@ -21,12 +21,14 @@
     <div class="record_closing">
       <div>
         <p>■ポイントが貯まったら商品と交換しよう！</p>
-        <a class="link_init record_closing_prize" href="prize.html">
+        <NuxtLink class="link_init record_closing_prize" to="prize">
           商品交換ページはこちら
-        </a>
+        </NuxtLink>
       </div>
-      <NuxtLink class="record_closing_end" to="/record">続けて勉強する</NuxtLink>
-      <NuxtLink class="record_closing_end" to="/">終了する</NuxtLink>
+      <div class="closing_btn_wrapper">      
+        <NuxtLink class="closing_btn closing_btn_continue" to="/recSetting">勉強を続ける</NuxtLink>
+        <NuxtLink class="closing_btn closingbtn_end" to="/">終了する</NuxtLink>
+      </div>
     </div>
   </v-card>
 </template>
@@ -91,7 +93,7 @@ export default {
     this.endDate = this.result.end_date
     this.value = this.result.concentration
     this.labels = this.value.map((curr, idx) => {
-      const time = moment(this.startDate).add(idx * 5,'minutes')
+      const time = moment(this.startDate).add(idx * 1,'minutes')
       return moment(time).format('HH:mm')
     })
     this.avg = await StudyRecords.getAverage()

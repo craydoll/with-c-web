@@ -107,7 +107,7 @@
         </div>
         <img class="footer_logo" src="assets/img/logo/logo_02.svg" alt="" />
       </div>
-    </footer>    
+    </footer>  
   </v-app>
 </template>
 <script>
@@ -177,7 +177,7 @@ export default {
     loginBtn() {
       console.log('in loginBtn')
       this.showLogin = true
-    }
+    },
   }
 }
 </script>

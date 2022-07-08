@@ -1,0 +1,46 @@
+.record_type{
+  text-align: center;
+  margin-bottom: 30px;
+  .select_type{
+    overflow: hidden;
+    border: 1px solid #000;
+    padding: 15px 20px;
+    padding-right:40px;
+    border-radius: 50vh;
+    background-color: $c_wt;
+    cursor: pointer;
+    font-family: $corp;
+    width: 100%;
+  }
+  .select_wrapper{
+    display: inline-block;
+    position: relative;
+    width: 300px;
+    max-width: 100%;
+    &::after{
+      content:'';
+      display:inline-block;
+      width: 5px;
+      height: 5px;
+      border-top: 3px solid black;
+      border-right: 3px solid black;
+      -webkit-transform: rotate(135deg);
+      transform: rotate(135deg);
+      position: absolute;
+      margin: auto;
+      bottom: 0;
+      right: 20px;
+      top: 0;
+      pointer-events: none;
+      transition: all 0.5s;
+    }
+    &:checked{ 
+      &::after{
+        content:'';
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        display: none;
+      }
+    }
+  }
+}

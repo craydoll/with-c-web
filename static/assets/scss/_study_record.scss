@@ -1,0 +1,156 @@
+// recordBox
+
+.recordBox {
+  background-color: $c_lylw;
+  padding: 40px;
+  border-radius: 5px;
+  h2 {
+    margin-bottom: 40px;
+  }
+  .recordBox_total{
+    .recordBox_total_graf{
+      background-color: $c_wt;
+      border-radius: 5px;
+      padding: 15px ;
+    }
+  }
+  .recordBox_howto{
+    display: flex;
+    flex-direction: column;
+    .recordBox_howto_list{
+      background-color: $c_wt;
+      border-radius: 5px;
+      padding: 15px ;
+      flex: 1;
+      li{
+        margin-bottom: 7px;
+        &:last-child{
+          margin-bottom: 0;
+        }
+        a{
+          display: block;
+          text-align: center;
+          padding: 7px;
+          background-color: $c_lgr;
+          border-radius: 5px;
+          span{
+            position: relative;
+            &:before{
+              content:'';
+              display:inline-block;
+              width: 20px;
+              height: 20px;
+              background-image: url(../img/ico/ico_finger.svg);
+              background-repeat: no-repeat;
+              background-position:center;
+              background-size: cover;
+              position: absolute;
+              margin: auto;
+              bottom: 0;
+              left: -26px;
+              top: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .recordBox_list_wrapper{
+    margin-top: 50px;
+  }
+  .recordBox_list {
+    .recordBox_item {
+      background-color: $c_wt;
+      border-radius: 5px;
+      padding: 30px 35px;
+      margin-bottom: 20px;
+      @include max768{
+        padding: 30px 15px;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .recordBox_item_date {
+        border: 1px solid $c_br;
+        margin-bottom: 20px;
+        border-radius: 5px ;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        width: 220px;
+        .recordBox_item_date_txt{
+          display: block;
+          border-radius: 2px 0 0 2px;
+          background-color: $c_br;
+          padding: 10px;
+        }
+      }
+      .recordBox_term{
+        background-color: $c_wt;
+        box-shadow: 0 0 5px 3px rgb(235, 235, 235);
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        @include max1080{
+          flex-direction: column;
+          padding: 10px;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .recordBox_item_subject{
+          text-align: center;
+          border-radius: 5px;
+          padding: 5px ;
+          min-width: 100px;
+          color: $c_wt;
+          &.japanese{
+            background-color: $c_br;
+          }
+          &.english{
+            background-color: $c_red;
+          }
+          &.math{
+            background-color: $c_bl;
+          }
+          &.science{
+            background-color: $c_gr;
+          }
+          &.social{
+            background-color: $c_ora;
+          }
+          &.other{
+            background-color: $c_pur;
+          }
+        }
+        .recordBox_item_time{
+          span{
+            border-right: 1px solid #000;
+            padding:0 15px;
+            &:last-child{
+              border-right:  none;
+              padding-right:0 ;
+            }
+          }
+          @include max1080{
+            display: flex;
+            flex-direction: column;
+            span{
+              border-right: none;
+              padding:0;
+            }
+          }
+        }
+      }
+    }
+  }
+  @include max768 {
+    padding: 20px;
+  }
+}
+
+// recordBox_end

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLink v-if="loggedin" class="el_btn el_btn__arrowRight" to="/record">測定スタート</NuxtLink>
+    <NuxtLink v-if="loggedin" class="el_btn el_btn__arrowRight" to="/recSetting">測定スタート</NuxtLink>
     <div v-else class="el_btn el_btn__arrowRight" @click="login">ログインして測定</div>
   </div>
 </template>

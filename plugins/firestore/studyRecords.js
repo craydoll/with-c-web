@@ -59,8 +59,12 @@ export default {
       } else {
         return acc
       }
-    },0)
-    return Math.round(sum / list.length)
+    }, 0)
+    if (list.length) {
+      return Math.round(sum / list.length)
+    } else {
+      return 0
+    }
   },
   async getTotalBySubject(id) {
     const list = await this.getItems(id)
