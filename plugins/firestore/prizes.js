@@ -26,7 +26,6 @@ export default {
       item.reg_date = item.reg_date.toDate()
       return item
     }))
-    console.log(`get list: ${JSON.stringify(items)}`)
     return items
   },
   async save (docId, obj) {

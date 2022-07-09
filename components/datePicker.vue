@@ -21,7 +21,7 @@
           v-model="date"
           :active-picker.sync="activePicker"
           color="green lighten-1"
-          :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+          :max="max"
           min="1950-01-01"
           locale="ja-jp"
           @change="save"
@@ -40,6 +40,11 @@ props: {
       type: String,
       default: '',
       required: true,
+    },
+    max: {
+      type: String,
+      default: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      requierd: false,
     }
   },
   data () {

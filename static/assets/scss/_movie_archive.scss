@@ -1,0 +1,42 @@
+.movie_archive{
+
+  .movie_box{
+    background-color: $c_wt;
+    border-radius: 10px;
+    padding: 30px;
+    .movie_box_ttl{
+      background-color: $c_lgr;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    .movie_box_list{
+      column-count: 2;
+      li{
+        margin-bottom: 30px;
+        &:last-child{
+          margin-bottom: 0;
+        }
+        a{
+          display: inline-block;
+          color: #0000ee;
+          text-decoration: underline;
+          &:visited {
+            color: #551a8b;
+          }
+          &:active {
+            color: #ff0000;
+          }
+        }
+      }
+      @include max1080{
+        column-count: 1;
+        li{
+          a{
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

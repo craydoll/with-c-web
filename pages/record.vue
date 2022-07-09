@@ -1,5 +1,5 @@
 <template>
-  <v-card :class='{clicked:isRecording}'>
+  <v-card :class='{ clicked: isRecording, stopped: isPause}'>
       <section class="record_screen">
         <div class="ly_contInner ly_contInner_bg">
           <h2 class="cmp_heading_05">集中力を記録しよう</h2>
@@ -16,6 +16,7 @@
                 autoplay
                 playsinline
               ></video>
+              <v-img v-if="isPause" class="PauseImg" width="400" height="300" src="/assets/img/record/一時停止中.png"></v-img>
             </div>
           </div>
           <div class="tac record_screen_btn_wrapper">
@@ -30,13 +31,13 @@
                 </button>
               </div>
               <div v-else>
-                <div v-if="!isRecording" class="record_btn_wrapper">
+                <div v-if="!isRecording">
                   <button class="el_btn el_btn__lor record_screen_btn" @click="start">
                     測定開始
                   </button>
                 </div>
-                <div v-else class="record_btn_wrapper">
-                  <button class="el_btn el_btn__lor record_screen_btn" @click="pause">
+                <div v-else class="record_btn_wrapper my-0">
+                  <button class="el_btn el_btn__lor record_stop_btn" @click="pause">
                     一時停止する
                   </button>
                   <button class="el_btn el_btn__lor record_screen_btn" @click="stop">
@@ -67,22 +68,26 @@
     <v-dialog
       v-model="errDiag"
       persistent
-      max-width="290"
+      max-width="500"
     >
       <v-card>
-        <h2 class="cmp_heading_05">エラーが発生しました</h2>
-        <p>
-          測定時間が短いため、集中力が測定できませんでした。
-        </p>
+        <v-card-title>
+        <h2 class="cmp_heading_05">もっと頑張ろう！</h2>
+        </v-card-title>
+        <v-card-text class="text-h4">
+          <h3>
+            10分以上勉強しないと測定できないよ。
+          </h3>
+        </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="green darken-1"
-            text
+          <v-spacer/>
+          <button
+            class="el_btn el_btn__lor record_screen_btn"
             @click="errDiag = false"
           >
             OK
-          </v-btn>
+          </button>
+          <v-spacer/>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -163,24 +168,20 @@ export default {
           }
         })
         console.log('stop respose:' + JSON.stringify(res))
-        if (res.end_date) {
-          res.end_date = new Date(res.end_date)
-        }
-        if (res.start_date) {
-          res.start_date = new Date(res.start_date)
-        }
-
         this.isRecording = false
         this.$router.push({ path: '/result', query: { measure_id: this.measureId } });
       } catch (err) {
         console.log('err is:' + JSON.stringify(err))
         // エラーが発生したら、エラーメッセージ
+        this.overlay = false
+        this.isRecording = false
         this.errDiag = true
       }
     },
     pause() {
       console.log('pause clicked')
       clearInterval(this.timerId)
+      this.video.pause()
       this.isRecording = false
       this.isPause = true
     },
@@ -189,6 +190,7 @@ export default {
       // 番号そのまま
       const captFunc = () => this.capture(this.measureId)
       this.timerId = setInterval(captFunc, 5000);
+      this.video.play()
       this.isRecording = true
       this.isPause = false
     },
@@ -234,9 +236,13 @@ export default {
   width: 200px;
 }
 .Video{
+  position: relative;
   text-align: center;
 }
-.center {
+.PauseImg {
   text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>

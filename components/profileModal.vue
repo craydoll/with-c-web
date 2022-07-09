@@ -1,109 +1,123 @@
 <template>
- <v-dialog
+  <v-dialog
     id="profile-modal"
     v-model="show"
     max-width="500"
     persistent
   >
-    <v-card>
-      <v-card-title>
-        <h3 class="cmp_heading_03">プロフィール</h3>
-      </v-card-title>
-      <v-card-text>
-        <v-row>
-        <v-col
-          cols="6"
-        >
-              <v-carousel
-              v-model="avatar"
-              height="200"
-              hide-delimiters
-              >
-                <v-carousel-item
-                  v-for="(item) in avatarList"
-                  :key="item.id"
-                  :value="item.id"
-                  :src="item.img"
-                  width="200"
-                  reverse-transition="fade-transition"
-                  transition="fade-transition"
-                  class="flex justify-center"
-                ></v-carousel-item>
-              </v-carousel>
-        </v-col>
-        <v-col
-          cols="6"
-          class="flex-column"
-        >
-          <v-text-field
-            v-model="nickname"
-            label="ニックネーム"
-          ></v-text-field>
-          <v-text-field
-            v-model="name"
-            label="氏名"
-          ></v-text-field>
-          <DatePicker
-            label="誕生日"
-            :adate="birth"
-            @ok="setBirth"
-          />
-          <v-select
-            v-model="gender"
-            :items="genderList"
-            label="性別"
-            dense
-          ></v-select>
-          <v-select
-            v-model="area"
-            :items="prefs"
-            label="住んでいる地域"
-            dense
-          ></v-select>
-          <v-select
-            v-model="schoolDiv"
-            :items="schoolDivs"
-            label="通っている学校（区分)"
-            dense
-          ></v-select>
-          <v-text-field
-            v-model="schoolNm"
-            label="通っている学校"
-          ></v-text-field>
-          <v-checkbox
-            v-model="cramSchool"
-            label="私は塾や予備校などに通っています"
-          ></v-checkbox>          
-        </v-col>
-      </v-row>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn
-          color="blue darken-1"
-          text
-          @click="logout"
-        >
-          ログアウト
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn
-          color="blue darken-1"
-          text
-          @click="closed"
-        >
-          キャンセル
-        </v-btn>
-        <v-btn
-          color="blue darken-1"
-          text
-          @click="pressOk"
-        >
-          変更
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-
- </v-dialog>
+    <v-form v-model="valid">
+      <v-card>
+        <v-card-title>
+          <h3 class="cmp_heading_03">プロフィール</h3>
+        </v-card-title>
+        <v-card-text>
+          <v-row>
+          <v-col
+            cols="6"
+          >
+                <v-carousel
+                v-model="avatar"
+                height="200"
+                hide-delimiters
+                >
+                  <v-carousel-item
+                    v-for="(item) in avatarList"
+                    :key="item.id"
+                    :value="item.id"
+                    :src="item.img"
+                    width="200"
+                    reverse-transition="fade-transition"
+                    transition="fade-transition"
+                    class="flex justify-center"
+                  ></v-carousel-item>
+                </v-carousel>
+          </v-col>
+          <v-col
+            cols="6"
+            class="flex-column"
+          >
+            <v-text-field
+              v-model="nickname"
+              required
+              :rules="[v => !!v || 'ニックネームは必須です']"
+              label="ニックネーム*"
+            ></v-text-field>
+            <v-text-field
+              v-model="name"
+              label="氏名"
+            ></v-text-field>
+            <DatePicker
+              label="誕生日*"
+              required
+              :rules="[v => !!v || '誕生日は必須です']"
+              :adate="birth"
+              @ok="setBirth"
+            />
+            <v-select
+              v-model="gender"
+              :items="genderList"
+              label="性別*"
+              dense
+              required
+              :rules="[v => !!v || '性別は必須です']"
+            ></v-select>
+            <v-select
+              v-model="area"
+              :items="prefs"
+              label="住んでいる地域*"
+              dense
+              required
+              :rules="[v => !!v || '住んでいる地域は必須です']"
+            ></v-select>
+            <v-select
+              v-model="schoolDiv"
+              :items="schoolDivs"
+              label="通っている学校（区分)*"
+              dense
+              required
+              :rules="[v => !!v || '通っている学校（区分）は必須です']"
+            ></v-select>
+            <v-text-field
+              v-model="schoolNm"
+              label="通っている学校*"
+              required
+              :rules="[v => !!v || '通っている学校名は必須です']"
+            ></v-text-field>
+            <v-checkbox
+              v-model="cramSchool"
+              label="私は塾や予備校などに通っています"
+            ></v-checkbox>          
+          </v-col>
+        </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="logout"
+          >
+            ログアウト
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="closed"
+          >
+            キャンセル
+          </v-btn>
+          <v-btn
+            :disabled="!valid"
+            color="blue darken-1"
+            text
+            @click="pressOk"
+          >
+            登録
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-form>
+  </v-dialog>
 </template>
 <script>
 import appError, { ApplicationError } from '@/plugins/firestore/appError'
@@ -197,7 +211,8 @@ export default {
       ],
       schoolDivs: [
         '国立','都道府県立','市立','私立',
-      ]
+      ],
+      valid: false,
     }
   },
   computed: {

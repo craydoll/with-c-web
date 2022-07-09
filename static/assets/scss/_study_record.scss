@@ -24,6 +24,23 @@
       flex: 1;
       li{
         margin-bottom: 7px;
+        &.close_layer{
+          position: relative;
+          pointer-events: none;
+          &::after{
+            content: "準備中";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            background-color:rgba(140, 140, 140, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
         &:last-child{
           margin-bottom: 0;
         }

@@ -1139,6 +1139,7 @@ header .sp-menu .el_btn {
   border: 2px solid #C9BC9C;
   padding: 15px;
   border-radius: 10px;
+  background-color: #fff;
 }
 .intro .intro_item .intro_item_body {
   display: flex;
@@ -1311,9 +1312,12 @@ footer .footer_menu a {
 .record_screen .record_screen_btn_wrapper {
   margin-top: 30px;
 }
+.record_screen .record_screen_btn_wrapper .record_btn_wrapper {
+  margin-bottom: 30px;
+  align-items: center;
+}
 .record_screen .record_screen_btn_wrapper .record_screen_btn {
   cursor: pointer;
-  margin-bottom: 30px;
 }
 .record_screen .record_screen_btn_wrapper .record_notice {
   text-align: left;
@@ -1429,8 +1433,17 @@ footer .footer_menu a {
   box-shadow: 0 0 10px #FF3700, 0 0 40px #FF3700, 0 0 80px #FF3700;
 }
 .clicked .record_icon::before {
-  content: "測定中";
+  content: "録画中";
   color: #FF3700;
+}
+
+.stopped .record_icon {
+  background: #dcc322;
+  box-shadow: 0 0 10px #dcc322, 0 0 40px #dcc322, 0 0 80px #dcc322;
+}
+.stopped .record_icon::before {
+  content: "停止中";
+  color: #dcc322;
 }
 
 .record_result_body {
@@ -1544,6 +1557,19 @@ footer .footer_menu a {
   transform: rotate(0deg);
   display: none;
 }
+.record_type .test_screen_wrapper {
+  margin: 20px auto 50px auto;
+  width: 40%;
+}
+.record_type .test_screen {
+  width: 100%;
+  aspect-ratio: 3/2;
+  background-color: #000;
+}
+
+.setting_btn {
+  margin-top: 50px;
+}
 
 .recordBox {
   background-color: #FFF0C9;
@@ -1570,6 +1596,23 @@ footer .footer_menu a {
 }
 .recordBox .recordBox_howto .recordBox_howto_list li {
   margin-bottom: 7px;
+}
+.recordBox .recordBox_howto .recordBox_howto_list li.close_layer {
+  position: relative;
+  pointer-events: none;
+}
+.recordBox .recordBox_howto .recordBox_howto_list li.close_layer::after {
+  content: "準備中";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background-color: rgba(140, 140, 140, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .recordBox .recordBox_howto .recordBox_howto_list li:last-child {
   margin-bottom: 0;
@@ -1696,5 +1739,47 @@ footer .footer_menu a {
 @media screen and (max-width: 768px) {
   .recordBox {
     padding: 20px;
+  }
+}
+
+.movie_archive .movie_box {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+}
+.movie_archive .movie_box .movie_box_ttl {
+  background-color: #edffd0;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.movie_archive .movie_box .movie_box_list {
+  -moz-column-count: 2;
+       column-count: 2;
+}
+.movie_archive .movie_box .movie_box_list li {
+  margin-bottom: 30px;
+}
+.movie_archive .movie_box .movie_box_list li:last-child {
+  margin-bottom: 0;
+}
+.movie_archive .movie_box .movie_box_list li a {
+  display: inline-block;
+  color: #0000ee;
+  text-decoration: underline;
+}
+.movie_archive .movie_box .movie_box_list li a:visited {
+  color: #551a8b;
+}
+.movie_archive .movie_box .movie_box_list li a:active {
+  color: #ff0000;
+}
+@media screen and (max-width: 1080px) {
+  .movie_archive .movie_box .movie_box_list {
+    -moz-column-count: 1;
+         column-count: 1;
+  }
+  .movie_archive .movie_box .movie_box_list li a {
+    font-size: 14px;
   }
 }

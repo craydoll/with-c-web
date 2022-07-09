@@ -18,34 +18,34 @@
                   <p class="cmp_heading_03">下の項目をクリックすると各教科のおすすめ勉強法が見れるよ！</p>
                   <ul class="recordBox_howto_list">
                     <li>
+                      <NuxtLink to="/movie_archive">
+                        <span>
+                          算数のオススメ勉強方法を見る
+                        </span>
+                      </NuxtLink>
+                    </li>
+                    <li class="close_layer">
                       <a href="">
                         <span>
                           国語のオススメ勉強方法を見る
                         </span>
                       </a>
                     </li>
-                    <li>
-                      <a href="">
-                        <span>
-                          算数のオススメ勉強方法を見る
-                        </span>
-                      </a>
-                    </li>
-                    <li>
+                    <li class="close_layer">
                       <a href="">
                         <span>
                           理科のオススメ勉強方法を見る
                         </span>
                       </a>
                     </li>
-                    <li>
+                    <li class="close_layer">
                       <a href="">
                         <span>
                           社会のオススメ勉強方法を見る
                         </span>
                       </a>
                     </li>
-                    <li>
+                    <li class="close_layer">
                       <a href="">
                         <span>
                           英語のオススメ勉強方法を見る

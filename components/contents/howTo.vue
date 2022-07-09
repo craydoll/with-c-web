@@ -75,7 +75,8 @@
         ※測定データを残すためには、利用登録およびログインが必要です。<br />
         ※webカメラ・ヘッドマウントシステム「with」の詳細は<a
           class="link_init"
-          href=""
+          href="https://youtu.be/ffM5Zl-wgcA"
+          target="_blank"
           >こちら</a
         >
       </p>

@@ -3,7 +3,12 @@ $(function(){
 
 
   $(".record_screen_btn").on("click", function(){
+    $('.record').removeClass("stopped"); 
     $('.record').toggleClass("clicked");  
+  });
+  $(".record_stop_btn").on("click", function(){
+    $('.record').removeClass("clicked");  
+    $('.record').toggleClass("stopped");  
   });
 	
   // チェックボタンは一つだけ押せる仕様に

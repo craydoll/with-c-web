@@ -52,6 +52,34 @@
                     <v-text-field v-model="editedItem.donor" label="提供者" />
                   </v-row>
                   <v-row>
+                    <v-select
+                      v-model="editedItem.place"
+                      :items="placeList"
+                      label="引換会場"
+                      dense
+                      required
+                      :rules="[v => !!v || '引換会場は必須です']"
+                    ></v-select>
+                  </v-row>
+                  <v-row>
+                    <v-select
+                      v-model="editedItem.category"
+                      :items="categoryList"
+                      label="商品カテゴリ"
+                      dense
+                      required
+                      :rules="[v => !!v || 'カテゴリは必須です']"
+                    ></v-select>
+                  </v-row>
+                  <v-row>
+                    <DatePicker
+                      label="消費期限"
+                      :adate="editedItem.expiration"
+                      max=""
+                      @ok="editedItem.expiration=$event"
+                    />                    
+                  </v-row>
+                  <v-row>
                     <v-file-input v-model="editedItem.img" accept="image/*" show-size label="画像" @change="onImagePicked" />
                     <img v-if="uploadImageUrl" :src="uploadImageUrl" width="100">
                   </v-row>
@@ -113,14 +141,28 @@ export default {
         { value: 'market_price', text: '価格' },
         { value: 'stock', text: '在庫' },
         { value: 'donor', text: '提供者' },
+        { value: 'place', text: '引換会場' },
+        { value: 'category', text: '商品カテゴリ' },
+        { value: 'expiration', text: '消費期限' },
       ],
       rows: [],
-      editedItem: {},
+      editedItem: {img:[]},
       defaultItem: {},
       editedIndex: -1,
       message: '',
       level: '',
-      uploadImageUrl: null
+      uploadImageUrl: null,
+      image: null,
+      placeList: [
+        '新江古田B.O',
+        '西新宿B.O',
+        '北九州八幡B.O',
+      ],
+      categoryList: [
+        '食材',
+        '教材',
+        'その他'
+      ]
     }
   },
   computed: {
@@ -153,6 +195,7 @@ export default {
     editItem (item) {
       this.editedIndex = this.rows.indexOf(item)
       this.editedItem = item
+      this.uploadImageUrl = item.img
       this.dialog = true
     },
     async deleteItem (item) {
@@ -185,6 +228,9 @@ export default {
         market_price: this.editedItem.market_price,
         stock: this.editedItem.stock,
         donor: this.editedItem.donor,
+        place: this.editedItem.place,
+        category: this.editedItem.category,
+        expiration: this.editedItem.expiration,
         reg_date: new Date()
       }
       if (this.uploadImageUrl) {
@@ -236,6 +282,9 @@ export default {
         callback(imgB64Dst)
       }
       img.src = imgB64Src
+    },
+    setExpiration(date) {
+      console.log('in setExpiration;' + date)
     }
   }
 }

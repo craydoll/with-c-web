@@ -11,9 +11,12 @@
 .record_screen {
   .record_screen_btn_wrapper {
     margin-top: 30px;
+    .record_btn_wrapper{
+      margin-bottom: 30px;
+      align-items: center;
+    }
     .record_screen_btn {
       cursor: pointer;
-      margin-bottom: 30px;
     }
     .record_notice {
       text-align: left;
@@ -130,8 +133,18 @@
     background: $c_red;
     box-shadow: 0 0 10px $c_red, 0 0 40px $c_red, 0 0 80px $c_red;
     &::before {
-      content: "測定中";
+      content: "録画中";
       color: $c_red;
+    }
+  }
+}
+.stopped {
+  .record_icon {
+    background: $c_dylw;
+    box-shadow: 0 0 10px $c_dylw, 0 0 40px $c_dylw, 0 0 80px $c_dylw;
+    &::before {
+      content: "停止中";
+      color: $c_dylw;
     }
   }
 }

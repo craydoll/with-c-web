@@ -1,18 +1,10 @@
 <template>
   <v-app>
-    <v-app-bar app color="#c9bc9c" scroll-target="#body">
-      <NuxtLink to="/"><img src="/assets/img/logo/logo.svg" alt="withプラス" /></NuxtLink>
-      <v-app-bar-title class="text-h3">
-        管理システム
-      </v-app-bar-title>
-              <v-spacer></v-spacer>
-    </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
       fixed
-      permanent
       app
     >
       <v-list>
@@ -32,6 +24,14 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <v-app-bar app color="#c9bc9c" scroll-target="#body">
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <NuxtLink to="/"><img src="/assets/img/logo/logo.svg" alt="withプラス" /></NuxtLink>
+      <v-app-bar-title class="text-h3">
+        管理システム
+      </v-app-bar-title>
+              <v-spacer></v-spacer>
+    </v-app-bar>
     <v-main id="#body">
       <v-container fluid class="ma-0 pa-0">
         <Nuxt />
@@ -45,8 +45,8 @@ export default {
   middleware: 'authenticated',
   data() {
     return {
-      drawer: true,
-      miniVariant: 0,
+      drawer: false,
+      miniVariant: false,
       clipped: true,
       items:[
         {title:'景品登録',to:'/productList',icon:'mdi-shopping'},

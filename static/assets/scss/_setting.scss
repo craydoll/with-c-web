@@ -43,4 +43,17 @@
       }
     }
   }
+  .test_screen_wrapper{
+    margin: 20px auto 50px auto;
+    width: 40%;
+  }
+  .test_screen{
+    width: 100%;
+    aspect-ratio: 3/ 2;
+    background-color: $c_bk;
+  }
+}
+
+.setting_btn{
+  margin-top: 50px;
 }

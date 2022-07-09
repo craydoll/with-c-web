@@ -4,26 +4,6 @@
       <div class="ly_contInner ly_contInner_bg">
         <h2 class="cmp_heading_05">集中力を記録しよう</h2>
         <div class="record_type">
-          <p class="el_deco_bracket">カメラの種類を選んでね</p>
-          <div class="select_wrapper">
-            <select v-model="camera" class="select_type" name="select_type">
-              <option v-for="item in cameras" :key="item.id" :value="item">
-                {{ item.name }}
-              </option>
-            </select>
-          </div>
-          <div class="Video">
-            <video
-              id="video"
-              ref="video"
-              width="100"
-              height="70"
-              autoplay
-              playsinline
-            ></video>
-          </div>
-        </div>
-        <div class="record_type">
           <p class="el_deco_bracket">勉強する教科を選んでね</p>
           <div class="select_wrapper">
             <select
@@ -33,7 +13,7 @@
               required
             >
               <option>国語</option>
-              <option>算数</option>
+              <option>算数／数学</option>
               <option>理科</option>
               <option>社会</option>
               <option>英語</option>
@@ -58,11 +38,32 @@
             </select>
           </div>
         </div>
-        <div class="tac record_screen_btn_wrapper">
-          <button class="el_btn el_btn__lor record_screen_btn" @click="toRecordPage">
-          測定する
-          </button>
-        </div>
+          <div class="record_type">
+            <p class="el_deco_bracket">カメラの種類を選んでね</p>
+            <div class="select_wrapper">
+              <select v-model="camera" class="select_type" name="select_type">
+                <option v-for="item in cameras" :key="item.id" :value="item">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+            <div class="test_screen_wrapper">
+              <p>【テスト映像】</p>
+              <video
+                id="video"
+                ref="video"
+                width="400"
+                height="300"
+                autoplay
+                playsinline
+              ></video>
+            </div>
+          </div>
+          <div class="setting_btn el_btn_location">
+            <button class="el_btn el_btn__lor record_screen_btn" @click="toRecordPage">
+              録画測定の画面へ
+            </button>
+          </div>
       </div>
     </section>
   </main>
@@ -99,15 +100,16 @@ export default {
       })
     })
     this.cameras = cameras
-    console.log('this.cameras:' + JSON.stringify(this.cameras))
     this.video = this.$refs.video
     this.camera = cameras[0]
-    this.changeCamera()
+    console.log('this.camera:' + JSON.stringify(this.camera))
+    if (this.camera) {
+      this.changeCamera()
+    }
   },
   methods: {
     changeCamera() {
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        console.log('in changeCamera:' + this.camera.id)
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && this.camera) {
         navigator.mediaDevices
           .getUserMedia({ video: { optional: [{ sourceId: this.camera.id }] } })
           .then((stream) => {
@@ -117,6 +119,7 @@ export default {
       }
     },
     toRecordPage() {
+      if (this.camera && this.subject && this.method) {
       this.$router.push({
         path: '/record',
         query: {
@@ -126,6 +129,7 @@ export default {
           method: this.method,
         },
       })      
+      }
     }
   },
 }
