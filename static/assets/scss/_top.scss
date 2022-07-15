@@ -305,9 +305,21 @@ header {
     .intro_pic {
       width: 35%;
       text-align: center;
+      position: relative;
       img {
         object-fit: cover;
         max-height: 170px;
+      }
+      &::after{
+        content:'©(般社)ステップアップ\A教育支援機構';
+        display:inline-block;
+        font-size: 10px;
+        position: absolute;
+        white-space: pre;
+        bottom: -20px;
+        left: 0;
+        right: 0;
+        margin: auto;
       }
     }
     .intro_desc {
@@ -459,6 +471,14 @@ footer {
       display: block;
     }
   }
+}
+
+small{
+  display: block;
+  background-color: lighten($c_br, 15%);
+  text-align: center;
+  padding: 8px ;
+  font-size: 12px;
 }
 
 // footer_end

@@ -33,7 +33,7 @@
   </v-card>
 </template>
 <script>
-import ChartContainer from '@/components/ChartContainer'
+import ChartContainer from '@/components/resultChart'
 import StudyRecords from '~/plugins/firestore/studyRecords'
 import moment from '@/plugins/moment-ja'
 export default {

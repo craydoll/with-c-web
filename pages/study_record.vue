@@ -10,7 +10,10 @@
                   <h3 class="cmp_heading_04">学習総量</h3>
                   <p class="cmp_heading_03">各教科の学習総量を棒グラフで表しているよ！</p>
                   <div class="recordBox_total_graf">
-                    <img src="assets/img/fig/fig_graf.png" alt="学習総量の棒グラフ">
+                    <StudyTimeChart
+                      :labels="labels"
+                      :val="data"                      
+                    />
                   </div>
                 </div>
                 <div class="col2_item recordBox_howto">
@@ -87,7 +90,12 @@
 </template>
 <script>
 import StudyRecords from '@/plugins/firestore/studyRecords'
+import Users from '@/plugins/firestore/users'
+import StudyTimeChart from '@/components/studyTimeChart'
 export default {
+  components: {
+    StudyTimeChart
+  },
   layout: 'protected',
   data() {
     return {
@@ -102,9 +110,13 @@ export default {
     this.isLoggedIn = await this.$store.getters['auth/isLoggedIn']
     this.user = await this.$store.getters['auth/user']
     if (this.user) {
-    this.studyRecords = await StudyRecords.getItems(this.user.id)
-    this.totalTimes = await StudyRecords.getTotalBySubject(this.user.id)
-    console.log('in mounted:' + JSON.stringify(this.studyRecords))
+      this.studyRecords = await StudyRecords.getItems(this.user.id)
+      this.totalTimes = await Users.getTotalBySubject(this.user.id)
+      console.log('in mounted:' + JSON.stringify(this.totalTimes))
+      this.totalTimes.forEach((item) => {
+        this.labels.push(item.subject)
+        this.data.push(item.time)
+      })
     }
   },
 }

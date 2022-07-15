@@ -574,7 +574,20 @@ select {
 }
 
 .bl_media_chr_character {
-  width: 40%;
+  width: 42%;
+  position: relative;
+}
+.bl_media_chr_character::after {
+  content: "©(般社)ステップアップ\a教育支援機構";
+  display: inline-block;
+  font-size: 10px;
+  position: absolute;
+  white-space: pre;
+  bottom: -35px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
 }
 
 .bl_media_chr_chrName {
@@ -587,15 +600,12 @@ select {
   .bl_media_chr_explain {
     width: 100%;
   }
-
   .bl_media_chr_fig {
     width: 100%;
   }
-
   .bl_media_chr_character {
     width: 30%;
   }
-
   .bl_media_chr_chrName {
     font-size: 1rem;
   }
@@ -1148,11 +1158,23 @@ header .sp-menu .el_btn {
 .intro .intro_item .intro_pic {
   width: 35%;
   text-align: center;
+  position: relative;
 }
 .intro .intro_item .intro_pic img {
   -o-object-fit: cover;
      object-fit: cover;
   max-height: 170px;
+}
+.intro .intro_item .intro_pic::after {
+  content: "©(般社)ステップアップ\a教育支援機構";
+  display: inline-block;
+  font-size: 10px;
+  position: absolute;
+  white-space: pre;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 .intro .intro_item .intro_desc {
   flex: 1;
@@ -1287,6 +1309,14 @@ footer .footer_menu li {
 }
 footer .footer_menu a {
   display: block;
+}
+
+small {
+  display: block;
+  background-color: #e4dece;
+  text-align: center;
+  padding: 8px;
+  font-size: 12px;
 }
 
 .adjust_chrSize.w40 {

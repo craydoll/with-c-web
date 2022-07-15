@@ -1,4 +1,5 @@
 import { db } from '../firebase'
+import avatars from './avatars'
 
 const tbName = 'users'
 
@@ -19,10 +20,14 @@ export default {
   },
   async getFromDB (docRef) {
     const snapshot = await docRef.get()
-    const items = await Promise.all(snapshot.docs.map((doc) => {
+    const items = await Promise.all(snapshot.docs.map(async (doc) => {
       const item = doc.data()
       // 個別の変換処理
       item.id = doc.id
+      const avatar = await avatars.getItem(item.avatar)
+      if (avatar) {
+        item.img = avatar.img
+      }
       return item
     }))
     console.log(`get list: ${JSON.stringify(items)}`)
@@ -43,5 +48,17 @@ export default {
   },
   async delete (docId) {
     return await db.collection(tbName).doc(docId).delete()
+  },
+  async getTotalBySubject(id) {
+    const totalRef = db.collection(tbName).doc(id).collection('total')
+    const totalDocs = totalRef.get()
+
+    const list = (await totalDocs).docs.map((doc) => {
+      const item = doc.data()
+      item.subject = doc.id
+      console.log('item is ' + JSON.stringify(item))
+      return item
+    })
+    return list
   },
 }

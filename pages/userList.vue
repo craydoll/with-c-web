@@ -19,17 +19,6 @@
           />
           <v-spacer />
           <v-dialog v-model="dialog" max-width="500px">
-            <template #activator="{ on, attrs }">
-              <v-btn
-                color="green"
-                dark
-                class="mb-2"
-                v-bind="attrs"
-                v-on="on"
-              >
-                新規登録
-              </v-btn>
-            </template>
             <v-card>
               <v-card-title>
                 <span class="headline">{{ formTitle }}</span>
@@ -53,6 +42,18 @@
                   </v-row>
                   <v-row>
                     <v-text-field v-model="editedItem.nickname" label="ニックネーム" />
+                  </v-row>
+                  <v-row>
+                    <v-switch
+                      v-model="editedItem.isAdmin"
+                      color="red"
+                      label="管理者"
+                    ></v-switch>
+                    <v-switch
+                      v-model="editedItem.isTeacher"
+                      color="orange"
+                      label="講師"
+                    ></v-switch>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -84,8 +85,18 @@
           mdi-delete
         </v-icon>
       </template>
-      <template #[`item.img`]="data">
+      <template #[`item.avatar`]="data">
         <v-img width="50" :src="data.item.img" />
+      </template>
+      <template #[`item.isAdmin`]="data">
+        <v-icon
+          v-if="data.item.isAdmin"
+          class="mr-2"
+        >mdi-account-wrench</v-icon>
+        <v-icon
+          v-if="data.item.isTeacher"
+          class="mr-2"
+        >mdi-account-school</v-icon>
       </template>
       <template #no-data>
         明細はありません
@@ -104,6 +115,7 @@ export default {
       dialog: false,
       fields: [
         { value: 'edit', text: '編集' },
+        { value: 'isAdmin', text: '権限' },
         { value: 'area', text: 'エリア' },
         { value: 'avatar', text: 'アバター' },
         { value: 'birth', text: '誕生日' },

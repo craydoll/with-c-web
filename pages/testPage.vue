@@ -7,15 +7,15 @@
   </v-card>
 </template>
 <script>
-import ChartContainer from '@/components/ChartContainer'
+import ChartContainer from '@/components/studyTimeChart'
 
 export default {
   components: {
     ChartContainer
   },
   data: () => ({
-      labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"],
-      value: [50, 74, 80, 70, 75, 30, 25, 35, 20, 80, 85, 50, 85, 60, 70, 75],
+      labels: ["国語", "算数/数学", "理科", "社会", "英語", "その他"],
+      value: [50, 74, 80, 70, 75, 30],
   }),
 }
 </script>

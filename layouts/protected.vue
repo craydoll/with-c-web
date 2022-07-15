@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar id="header" app :prominent="!isMobile" flat color="#c9bc9c" >
-      <div class="ly_headerInner header_flx" app>
+      <v-container class="ly_headerInner header_flx" app>
         <h1 class="header_logo">
           <NuxtLink to="/">
             <img src="assets/img/logo/logo_02.svg" alt="withプラス" />
@@ -9,6 +9,32 @@
         </h1>
         <div class="header_logo_eco">
           <img src="assets/img/logo/logo_eco.svg" alt="ecoの志士" />
+        <v-btn
+          v-if="isTeacher"
+          absolute
+          small
+          right
+          bottom
+          fab
+        >        
+          <v-icon
+            class="mr-2"
+          >mdi-account-school</v-icon>
+          </v-btn>
+        <v-btn
+          v-if="isAdmin"
+          class="mx-15"
+          absolute
+          small
+          right
+          bottom
+          fab
+        > 
+          <v-icon
+            absolute
+            class="mr-2"
+          >mdi-account-wrench</v-icon>
+        </v-btn>
         </div>
         <!-- Hamburger-icon -->
         <v-app-bar-nav-icon v-if="isMobile" class="max1090_b hamburger_icon" @click="drawer = true">
@@ -32,7 +58,8 @@
             </li>
           </ul>
         </nav>
-      </div>
+      </v-container>
+
       <div class="align-self-center">
         <v-btn v-if="isLoggedIn" name="profile" :small="isMobile" fab @click="showProfile=true">
           <v-avatar size="50">
@@ -42,6 +69,7 @@
             >
           </v-avatar>
         </v-btn>
+
         <TermsModal
           :modal-show="showTerms"
           @login="loginBtn"
@@ -107,6 +135,9 @@
         </div>
         <img class="footer_logo" src="assets/img/logo/logo_02.svg" alt="" />
       </div>
+      <small>
+        &copy;(般社)ステップアップ教育支援機構
+      </small>      
     </footer>  
   </v-app>
 </template>
@@ -135,6 +166,8 @@ export default {
       showLogin: false,
       showTerms: false,
       drawer: false,
+      isTeacher: false,
+      isAdmin: false,
     }
   },
   computed: {
@@ -156,6 +189,8 @@ export default {
       if (this.user !== null) {
         // ユーザー登録されている場合
         this.avatar = await Avatars.getItem(this.user.avatar)
+        this.isTeacher = this.user.isTeacher
+        this.isAdmin = this.user.isAdmin
       } else {
         // まだユーザー登録されていない
         this.showProfile = true

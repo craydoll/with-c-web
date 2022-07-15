@@ -238,6 +238,8 @@ export default {
 .Video{
   position: relative;
   text-align: center;
+  width: 400px;
+  margin: 0 auto;  
 }
 .PauseImg {
   text-align: center;
