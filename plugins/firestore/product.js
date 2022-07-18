@@ -25,7 +25,6 @@ export default {
       item.id = doc.id
       return item
     }))
-    console.log(`get list: ${JSON.stringify(items)}`)
     return items
   },
   async save (docId, obj) {

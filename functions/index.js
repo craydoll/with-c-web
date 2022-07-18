@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
@@ -23,6 +24,7 @@ exports.calcPoint = functions.region("asia-northeast1")
     .firestore.document("/users/{userId}/study_records/{recId}")
     .onCreate(async (snap, context) => {
       // 挿入されたレコードから必要な内容をとってくる
+      console.log("start calcPoint");
       const doc = snap.data();
       const givePoint = doc.point;
 

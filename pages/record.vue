@@ -1,5 +1,5 @@
 <template>
-  <v-card :class='{ clicked: isRecording, stopped: isPause}'>
+  <body :class='{ clicked: isRecording, stopped: isPause}'>
       <section class="record_screen">
         <div class="ly_contInner ly_contInner_bg">
           <h2 class="cmp_heading_05">集中力を記録しよう</h2>
@@ -11,12 +11,25 @@
               <video
                 id="video"
                 ref="video"
-                width="400"
-                height="300"
+                width="100%"
+                height="100%"
                 autoplay
                 playsinline
               ></video>
-              <v-img v-if="isPause" class="PauseImg" width="400" height="300" src="/assets/img/record/一時停止中.png"></v-img>
+              <v-img v-if="isPause" class="PauseImg" width="100%" height="100%" src="/assets/img/record/一時停止中.png"></v-img>
+              <v-img v-if="showGuide" class="PauseImg" width="100%" height="100%" src="/assets/img/record/手元測定.png"></v-img>
+              <v-btn
+                absolute
+                right
+                top
+                x-small
+                dark
+                @click="fullScrBtn"
+              >
+                <v-icon>
+                  mdi-fullscreen
+                </v-icon>
+              </v-btn>
             </div>
           </div>
           <div class="tac record_screen_btn_wrapper">
@@ -65,6 +78,29 @@
         size="64"
       ></v-progress-circular>
     </v-overlay>
+    <div v-show="showFullscr" class="fVideo">
+      <video
+        id="fvideo"
+        ref="fvideo"
+        height="100%"
+        autoplay
+        playsinline
+      ></video>
+      <v-img v-if="isPause" class="PauseImg" width="100%" height="100%" src="/assets/img/record/一時停止中.png"></v-img>
+      <v-img v-if="showGuide" class="PauseImg" width="100%" height="100%" src="/assets/img/record/手元測定.png"></v-img>
+      <v-btn
+        absolute
+        right
+        top
+        x-small
+        dark
+        @click="exitFullScrBtn"
+      >
+        <v-icon>
+          mdi-fullscreen-exit
+        </v-icon>
+      </v-btn>
+    </div>
     <v-dialog
       v-model="errDiag"
       persistent
@@ -91,7 +127,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-card>
+  </body>
 </template>
 <script>
 import firebase from '@/plugins/firebase'
@@ -102,6 +138,7 @@ export default {
   data() {
     return {
       video: {},
+      fvideo: {},
       canvas: {},
       timerId: null,
       isRecording: false,
@@ -114,7 +151,9 @@ export default {
       method:'',      
       result: {},
       overlay: false,
-      errDiag: false
+      errDiag: false,
+      showGuide: true,
+      showFullscr: false,
     }
   },
   async mounted () {
@@ -137,13 +176,19 @@ export default {
     this.subject = this.$route.query.subject
     console.log('camera:' + this.cameraId)
     this.video = this.$refs.video
+    this.fvideo = this.$refs.fvideo
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ video: { optional: [{sourceId: this.cameraId}] }}).then(stream => {
         this.video.srcObject = stream
         this.video.play()
+        this.fvideo.srcObject = stream
+        this.fvideo.play()
       })
     }
     this.user = await this.$store.getters['auth/user']
+    const turnOffGuideImg = () => { this.showGuide = false }
+    this.showGuide = true
+    this.timerId = setTimeout(turnOffGuideImg, 5000);
   },
   methods: {
     start() {
@@ -228,18 +273,34 @@ export default {
         })
       }
     },
+    fullScrBtn() {
+      this.showFullscr = true
+    },
+    exitFullScrBtn() {
+      this.showFullscr = false
+    },
+
   }
 }
 </script>
 <style scoped>
-#canvas {
-  width: 200px;
-}
 .Video{
   position: relative;
   text-align: center;
   width: 400px;
   margin: 0 auto;  
+}
+.fVideo{
+    position: fixed;
+    z-index: 6;
+    text-align: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
 }
 .PauseImg {
   text-align: center;

@@ -91,3 +91,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+html {
+  font-size: 10px
+}
+</style>

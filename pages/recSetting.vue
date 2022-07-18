@@ -1,4 +1,5 @@
 <template>
+  <body>
   <main class="record">
     <section class="record_screen">
       <div class="ly_contInner ly_contInner_bg">
@@ -67,6 +68,7 @@
       </div>
     </section>
   </main>
+  </body>
 </template>
 <script>
 // import studyRecords from '~/plugins/firestore/studyRecords'

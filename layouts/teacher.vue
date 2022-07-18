@@ -19,7 +19,7 @@
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title class="h3-text" v-text="item.title"/>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -28,7 +28,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <NuxtLink to="/"><img src="/assets/img/logo/logo.svg" alt="withプラス" /></NuxtLink>
       <v-app-bar-title class="text-h3">
-        管理システム
+        講師用
       </v-app-bar-title>
               <v-spacer></v-spacer>
     </v-app-bar>
@@ -42,16 +42,14 @@
 <script>
 export default {
   name: 'DefaultLayout',
-  middleware: 'adminAuth',
+  middleware: 'teacherAuth',
   data() {
     return {
       drawer: false,
       miniVariant: false,
       clipped: true,
       items:[
-        {title:'景品登録',to:'/productList',icon:'mdi-shopping'},
-        {title:'ユーザー登録',to:'/userList',icon:'mdi-account-group'},
-        {title:'キャラクタ登録',to:'/avatarList',icon:'mdi-cat'},
+        {title:'利用者一覧',to:'/userList2',icon:'mdi-account-group'},
       ]
     }
   },

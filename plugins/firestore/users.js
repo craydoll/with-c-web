@@ -28,9 +28,10 @@ export default {
       if (avatar) {
         item.img = avatar.img
       }
+      const total = await this.getTotalBySubject(doc.id)
+      item.total = total
       return item
     }))
-    console.log(`get list: ${JSON.stringify(items)}`)
     return items
   },
   async save (docId, obj) {

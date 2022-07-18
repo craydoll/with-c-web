@@ -28,7 +28,7 @@ export default {
     chartData: null,
     options: {},
     myStyles: null,
-    height: 100
+    height: 210
   }),
   watch: {
     val() {
@@ -77,7 +77,11 @@ export default {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              stepSize: 10,
+              stepSize: 60,
+            },
+            scaleLabel: {
+              display: true,
+              labelString: '学習時間（分）'
             }
           }]
         }

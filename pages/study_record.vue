@@ -1,4 +1,6 @@
 <template>
+  <body>
+
     <main class="study_record">
       <div class="ly_contInner ly_contInner_bg">
         <h2 class="cmp_heading_05 el_deco_line">学習記録</h2>
@@ -23,7 +25,7 @@
                     <li>
                       <NuxtLink to="/movie_archive">
                         <span>
-                          算数のオススメ勉強方法を見る
+                          算数/数学のオススメ勉強方法を見る
                         </span>
                       </NuxtLink>
                     </li>
@@ -76,7 +78,8 @@
                       <p class="recordBox_item_time">
                         <span>開始時間：{{item.start_date | format-time}}</span>
                         <span>終了時間：{{item.end_date | format-time}}</span>
-                        <span>総学習時間：{{(item.end_date - item.start_date) | format-time}}</span>
+                        <!-- ここはミリ秒 -->
+                        <span>総学習時間：{{Math.round((item.end_date - item.start_date)/(60 * 1000))}}分</span>
                       </p>
                     </div>
                   </li>
@@ -87,6 +90,7 @@
         </section>
       </div>
     </main>
+  </body>
 </template>
 <script>
 import StudyRecords from '@/plugins/firestore/studyRecords'
@@ -115,7 +119,8 @@ export default {
       console.log('in mounted:' + JSON.stringify(this.totalTimes))
       this.totalTimes.forEach((item) => {
         this.labels.push(item.subject)
-        this.data.push(item.time)
+        // 時間は秒で保存されている
+        this.data.push(item.time / 60)
       })
     }
   },

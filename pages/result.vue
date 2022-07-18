@@ -1,5 +1,5 @@
 <template>
-  <v-card class="record_result_body">
+<body class="record_result_body">
     <p class="record_result_ttl el_deco_line">測定結果</p>
     <p class="record_result_date my-2">{{startDate | format-datetime}} ~ {{endDate | format-time}}</p>
     <div class="record_score my-2">
@@ -30,7 +30,7 @@
         <NuxtLink class="closing_btn closingbtn_end" to="/">終了する</NuxtLink>
       </div>
     </div>
-  </v-card>
+</body>
 </template>
 <script>
 import ChartContainer from '@/components/resultChart'

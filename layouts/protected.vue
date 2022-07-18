@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar id="header" app :prominent="!isMobile" flat color="#c9bc9c" >
+    <v-app-bar id="header" prominent app flat color="#c9bc9c" >
       <v-container class="ly_headerInner header_flx" app>
         <h1 class="header_logo">
           <NuxtLink to="/">
@@ -16,6 +16,7 @@
           right
           bottom
           fab
+          to="/userList2"
         >        
           <v-icon
             class="mr-2"
@@ -29,6 +30,7 @@
           right
           bottom
           fab
+          to="/userList"
         > 
           <v-icon
             absolute
@@ -218,6 +220,10 @@ export default {
 </script>
 <style>
 html {
-  font-size: 10px
+  font-size: 10px;
+}
+.v-application{
+  font-size: 10px;
+  font-family: "corporate-logo-ver2" !important;
 }
 </style>

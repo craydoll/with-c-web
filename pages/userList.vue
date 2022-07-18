@@ -1,4 +1,5 @@
 <template>
+<body>
   <v-container>
     <v-data-table
       :headers="fields"
@@ -103,6 +104,7 @@
       </template>
     </v-data-table>
   </v-container>
+</body>
 </template>
 <script>
 import Users from '@/plugins/firestore/users'
@@ -195,7 +197,9 @@ export default {
         birth: this.editedItem.birth,
         gender: this.editedItem.gender,
         name: this.editedItem.name,
-        nickname: this.editedItem.nickname
+        nickname: this.editedItem.nickname,
+        isAdmin: this.editedItem.isAdmin,
+        isTeacher: this.editedItem.isTeacher
       }
       await Users.save(this.editedItem.id, doc)
       this.close()
@@ -248,11 +252,10 @@ export default {
 }
 </script>
 <style scoped>
-.td {
-  font-size: 16px !important;
+html {
+  font-size: 16px;
 }
-.pre {
-  white-space:pre-wrap;
-  word-wrap:break-word;
+.v-data-table {
+    font-size: 16px;
 }
 </style>
