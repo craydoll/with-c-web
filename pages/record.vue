@@ -16,8 +16,8 @@
                 autoplay
                 playsinline
               ></video>
-              <v-img v-if="isPause" class="PauseImg" width="100%" height="100%" src="/assets/img/record/一時停止中.png"></v-img>
-              <v-img v-if="showGuide" class="PauseImg" width="100%" height="100%" src="/assets/img/record/手元測定.png"></v-img>
+              <v-img v-if="isPause" class="PauseImg" width="100%" height="100%" src="/assets/img/bg/pause.png"></v-img>
+              <v-img v-if="showGuide" class="PauseImg" width="100%" height="100%" src="/assets/img/bg/face_measurement.png"></v-img>
               <v-btn
                 absolute
                 right
@@ -86,8 +86,6 @@
         autoplay
         playsinline
       ></video>
-      <v-img v-if="isPause" class="PauseImg" width="100%" height="100%" src="/assets/img/record/一時停止中.png"></v-img>
-      <v-img v-if="showGuide" class="PauseImg" width="100%" height="100%" src="/assets/img/record/手元測定.png"></v-img>
       <v-btn
         absolute
         right

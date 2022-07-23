@@ -1,0 +1,71 @@
+.user{
+  .userList{
+    background-color: $c_wt;
+    border-radius: 5px;
+    width: 100%;
+    @include max768{
+      width: 1000px;
+    }
+  }
+  th{
+    background-color: #f0f2f5;
+  }
+  tr{
+    display: flex;
+  }
+  th,td{
+    font-size: 1.3rem;
+    flex:1 ;
+    padding: 10px 40px;
+    border: 1px solid rgb(235, 235, 235);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      width: 60px;
+    }
+  }
+}
+
+.scroll{
+  @include max768{
+    overflow-x: scroll;
+  }
+}
+
+.user_record{
+  background-color: $c_lylw;
+  border-radius: 5px;
+  padding: 30px;
+  margin-bottom: 30px;
+  .user_record_ttl{
+    text-align: center;
+    margin-bottom: 30px;
+    background-color: $c_wt;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+}
+.userName{
+  border: 1px solid #FF0089;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 220px;
+  background-color: $c_wt;
+  .userName__ttl{
+    display: block;
+    border-radius: 2px 0 0 2px;
+    background-color: #FF0089;
+    padding: 10px;
+    color: $c_wt;
+  }
+  .userName__body{
+    background-color: $c_wt;
+  }
+}
+

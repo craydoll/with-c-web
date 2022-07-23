@@ -1,10 +1,12 @@
 <template>
   <body>
-    <main class="study_record">
-      <div class="ly_contInner ly_contInner_bg">
-        <h2 class="cmp_heading_05 el_deco_line">利用者一覧</h2>
-            <div class="recordBox">
-              <v-data-table
+    <main class="user">
+      <section>
+        <div class="ly_contInner ly_contInner_bg">
+          <h2 class="cmp_heading_05">利用者一覧</h2>
+          <div class="scroll">
+            <v-data-table
+              class="userList"
               :headers="fields"
               :items="userList"
               sort-by="id"
@@ -15,11 +17,12 @@
               @click:row="rowClicked"         
               >
                 <template #[`item.img`]="data">
-                  <v-img width="50" :src="data.item.img" />
+                  <v-img max-width="50px" :src="data.item.img" />
                 </template>
             </v-data-table>
-            </div>
-      </div>
+          </div>
+        </div>
+      </section>
     </main>
   </body>
 </template>

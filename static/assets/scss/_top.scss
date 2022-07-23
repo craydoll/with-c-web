@@ -145,13 +145,67 @@ header {
 }
 // header_end
 
+
+.label_box{
+  position: fixed;
+  top: 100px;
+  right: 0;
+  z-index: 60;
+  @include max768{
+    top: 110px;
+  }
+  .label_item{
+    background-color: #fff;
+    width: 170px;
+    border-radius: 5px 0 0 5px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    margin-bottom: 10px;
+    transition: all 0.3s;
+    @include max768{
+      width: 100px;
+    }
+    &:hover{
+      transform: translateX(5px);
+    }
+    &:last-child{
+      margin-bottom: 0;
+    }
+    a{
+      display: flex;
+      font-size: 1.4rem;
+      .label_ico{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25%;
+        border-radius: 5px 0 0 5px;
+        @include max768{
+          width: 33%;
+        }
+        img{
+          width: 50%;
+        }
+      }
+      .label_ico__management{
+        background-color: #FF0089;
+      }
+      .label_ico__teacher{
+        background-color: #007FFB;
+      }
+      .label_txt{
+        padding: 10px ;
+      }
+    }
+  }
+}
+
 // fv
 .fv {
   position: relative;
   .sdgs_logo {
     position: absolute;
     top: 20px;
-    right: 20px;
+    left: 20px;
   }
   .fv_container {
     width: 85%;

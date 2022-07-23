@@ -66,26 +66,8 @@ export default {
     console.log('parm userid:' + this.user.id + " measureId:" + measureId)
     try {
       this.result = await StudyRecords.getItem(this.user.id, measureId)
-      if (!this.result) {
-        // 取れなかった時用
-        const now = new Date()
-        this.result = {
-          concentration: [23, 45, 70, 80, 77, 78, 82, 88, 89, 20, 15, 18, 84, 90],
-          end_date: new Date(),
-          id: this.user.id,
-          point: 12,
-          start_date: moment(now).add(-1, 'hours'),
-        }
-      }
     } catch (err) {
       console.log('err is:' + JSON.stringify(err))
-      this.result = {
-        concentration: [23, 45, 70, 80, 77, 78, 82, 88, 89, 90, 82, 79, 84, 90],
-        end_date: new Date(),
-        id: this.user.id,
-        point: 12,
-        start_date: new Date(new Date() - (1000 * 60 * 60)),
-      }
     }
     console.log('record:' + JSON.stringify(this.result))
     this.score = this.result.point

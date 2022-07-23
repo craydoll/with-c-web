@@ -9,34 +9,28 @@
         </h1>
         <div class="header_logo_eco">
           <img src="assets/img/logo/logo_eco.svg" alt="ecoの志士" />
-        <v-btn
-          v-if="isTeacher"
-          absolute
-          small
-          right
-          bottom
-          fab
-          to="/userList2"
-        >        
-          <v-icon
-            class="mr-2"
-          >mdi-account-school</v-icon>
-          </v-btn>
-        <v-btn
-          v-if="isAdmin"
-          class="mx-15"
-          absolute
-          small
-          right
-          bottom
-          fab
-          to="/userList"
-        > 
-          <v-icon
-            absolute
-            class="mr-2"
-          >mdi-account-wrench</v-icon>
-        </v-btn>
+          <ul class="label_box">
+            <li v-if="isAdmin" class="label_item">
+              <NuxtLink to="/userList">
+                <div class="label_ico label_ico__management">
+                  <img src="assets/img/ico/ico_setting.svg" alt="管理者ページへ">
+                </div>
+                <span class="label_txt">
+                  管理者<span class="max768_n">ページへ</span>
+                </span>
+              </NuxtLink>
+            </li>
+            <li v-if="isTeacher" class="label_item">
+              <NuxtLink to="/userList2">
+                <div class="label_ico label_ico__teacher">
+                  <img src="assets/img/ico/ico_teacher.svg" alt="講師ページへ">
+                </div>
+                <span class="label_txt">
+                  先生<span class="max768_n">ページへ</span>
+                </span>
+              </NuxtLink>
+            </li>
+          </ul>
         </div>
         <!-- Hamburger-icon -->
         <v-app-bar-nav-icon v-if="isMobile" class="max1090_b hamburger_icon" @click="drawer = true">

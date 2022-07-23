@@ -10,7 +10,7 @@
               :key="i"
               class="bl_circleList_item"
             >
-              <a href="">
+              <a @click="itemSelected(item)">
                 <div class="bl_circleList_frame">
                   <img :src="item.img" alt="" />
                 </div>
@@ -39,8 +39,11 @@
                     </dl>
                   </div>
                   <p class="bl_circleList_btnPos">
-                    <span class="bl_circleList_btn">
+                    <span v-if="item.point <= user.point" class="bl_circleList_btn">
                       交換する
+                    </span>
+                    <span v-else class="bl_circleList_btn" style="background-color: #FFF5A0;">
+                      ポイントが足りません
                     </span>
                   </p>
                 </div>
@@ -48,6 +51,36 @@
             </li>
           </ul>
         </div>
+        <v-dialog v-model="dialog" max-width="500px">
+          <v-card>
+            <v-card-title class="mb-1 orange lighten-4">
+              <p class="cmp_heading_05">商品交換</p>
+            </v-card-title>
+            <v-card-text class="my-5 text-h5">
+            <div>
+              交換する商品：{{selectedItem.name}}
+            </div>
+            <div>
+              交換ポイント：{{selectedItem.point}}
+            </div>
+            <div>
+              保有ポイント：{{user.point}} → {{user.point - selectedItem.point}}
+            </div>
+            </v-card-text>
+            <v-card-actions class="bl_circleList_btnPos text-h6">
+              <v-spacer/>
+              <button
+                class="bl_circleList_btn ma-5"
+                @click="dialog=false"
+              >
+                キャンセル
+              </button>
+              <button class="bl_circleList_btn ma-5" @click="redeem">
+                交換する
+              </button>              
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </section>
       <section>
         <div class="ly_contInner">
@@ -91,12 +124,27 @@ export default {
   layout: 'protected',
   data() {
     return {
-        prizeList: [],
-      }
+      prizeList: [],
+      dialog: false,
+      selectedItem: {},
+      user: {},
+    }
   },
   async mounted () {
     this.prizeList = await Prizes.getAllItems()
-
-  },  
+    this.user = await this.$store.getters['auth/user']
+  },
+  methods: {
+    itemSelected(row) {
+      console.log("itemselected:" + JSON.stringify(row))
+      this.selectedItem = row
+      if (this.user.point >= row.point) {
+        this.dialog=true
+      }
+    },
+    redeem() {
+      console.log('redeem')
+    }
+  }
 }
 </script>
