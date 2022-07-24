@@ -16,12 +16,11 @@
                 <div
                   v-for="(item, i) in studyRecords"
                   :key="i"
-                  class="recordBox_term"
                 >
                   <p class="recordBox_item_date_txt">
                     <span>{{item.start_date | format-date}}</span>
                   </p>
-                  <p class="recordBox_item_subject english">{{item.subject}}</p>
+                  <p class="recordBox_item_subject" :class="item.subject">{{item.subject_nm}}</p>
                   <p class="recordBox_item_time">
                     <span>開始時間：{{item.start_date | format-time}}</span>
                     <span>終了時間：{{item.end_date | format-time}}</span>

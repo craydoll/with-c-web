@@ -17,7 +17,7 @@
                 playsinline
               ></video>
               <v-img v-if="isPause" class="PauseImg" width="100%" height="100%" src="/assets/img/bg/pause.png"></v-img>
-              <v-img v-if="showGuide" class="PauseImg" width="100%" height="100%" src="/assets/img/bg/face_measurement.png"></v-img>
+              <v-img v-if="showGuide" class="PauseImg" width="100%" height="100%" src="/assets/img/bg/hand_measurement.png"></v-img>
               <v-btn
                 absolute
                 right
@@ -261,15 +261,6 @@ export default {
           console.log('err is:' + JSON.stringify(err))
         }
       })
-    },
-    changeCamera() {
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        console.log('in changeCamera:' + this.cameraId)
-        navigator.mediaDevices.getUserMedia({ video: { optional: [{sourceId: this.cameraId}] }}).then(stream => {
-          this.video.srcObject = stream
-          this.video.play()
-        })
-      }
     },
     fullScrBtn() {
       this.showFullscr = true

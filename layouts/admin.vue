@@ -52,6 +52,7 @@ export default {
         {title:'景品登録',to:'/productList',icon:'mdi-shopping'},
         {title:'ユーザー登録',to:'/userList',icon:'mdi-account-group'},
         {title:'キャラクタ登録',to:'/avatarList',icon:'mdi-cat'},
+        {title:'会場登録',to:'/placeList',icon:'mdi-home-city'},
       ]
     }
   },

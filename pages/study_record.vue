@@ -1,6 +1,5 @@
 <template>
   <body>
-
     <main class="study_record">
       <div class="ly_contInner ly_contInner_bg">
         <h2 class="cmp_heading_05 el_deco_line">学習記録</h2>
@@ -74,7 +73,7 @@
                       <p class="recordBox_item_time">
                         <span>{{item.start_date | format-date}}</span>
                       </p>
-                      <p class="recordBox_item_subject english">{{item.subject}}</p>
+                      <p class="recordBox_item_subject" :class="item.subject">{{item.subject_nm}}</p>
                       <p class="recordBox_item_time">
                         <span>開始時間：{{item.start_date | format-time}}</span>
                         <span>終了時間：{{item.end_date | format-time}}</span>
@@ -118,7 +117,7 @@ export default {
       this.totalTimes = await Users.getTotalBySubject(this.user.id)
       console.log('in mounted:' + JSON.stringify(this.totalTimes))
       this.totalTimes.forEach((item) => {
-        this.labels.push(item.subject)
+        this.labels.push(item.subject_nm)
         // 時間は秒で保存されている
         this.data.push(item.time / 60)
       })

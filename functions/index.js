@@ -32,20 +32,29 @@ exports.calcPoint = functions.region("asia-northeast1")
       const id = snap.ref.parent.parent.id;
       const userRef = db.collection("users").doc(id);
 
+      // 教科名称をセット
+      const subjectRef = db.collection("subjects").doc(doc.subject);
+      const subject = (await subjectRef.get()).data();
+      let subjectNm = "";
+      if (subject) {
+        subjectNm = subject.name;
+      }
+
       // 学習時間の更新
-      const subject = doc.subject;
       const studyTime = doc.end_date - doc.start_date;
-      const totalRef = userRef.collection("total").doc(subject);
+      const totalRef = userRef.collection("total").doc(doc.subject);
       const totalDoc = await totalRef.get();
       if (totalDoc.exists) {
         await totalRef.update({
           time: admin.firestore.FieldValue.increment(studyTime),
           point: admin.firestore.FieldValue.increment(givePoint),
+          name: subjectNm,
         });
       } else {
         await totalRef.set({
           time: admin.firestore.FieldValue.increment(studyTime),
           point: admin.firestore.FieldValue.increment(givePoint),
+          name: subjectNm,
         });
       }
       // 合計ポイントの更新

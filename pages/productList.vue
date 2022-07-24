@@ -54,6 +54,8 @@
                   <v-row>
                     <v-select
                       v-model="editedItem.place"
+                      item-text="name"
+                      item-value="id"
                       :items="placeList"
                       label="引換会場"
                       dense
@@ -80,7 +82,7 @@
                     />                    
                   </v-row>
                   <v-row>
-                    <v-file-input v-model="editedItem.img" accept="image/*" show-size label="画像" @change="onImagePicked" />
+                    <v-file-input value="editedItem.img" accept="image/*" show-size label="画像" @change="onImagePicked" />
                     <img v-if="uploadImageUrl" :src="uploadImageUrl" width="100">
                   </v-row>
                 </v-container>
@@ -124,6 +126,7 @@
 </template>
 <script>
 import Prizes from '@/plugins/firestore/prizes'
+import Places from '@/plugins/firestore/places'
 import appError, { ApplicationError } from '@/plugins/firestore/appError'
 
 export default {
@@ -153,11 +156,7 @@ export default {
       level: '',
       uploadImageUrl: null,
       image: null,
-      placeList: [
-        '新江古田B.O',
-        '西新宿B.O',
-        '北九州八幡B.O',
-      ],
+      placeList: [],
       categoryList: [
         '食材',
         '教材',
@@ -170,8 +169,9 @@ export default {
       return this.editedIndex === -1 ? '新規登録' : '編集'
     }
   },
-  mounted () {
-    this.getRows()
+  async mounted () {
+    await this.getRows()
+    this.placeList = await Places.getAllItems()
   },
   methods: {
     async getRows () {
@@ -236,6 +236,7 @@ export default {
       if (this.uploadImageUrl) {
         doc.img = this.uploadImageUrl
       }
+      console.log('in save:' + JSON.stringify(doc))
       await Prizes.save(this.editedItem.id, doc)
       this.close()
       this.uploadImageUrl = null

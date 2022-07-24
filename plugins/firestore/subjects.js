@@ -1,6 +1,6 @@
 import { db } from '../firebase'
 
-const tbName = 'prizes'
+const tbName = 'subjects'
 
 export default {
   async getItem (id) {
@@ -23,12 +23,12 @@ export default {
       const item = doc.data()
       // 個別の変換処理
       item.id = doc.id
-      item.reg_date = item.reg_date.toDate()
       return item
     }))
     return items
   },
   async save (docId, obj) {
+    console.log(`in save ${JSON.stringify(obj)}`)
     if (docId === '') {
       console.log('docId is empty')
       const newDoc = await db.collection(tbName).add(obj)

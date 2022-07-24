@@ -57,6 +57,7 @@ export default {
     const list = (await totalDocs).docs.map((doc) => {
       const item = doc.data()
       item.subject = doc.id
+      item.subject_nm = item.name
       console.log('item is ' + JSON.stringify(item))
       return item
     })

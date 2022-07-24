@@ -1,9 +1,10 @@
 import { db } from '../firebase'
+import Subjects from './subjects'
 
 const tbName = 'study_records'
 
 export default {
-  async getItem (parentId, id) {
+  async getItem(parentId, id) {
     const docRef = db.collection('users').doc(parentId).collection(tbName).doc(id)
     const doc = await docRef.get()
 
@@ -18,27 +19,29 @@ export default {
       return null
     }
   },
-  async getItems (parentId) {
-    const docRef = db.collection('users').doc(parentId).collection(tbName)
+  async getItems(parentId) {
+    const docRef = db.collection('users').doc(parentId).collection(tbName).orderBy('start_date','desc')
     return await this.getFromDB(docRef)
   },
-  async getFromDB (docRef) {
+  async getFromDB(docRef) {
     const snapshot = await docRef.get()
-    const items = await Promise.all(snapshot.docs.map((doc) => {
+    const items = await Promise.all(snapshot.docs.map(async (doc) => {
       const item = doc.data()
       // 個別の変換処理
       item.id = doc.id
       item.start_date = item.start_date ? item.start_date.toDate() : null
       item.end_date = item.end_date ? item.end_date.toDate() : null
+      const subject = await Subjects.getItem(item.subject)
+      item.subject_nm = subject.name
       return item
     }))
     return items
   },
-  async getAllItems () {
+  async getAllItems() {
     const docRef = db.collectionGroup(tbName)
     return await this.getFromDB(docRef)
   },
-  async save (parentId, docId, obj) {
+  async save(parentId, docId, obj) {
     console.log(`in save ${JSON.stringify(obj)}`)
     if (docId === '') {
       console.log('docId is empty')
@@ -66,35 +69,4 @@ export default {
       return 0
     }
   },
-  async getTotalBySubject(id) {
-    const list = await this.getItems(id)
-    console.log('num of study_records:' + list.length)    
-    return [
-      {
-        subject: "国語",
-        totalTime: 20,
-        totalPoint: 12,
-      },
-      {
-        subject: "算数",
-        totalTime: 40,
-        totalPoint: 22,
-      },
-      {
-        subject: "英語",
-        totalTime: 15,
-        totalPoint: 5,
-      },
-      {
-        subject: "社会",
-        totalTime: 5,
-        totalPoint: 5,
-      },
-      {
-        subject: "理科",
-        totalTime: 3,
-        totalPoint: 2,
-      },
-  ]
-  }
 }

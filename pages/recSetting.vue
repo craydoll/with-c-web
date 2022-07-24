@@ -13,13 +13,7 @@
               name="select_type"
               required
             >
-              <option>国語</option>
-              <option>算数／数学</option>
-              <option>理科</option>
-              <option>社会</option>
-              <option>英語</option>
-              <option>その他</option>
-              <option>不要</option>
+              <option v-for="item in subjects" :key="item.id" :value="item.id">{{item.name}}</option>
             </select>
           </div>
         </div>
@@ -72,6 +66,7 @@
 </template>
 <script>
 // import studyRecords from '~/plugins/firestore/studyRecords'
+import Subjects from '~/plugins/firestore/subjects'
 export default {
   layout: 'protected',
   data() {
@@ -81,6 +76,7 @@ export default {
       camera: {},
       subject: '国語',
       method: 'onhand',
+      subjects: [],
     }
   },
   watch: {
@@ -108,6 +104,7 @@ export default {
     if (this.camera) {
       this.changeCamera()
     }
+    this.subjects = await Subjects.getAllItems()
   },
   methods: {
     changeCamera() {
