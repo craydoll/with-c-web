@@ -70,7 +70,7 @@
                       :key="i"
                       class="recordBox_term"
                     >
-                      <p class="recordBox_item_time">
+                      <p class="recordBox_item_date_txt">
                         <span>{{item.start_date | format-date}}</span>
                       </p>
                       <p class="recordBox_item_subject" :class="item.subject">{{item.subject_nm}}</p>

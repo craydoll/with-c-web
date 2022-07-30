@@ -31,45 +31,47 @@
               </v-btn>
             </template>
             <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-text-field v-model="editedItem.order" label="No." />
-                  </v-row>
-                  <v-row>
-                    <v-file-input v-model="editedItem.img" accept="image/*" show-size label="アバター画像" @change="onImagePicked" />
-                    <img v-if="uploadImageUrl" :src="uploadImageUrl" width="100">
-                  </v-row>
-                  <v-row>
-                    <v-text-field v-model="editedItem.name" label="アバター名" />
-                  </v-row>
-                  <v-row>
-                    <v-text-field v-model="editedItem.belief" label="信条" />
-                  </v-row>
-                  <v-row>
-                    <v-textarea v-model="editedItem.summary" label="説明" />
-                  </v-row>
-                  <v-row>
-                    <v-text-field v-model="editedItem.sdgs" label="担当SDGS項目" />
-                  </v-row>
-                  <v-row>
-                    <v-file-input v-model="editedItem.sdgs_img" accept="image/*" show-size label="SDGS画像" @change="onImagePicked2" />
-                    <img v-if="sdgsImageUrl" :src="sdgsImageUrl" width="100">
-                  </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer />
-                <v-btn color="blue darken-1" text @click="close">
-                  キャンセル
-                </v-btn>
-                <v-btn color="blue darken-1" text @click="save">
-                  保存
-                </v-btn>
-              </v-card-actions>
+              <v-form v-model="valid">
+                <v-card-title>
+                  <span class="headline">{{ formTitle }}</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-text-field v-model="editedItem.order" :rules="[rules.required,]" label="No." />
+                    </v-row>
+                    <v-row>
+                      <v-file-input v-model="file" accept="image/*" show-size label="アバター画像" @change="onImagePicked" />
+                      <img v-if="uploadImageUrl" :src="uploadImageUrl" width="100">
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="editedItem.name" :rules="[rules.required,]" label="アバター名" />
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="editedItem.belief" :rules="[rules.required,]" label="信条" />
+                    </v-row>
+                    <v-row>
+                      <v-textarea v-model="editedItem.summary" :rules="[rules.required,]" label="説明" />
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="editedItem.sdgs" :rules="[rules.required,]" label="担当SDGS項目" />
+                    </v-row>
+                    <v-row>
+                      <v-file-input v-model="file" accept="image/*" show-size label="SDGS画像" @change="onImagePicked2" />
+                      <img v-if="sdgsImageUrl" :src="sdgsImageUrl" width="100">
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer />
+                  <v-btn color="blue darken-1" text @click="close">
+                    キャンセル
+                  </v-btn>
+                  <v-btn color="blue darken-1" text @click="save">
+                    保存
+                  </v-btn>
+                </v-card-actions>
+              </v-form>
             </v-card>
           </v-dialog>
         </v-toolbar>
@@ -133,7 +135,16 @@ export default {
       message: '',
       level: '',
       uploadImageUrl: null,
-      sdgsImageUrl: null
+      sdgsImageUrl: null,
+      file: [],
+      rules: {
+        required: value => !!value || '必須です',
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || '不正なメール形式です'
+        },
+      },
+      valid: true,      
     }
   },
   computed: {

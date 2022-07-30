@@ -35,7 +35,7 @@ export default {
       console.log('docId = ' + newDoc.id)
       return newDoc.id
     } else {
-      console.log('docId exists')
+      console.log('docId exists:' + docId)
       await db.collection(tbName).doc(docId).set(obj, { merge: true })
       return docId
     }

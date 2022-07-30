@@ -16,6 +16,7 @@
                 <div
                   v-for="(item, i) in studyRecords"
                   :key="i"
+                  class="recordBox_term"
                 >
                   <p class="recordBox_item_date_txt">
                     <span>{{item.start_date | format-date}}</span>
@@ -32,7 +33,7 @@
             </ul>
           </div>
           <div class="el_btn_location">
-            <NuxtLink class="el_btn el_btn__lor record_screen_btn" to="userList2">
+            <NuxtLink class="el_btn el_btn__lor record_screen_btn" to="/userList2">
               戻る
             </NuxtLink>
           </div>

@@ -32,31 +32,33 @@
               </v-btn>
             </template>
             <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-text-field v-model="editedItem.name" label="名称" />
-                  </v-row>
-                  <v-row>
-                    <v-text-field v-model="editedItem.address" label="住所" />
-                  </v-row>
-                  <v-row>
-                    <v-text-field v-model="editedItem.mail" label="通知先メール" />
-                  </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer />
-                <v-btn color="blue darken-1" text @click="close">
-                  キャンセル
-                </v-btn>
-                <v-btn color="blue darken-1" text @click="save">
-                  保存
-                </v-btn>
-              </v-card-actions>
+              <v-form v-model="valid">
+                <v-card-title>
+                  <span class="headline">{{ formTitle }}</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-text-field v-model="editedItem.name" :rules="[rules.required,]" label="名称" />
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="editedItem.address" :rules="[rules.required,]" label="住所" />
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="editedItem.mail" :rules="[rules.required,rules.email]" label="通知先メール" />
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer />
+                  <v-btn color="blue darken-1" text @click="close">
+                    キャンセル
+                  </v-btn>
+                  <v-btn color="blue darken-1" :disabled="!valid" text @click="save">
+                    保存
+                  </v-btn>
+                </v-card-actions>
+              </v-form>
             </v-card>
           </v-dialog>
         </v-toolbar>
@@ -117,6 +119,14 @@ export default {
       editedIndex: -1,
       message: '',
       level: '',
+      rules: {
+        required: value => !!value || '必須です',
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || '不正なメール形式です'
+        },
+      },
+      valid: true,
     }
   },
   computed: {

@@ -31,71 +31,73 @@
               </v-btn>
             </template>
             <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-text-field v-model="editedItem.name" label="商品名" />
-                  </v-row>
-                  <v-row>
-                    <v-text-field v-model="editedItem.point" label="交換ポイント" />
-                  </v-row>
-                  <v-row>
-                    <v-text-field v-model="editedItem.market_price" label="市場価格" />
-                  </v-row>
-                  <v-row>
-                    <v-text-field v-model="editedItem.stock" label="在庫" />
-                  </v-row>
-                  <v-row>
-                    <v-text-field v-model="editedItem.donor" label="提供者" />
-                  </v-row>
-                  <v-row>
-                    <v-select
-                      v-model="editedItem.place"
-                      item-text="name"
-                      item-value="id"
-                      :items="placeList"
-                      label="引換会場"
-                      dense
-                      required
-                      :rules="[v => !!v || '引換会場は必須です']"
-                    ></v-select>
-                  </v-row>
-                  <v-row>
-                    <v-select
-                      v-model="editedItem.category"
-                      :items="categoryList"
-                      label="商品カテゴリ"
-                      dense
-                      required
-                      :rules="[v => !!v || 'カテゴリは必須です']"
-                    ></v-select>
-                  </v-row>
-                  <v-row>
-                    <DatePicker
-                      label="消費期限"
-                      :adate="editedItem.expiration"
-                      max=""
-                      @ok="editedItem.expiration=$event"
-                    />                    
-                  </v-row>
-                  <v-row>
-                    <v-file-input value="editedItem.img" accept="image/*" show-size label="画像" @change="onImagePicked" />
-                    <img v-if="uploadImageUrl" :src="uploadImageUrl" width="100">
-                  </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer />
-                <v-btn color="blue darken-1" text @click="close">
-                  キャンセル
-                </v-btn>
-                <v-btn color="blue darken-1" text @click="save">
-                  保存
-                </v-btn>
-              </v-card-actions>
+              <v-form v-model="valid" lazy-validation>
+                <v-card-title>
+                  <span class="headline">{{ formTitle }}</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-text-field v-model="editedItem.name" :rules="[rules.required,]" label="商品名" />
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="editedItem.point" :rules="[rules.required,]" label="交換ポイント" />
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="editedItem.market_price" :rules="[rules.required,]" label="市場価格" />
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="editedItem.stock" :rules="[rules.required,]" label="在庫" />
+                    </v-row>
+                    <v-row>
+                      <v-text-field v-model="editedItem.donor" :rules="[rules.required,]" label="提供者" />
+                    </v-row>
+                    <v-row>
+                      <v-select
+                        v-model="editedItem.place"
+                        item-text="name"
+                        :items="placeList"
+                        label="引換会場"
+                        return-object
+                        dense
+                        required
+                        :rules="[rules.required,]"
+                      ></v-select>
+                    </v-row>
+                    <v-row>
+                      <v-select
+                        v-model="editedItem.category"
+                        :items="categoryList"
+                        label="商品カテゴリ"
+                        dense
+                        required
+                        :rules="[rules.required,]"
+                      ></v-select>
+                    </v-row>
+                    <v-row>
+                      <DatePicker
+                        label="消費期限"
+                        :adate="editedItem.expiration"
+                        max=""
+                        @ok="editedItem.expiration=$event"
+                      />                    
+                    </v-row>
+                    <v-row>
+                      <v-file-input v-model="imgFile" accept="image/*" show-size label="画像" @change="onImagePicked" />
+                      <img :src="uploadImageUrl" width="100" />
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer />
+                  <v-btn color="blue darken-1" text @click="close">
+                    キャンセル
+                  </v-btn>
+                  <v-btn color="blue darken-1" :disabled="!valid" text @click="save">
+                    保存
+                  </v-btn>
+                </v-card-actions>
+              </v-form>
             </v-card>
           </v-dialog>
         </v-toolbar>
@@ -149,19 +151,27 @@ export default {
         { value: 'expiration', text: '消費期限' },
       ],
       rows: [],
-      editedItem: {img:[]},
+      editedItem: { img: [] },
       defaultItem: {},
       editedIndex: -1,
       message: '',
       level: '',
       uploadImageUrl: null,
-      image: null,
+      imgFile: [],
       placeList: [],
       categoryList: [
         '食材',
         '教材',
         'その他'
-      ]
+      ],
+      rules: {
+        required: value => !!value || '必須です',
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || '不正なメール形式です'
+        },
+      },
+      valid: true,      
     }
   },
   computed: {
@@ -195,7 +205,7 @@ export default {
     editItem (item) {
       this.editedIndex = this.rows.indexOf(item)
       this.editedItem = item
-      this.uploadImageUrl = item.img
+      this.uploadImageUrl = this.editedItem.img
       this.dialog = true
     },
     async deleteItem (item) {
@@ -221,14 +231,16 @@ export default {
         this.editedIndex = -1
       })
     },
-    async save () {
+    async save() {
+      
       const doc = {
         name: this.editedItem.name,
         point: this.editedItem.point,
         market_price: this.editedItem.market_price,
         stock: this.editedItem.stock,
         donor: this.editedItem.donor,
-        place: this.editedItem.place,
+        place: this.editedItem.place.name,
+        place_id: this.editedItem.place.id,
         category: this.editedItem.category,
         expiration: this.editedItem.expiration,
         reg_date: new Date()
@@ -242,7 +254,8 @@ export default {
       this.uploadImageUrl = null
       return await this.getRows()
     },
-    onImagePicked (file) {
+    onImagePicked(file) {
+      console.log('onImagePicked:' + JSON.stringify(file))
       if (file !== undefined && file !== null) {
         if (file.name.lastIndexOf('.') <= 0) {
           return

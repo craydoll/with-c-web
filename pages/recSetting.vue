@@ -108,6 +108,7 @@ export default {
   },
   methods: {
     changeCamera() {
+      console.log('in change camera:' + this.camera.name)
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && this.camera) {
         navigator.mediaDevices
           .getUserMedia({ video: { optional: [{ sourceId: this.camera.id }] } })
