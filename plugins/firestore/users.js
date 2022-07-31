@@ -1,4 +1,4 @@
-import { db } from '../firebase'
+import firebase,{ db } from '../firebase'
 import avatars from './avatars'
 
 const tbName = 'users'
@@ -49,6 +49,17 @@ export default {
   },
   async delete (docId) {
     return await db.collection(tbName).doc(docId).delete()
+  },
+  async decPoint (docId, point) {
+    await db.collection(tbName).doc(docId).update({
+      point: firebase.firestore.FieldValue.increment(-point),
+    })
+    // ポイント履歴に書き込む
+    await db.collection(tbName).doc(docId).collection("point_log").add({
+      date: new Date(),
+      summary: "商品引換によるポイント減少",
+      point: -point,
+    });    
   },
   async getTotalBySubject(id) {
     const totalRef = db.collection(tbName).doc(id).collection('total')

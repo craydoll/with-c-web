@@ -60,7 +60,24 @@
             </button>
           </div>
       </div>
-    </section>
+      </section>
+          <v-snackbar
+        v-model="snackbar"
+        :timeout="timeout"
+      >
+        {{ message }}
+
+        <template #action="{ attrs }">
+          <v-btn
+            color="blue"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+          >
+            閉じる
+          </v-btn>
+        </template>
+      </v-snackbar>
   </main>
   </body>
 </template>
@@ -77,6 +94,9 @@ export default {
       subject: '国語',
       method: 'onhand',
       subjects: [],
+      snackbar: false,
+      message: '',
+      timeout: 5000,
     }
   },
   watch: {
@@ -107,15 +127,21 @@ export default {
     this.subjects = await Subjects.getAllItems()
   },
   methods: {
-    changeCamera() {
+    async changeCamera() {
       console.log('in change camera:' + this.camera.name)
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && this.camera) {
-        navigator.mediaDevices
-          .getUserMedia({ video: { optional: [{ sourceId: this.camera.id }] } })
-          .then((stream) => {
-            this.video.srcObject = stream
-            this.video.play()
-          })
+      try {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && this.camera) {
+          await navigator.mediaDevices
+            .getUserMedia({ video: { optional: [{ sourceId: this.camera.id }] } })
+            .then((stream) => {
+              this.video.srcObject = stream
+              this.video.play()
+            })
+        }
+      } catch (e) {
+        console.log('error:' + JSON.stringify(e))
+        this.message = e.message
+        this.snackbar = true
       }
     },
     toRecordPage() {

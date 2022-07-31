@@ -1,4 +1,4 @@
-import { db } from '../firebase'
+import firebase, { db } from '../firebase'
 
 const tbName = 'prizes'
 
@@ -43,4 +43,15 @@ export default {
   async delete (docId) {
     return await db.collection(tbName).doc(docId).delete()
   },
+  async incStock(docId) {
+    await db.collection(tbName).doc(docId).update({
+      stock: firebase.firestore.FieldValue.increment(1),
+    });
+  },
+  async decStock(docId) {
+    await db.collection(tbName).doc(docId).update({
+      stock: firebase.firestore.FieldValue.increment(-1),
+    });
+  },
+
 }

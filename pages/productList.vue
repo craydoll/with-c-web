@@ -41,20 +41,20 @@
                       <v-text-field v-model="editedItem.name" :rules="[rules.required,]" label="商品名" />
                     </v-row>
                     <v-row>
-                      <v-text-field v-model="editedItem.point" :rules="[rules.required,]" label="交換ポイント" />
+                      <v-text-field v-model="editedItem.point" :rules="[rules.required,]" label="交換ポイント" suffix="ポイント" />
                     </v-row>
                     <v-row>
-                      <v-text-field v-model="editedItem.market_price" :rules="[rules.required,]" label="市場価格" />
+                      <v-text-field v-model="editedItem.market_price" :rules="[rules.required,]" label="市場価格" suffix="円"/>
                     </v-row>
                     <v-row>
-                      <v-text-field v-model="editedItem.stock" :rules="[rules.required,]" label="在庫" />
+                      <v-text-field v-model="editedItem.stock" :rules="[rules.required,]" label="在庫" suffix="個"/>
                     </v-row>
                     <v-row>
                       <v-text-field v-model="editedItem.donor" :rules="[rules.required,]" label="提供者" />
                     </v-row>
                     <v-row>
                       <v-select
-                        v-model="editedItem.place"
+                        v-model="placeObj"
                         item-text="name"
                         :items="placeList"
                         label="引換会場"
@@ -159,6 +159,7 @@ export default {
       uploadImageUrl: null,
       imgFile: [],
       placeList: [],
+      placeObj: null,
       categoryList: [
         '食材',
         '教材',
@@ -171,13 +172,13 @@ export default {
           return pattern.test(value) || '不正なメール形式です'
         },
       },
-      valid: true,      
+      valid: false,      
     }
   },
   computed: {
     formTitle () {
       return this.editedIndex === -1 ? '新規登録' : '編集'
-    }
+    },
   },
   async mounted () {
     await this.getRows()
@@ -206,6 +207,7 @@ export default {
       this.editedIndex = this.rows.indexOf(item)
       this.editedItem = item
       this.uploadImageUrl = this.editedItem.img
+      this.placeObj = this.placeList.find((v) => v.id === this.editedItem.place_id);   
       this.dialog = true
     },
     async deleteItem (item) {
@@ -235,14 +237,14 @@ export default {
       
       const doc = {
         name: this.editedItem.name,
-        point: this.editedItem.point,
-        market_price: this.editedItem.market_price,
-        stock: this.editedItem.stock,
+        point: parseInt(this.editedItem.point),
+        market_price: parseInt(this.editedItem.market_price),
+        stock: parseInt(this.editedItem.stock),
         donor: this.editedItem.donor,
-        place: this.editedItem.place.name,
-        place_id: this.editedItem.place.id,
+        place: this.placeObj.name,
+        place_id: this.placeObj.id,
         category: this.editedItem.category,
-        expiration: this.editedItem.expiration,
+        expiration: this.editedItem.expiration?this.editedItem.expiration:null,
         reg_date: new Date()
       }
       if (this.uploadImageUrl) {

@@ -119,6 +119,7 @@
 </template>
 <script>
 import Prizes from '@/plugins/firestore/prizes'
+import Users from '@/plugins/firestore/users'
 export default {
 
   layout: 'protected',
@@ -142,9 +143,20 @@ export default {
         this.dialog=true
       }
     },
-    redeem() {
-      console.log('redeem')
-    }
+    // 交換する
+    async redeem() {
+      // 在庫を減らす
+      await Prizes.decStock(this.selectedItem.id)
+      // ポイントを減らす
+      await Users.decPoint(this.user.id, this.selectedItem.point)
+      // メールする
+      
+      // ダイアログを消す
+      this.dialog = false
+      this.prizeList = await Prizes.getAllItems()
+      this.user = await Users.getItem(this.user.id)
+    },
+
   }
 }
 </script>
