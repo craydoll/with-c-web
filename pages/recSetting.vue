@@ -27,9 +27,9 @@
               required
             >
               <option value="onhand">手元で計測する</option>
-              <option value="face">
+<!--              <option value="face">
                 顔で計測する（※ポイントは付きません）
-              </option>
+              </option> -->
             </select>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default {
       video: {},
       cameras: [{ name: '' }],
       camera: {},
-      subject: '国語',
+      subject: 'japanese',
       method: 'onhand',
       subjects: [],
       snackbar: false,

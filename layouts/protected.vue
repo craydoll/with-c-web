@@ -4,16 +4,16 @@
       <v-container class="ly_headerInner header_flx" app>
         <h1 class="header_logo">
           <NuxtLink to="/">
-            <img src="assets/img/logo/logo_02.svg" alt="withプラス" />
+            <img src="/assets/img/logo/logo_02.svg" alt="withプラス" />
           </NuxtLink>
         </h1>
         <div class="header_logo_eco">
-          <img src="assets/img/logo/logo_eco.svg" alt="ecoの志士" />
+          <img src="/assets/img/logo/logo_eco.svg" alt="ecoの志士" />
           <ul class="label_box">
             <li v-if="isAdmin" class="label_item">
               <NuxtLink to="/userList">
                 <div class="label_ico label_ico__management">
-                  <img src="assets/img/ico/ico_setting.svg" alt="管理者ページへ">
+                  <img src="/assets/img/ico/ico_setting.svg" alt="管理者ページへ">
                 </div>
                 <span class="label_txt">
                   管理者<span class="max768_n">ページへ</span>
@@ -23,10 +23,20 @@
             <li v-if="isTeacher" class="label_item">
               <NuxtLink to="/userList2">
                 <div class="label_ico label_ico__teacher">
-                  <img src="assets/img/ico/ico_teacher.svg" alt="講師ページへ">
+                  <img src="/assets/img/ico/ico_teacher.svg" alt="講師ページへ">
                 </div>
                 <span class="label_txt">
                   先生<span class="max768_n">ページへ</span>
+                </span>
+              </NuxtLink>
+            </li>
+            <li v-if="isTeacher" class="label_item">
+              <NuxtLink to="/productList">
+                <div class="label_ico label_ico__teacher">
+                  <img src="/assets/img/ico/ico_product.svg" alt="商品管理ページへ">
+                </div>
+                <span class="label_txt">
+                  商品<span class="max768_n">ページへ</span>
                 </span>
               </NuxtLink>
             </li>

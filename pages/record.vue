@@ -247,10 +247,9 @@ export default {
       this.canvas.getContext('2d').drawImage(this.video, 0, 0, 400, 300)
       this.canvas.toBlob(async (blob) => {
         try {
-          // 暫定的に一意のファイル名で保存
-          await storageRef.child("image/" + id + "_" +  moment().format('YYYYMMDDHHmmss')).put(blob);
+          await storageRef.child("image/" + id + "_" + measureId).put(blob);
           const url = "https://us-central1-with-c-web.cloudfunctions.net/Detector"
-          console.log('request:' + url + " param:" + id + " : " + measureId )
+          console.log('request:' + url + " param:" + id + " : " + measureId)
           const res = await this.$axios.$get(url, {
             params: {
               id,

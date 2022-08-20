@@ -134,7 +134,7 @@ import appError, { ApplicationError } from '@/plugins/firestore/appError'
 export default {
   components: {
   },
-  layout: 'admin',
+  layout: 'productAdmin',
   data () {
     return {
       dialog: false,

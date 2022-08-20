@@ -4,11 +4,11 @@
       <v-container class="ly_headerInner header_flx" app>
         <h1 class="header_logo">
           <NuxtLink to="/">
-            <img src="assets/img/logo/logo_02.svg" alt="withプラス" />
+            <img src="/assets/img/logo/logo_02.svg" alt="withプラス" />
           </NuxtLink>
         </h1>
         <div class="header_logo_eco">
-          <img src="assets/img/logo/logo_eco.svg" alt="ecoの志士" />
+          <img src="/assets/img/logo/logo_eco.svg" alt="ecoの志士" />
         </div>
       </v-container>
     </v-app-bar>

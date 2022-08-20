@@ -55,6 +55,11 @@
                       color="orange"
                       label="講師"
                     ></v-switch>
+                    <v-switch
+                      v-model="editedItem.isPdtAdmin"
+                      color="yellow"
+                      label="商品管理者"
+                    ></v-switch>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -98,6 +103,10 @@
           v-if="data.item.isTeacher"
           class="mr-2"
         >mdi-account-school</v-icon>
+        <v-icon
+          v-if="data.item.isPdtAdmin"
+          class="mr-2"
+        >mdi-briefcase-account</v-icon>
       </template>
       <template #no-data>
         明細はありません
@@ -198,8 +207,9 @@ export default {
         gender: this.editedItem.gender,
         name: this.editedItem.name,
         nickname: this.editedItem.nickname,
-        isAdmin: this.editedItem.isAdmin,
-        isTeacher: this.editedItem.isTeacher
+        isAdmin: this.editedItem.isAdmin?this.editedItem.isAdmin:false,
+        isTeacher: this.editedItem.isTeacher?this.editedItem.isTeacher:false,
+        isPdtAdmin: this.editedItem.isPdtAdmin?this.editedItem.isPdtAdmin:false,
       }
       await Users.save(this.editedItem.id, doc)
       this.close()
