@@ -50,6 +50,7 @@ export default {
       clipped: true,
       items:[
         {title:'景品登録',to:'/productList',icon:'mdi-shopping'},
+        {title:'景品交換',to:'/prizeExchList',icon:'mdi-gift'},
       ]
     }
   },

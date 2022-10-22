@@ -43,6 +43,18 @@ export default {
       return newDoc.id
     } else {
       console.log('docId exists')
+
+      // ポイントが書き換えられたか
+      const oldItem = await this.getItem(docId)
+      if (obj.point !== oldItem.point) {
+        // ポイント履歴に書き込む
+        console.log('ポイント書き換え')
+        await db.collection(tbName).doc(docId).collection("point_log").add({
+          date: new Date(),
+          summary: "ユーザー情報編集によるポイント書き換え",
+          point: obj.point,
+        });          
+      }
       await db.collection(tbName).doc(docId).set(obj, { merge: true })
       return docId
     }

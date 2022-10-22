@@ -32,12 +32,14 @@
               </v-btn>
             </div>
           </div>
+          <div class="text-center"> ノートの四隅をカメラに入れてね！ </div>
           <div class="tac record_screen_btn_wrapper">
             <div class="ly_size_sm">
               <dl class="selected_camera">
-                <dt>選択した<br class="max768_b">カメラ</dt>
+                <dt>選択した<br class="max768_b"/>カメラ</dt>
                 <dd>{{cameraNm}}</dd>
               </dl>
+              <p>{{startTimeString}}</p>
               <div v-if="isPause">
                 <button class="el_btn el_btn__lor record_screen_btn" @click="resume">
                   再開する
@@ -72,7 +74,24 @@
           </div>
         </div>
       </section>
-    <v-overlay :value="overlay">
+      <v-snackbar
+        v-model="snackbar"
+        :timeout="timeout"
+      >
+        {{ message }}
+
+        <template #action="{ attrs }">
+          <v-btn
+            color="blue"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+          >
+            閉じる
+          </v-btn>
+        </template>
+      </v-snackbar>
+      <v-overlay :value="overlay">
       <v-progress-circular
         indeterminate
         size="64"
@@ -146,12 +165,17 @@ export default {
       subject: '',
       cameraId: '',
       cameraNm: '',
-      method:'',      
+      method: '',
+      engine: '',   
       result: {},
       overlay: false,
       errDiag: false,
       showGuide: true,
       showFullscr: false,
+      startTimeString: '',
+      message: '',
+      timeout: 5000,
+      snackbar:false,
     }
   },
   async mounted () {
@@ -172,6 +196,7 @@ export default {
     this.cameraNm = this.$route.query.cameraNm
     this.method = this.$route.query.method
     this.subject = this.$route.query.subject
+    this.engine = this.$route.query.engine
     console.log('camera:' + this.cameraId)
     this.video = this.$refs.video
     this.fvideo = this.$refs.fvideo
@@ -192,14 +217,22 @@ export default {
     start() {
       this.$nuxt.$emit('showOverlay')
       // 番号を作る（日付）
-      this.measureId = moment().format('YYYYMMDDHHmmss')
-      const captFunc = () => this.capture(this.measureId)
-      this.timerId = setInterval(captFunc, 5000);
+      try {
+        this.measureId = moment().format('YYYYMMDDHHmmss')
+        this.startTimeString = '開始時間: ' + moment().format('HH:mm:ss')
+        const captFunc = () => this.capture(this.measureId)
+        this.timerId = setInterval(captFunc, 5000);
+      } catch (e) {
+        console.log('error:' + JSON.stringify(e))
+        this.message = e.message
+        this.snackbar = true
+      }
       this.isRecording = true
     },
     async stop() {
       clearInterval(this.timerId);
       this.overlay = true
+      this.startTimeString = ''
       try {
         const url = "https://us-central1-with-c-web.cloudfunctions.net/calc_data"
         console.log('stop request:' + url + " param:" + this.user.id + " : " + this.measureId + " : " + this.subject)
@@ -219,6 +252,8 @@ export default {
         this.overlay = false
         this.isRecording = false
         this.errDiag = true
+        this.message = err.message
+        this.snackbar = true
       }
     },
     pause() {
@@ -248,7 +283,12 @@ export default {
       this.canvas.toBlob(async (blob) => {
         try {
           await storageRef.child("image/" + id + "_" + measureId).put(blob);
-          const url = "https://us-central1-with-c-web.cloudfunctions.net/Detector"
+          let url = "https://us-central1-with-c-web.cloudfunctions.net/Detector"
+
+          // 画像認識エンジンがGoogle指定の時は呼び出し先変更
+          if (this.engine === 'google') {
+            url = "https://us-central1-with-c-web.cloudfunctions.net/calc_data_firebase_ML"
+          }
           console.log('request:' + url + " param:" + id + " : " + measureId)
           const res = await this.$axios.$get(url, {
             params: {
@@ -259,6 +299,8 @@ export default {
           console.log('respose:' + JSON.stringify(res))
         } catch (err) {
           console.log('err is:' + JSON.stringify(err))
+          this.message = err.message
+          this.snackbar = true
         }
       })
     },

@@ -24,7 +24,11 @@
               <v-card-title>
                 <span class="headline">{{ formTitle }}</span>
               </v-card-title>
-              <v-card-text>
+              <v-form
+                v-model="valid"
+                lazy-validation
+              >
+                <v-card-text>
                 <v-container>
                   <v-row>
                     <v-text-field v-model="editedItem.area" label="エリア" />
@@ -45,6 +49,13 @@
                     <v-text-field v-model="editedItem.nickname" label="ニックネーム" />
                   </v-row>
                   <v-row>
+                    <v-text-field
+                      v-model="editedItem.point"
+                      label="ポイント"
+                      :rules="[rules.number]"
+                    />
+                  </v-row>
+                  <v-row>
                     <v-switch
                       v-model="editedItem.isAdmin"
                       color="red"
@@ -52,23 +63,24 @@
                     ></v-switch>
                     <v-switch
                       v-model="editedItem.isTeacher"
-                      color="orange"
+                      color="blue"
                       label="講師"
                     ></v-switch>
                     <v-switch
                       v-model="editedItem.isPdtAdmin"
-                      color="yellow"
+                      color="green"
                       label="商品管理者"
                     ></v-switch>
                   </v-row>
                 </v-container>
               </v-card-text>
+              </v-form>
               <v-card-actions>
                 <v-spacer />
                 <v-btn color="blue darken-1" text @click="close">
                   キャンセル
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="save">
+                <v-btn color="blue darken-1" text :disabled="!valid" @click="save" >
                   保存
                 </v-btn>
               </v-card-actions>
@@ -98,13 +110,16 @@
         <v-icon
           v-if="data.item.isAdmin"
           class="mr-2"
+          color="red"
         >mdi-account-wrench</v-icon>
         <v-icon
           v-if="data.item.isTeacher"
+          color="blue"
           class="mr-2"
         >mdi-account-school</v-icon>
         <v-icon
           v-if="data.item.isPdtAdmin"
+          color="green"
           class="mr-2"
         >mdi-briefcase-account</v-icon>
       </template>
@@ -133,6 +148,7 @@ export default {
         { value: 'gender', text: '性別' },
         { value: 'name', text: '氏名' },
         { value: 'nickname', text: 'ニックネーム' },
+        { value: 'point', text: 'ポイント', cellClass: 'text-right' }
       ],
       rows: [],
       editedItem: {},
@@ -140,7 +156,20 @@ export default {
       editedIndex: -1,
       message: '',
       level: '',
-      uploadImageUrl: null
+      uploadImageUrl: null,
+      rules: {
+        number: value => {
+          const pattern = /[+-]?\d+$/
+          return pattern.test(value) || '数字を入力してください'
+        },
+        required: value => !!value || 'Required.',
+        counter: value => value.length <= 20 || 'Max 20 characters',
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || 'Invalid e-mail.'
+        },
+      },
+      valid:false,   
     }
   },
   computed: {
@@ -207,6 +236,7 @@ export default {
         gender: this.editedItem.gender,
         name: this.editedItem.name,
         nickname: this.editedItem.nickname,
+        point: Number(this.editedItem.point),
         isAdmin: this.editedItem.isAdmin?this.editedItem.isAdmin:false,
         isTeacher: this.editedItem.isTeacher?this.editedItem.isTeacher:false,
         isPdtAdmin: this.editedItem.isPdtAdmin?this.editedItem.isPdtAdmin:false,

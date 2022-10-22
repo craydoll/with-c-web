@@ -59,9 +59,23 @@
               録画測定の画面へ
             </button>
           </div>
+          <div class="record_type">
+          <p class="el_deco_bracket">【テスト中】画像認識エンジン切替え</p>
+          <div class="select_wrapper">
+            <select
+              v-model="engine"
+              class="select_type"
+              name="select_type"
+              required
+            >
+            <option value="original">オリジナル</option>
+            <option value="google">グーグル</option>
+          </select>
+          </div>
+        </div>
       </div>
       </section>
-          <v-snackbar
+      <v-snackbar
         v-model="snackbar"
         :timeout="timeout"
       >
@@ -93,6 +107,7 @@ export default {
       camera: {},
       subject: 'japanese',
       method: 'onhand',
+      engine: 'original',
       subjects: [],
       snackbar: false,
       message: '',
@@ -153,6 +168,7 @@ export default {
           cameraNm: this.camera.name,
           subject: this.subject,
           method: this.method,
+          engine: this.engine,
         },
       })      
       }

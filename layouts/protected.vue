@@ -30,9 +30,9 @@
                 </span>
               </NuxtLink>
             </li>
-            <li v-if="isTeacher" class="label_item">
+            <li v-if="isPdtAdmin" class="label_item">
               <NuxtLink to="/productList">
-                <div class="label_ico label_ico__teacher">
+                <div class="label_ico label_ico__product">
                   <img src="/assets/img/ico/ico_product.svg" alt="商品管理ページへ">
                 </div>
                 <span class="label_txt">
@@ -174,6 +174,7 @@ export default {
       drawer: false,
       isTeacher: false,
       isAdmin: false,
+      isPdtAdmin: false,
     }
   },
   computed: {
@@ -197,6 +198,7 @@ export default {
         this.avatar = await Avatars.getItem(this.user.avatar)
         this.isTeacher = this.user.isTeacher
         this.isAdmin = this.user.isAdmin
+        this.isPdtAdmin = this.user.isPdtAdmin
       } else {
         // まだユーザー登録されていない
         this.showProfile = true

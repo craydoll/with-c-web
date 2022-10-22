@@ -120,6 +120,7 @@
 <script>
 import Prizes from '@/plugins/firestore/prizes'
 import Users from '@/plugins/firestore/users'
+import PrizeExReq from '@/plugins/firestore/prizeExReq'
 export default {
 
   layout: 'protected',
@@ -149,7 +150,8 @@ export default {
       await Prizes.decStock(this.selectedItem.id)
       // ポイントを減らす
       await Users.decPoint(this.user.id, this.selectedItem.point)
-      // メールする
+      // 交換リクエスト作成
+      await PrizeExReq.create(this.user, this.selectedItem)
       
       // ダイアログを消す
       this.dialog = false
