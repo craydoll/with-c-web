@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const {getStorage} = require("firebase-admin/storage");
 const nodemailer = require("nodemailer");
 const mailAccount = "app@ishintai.org";
 const adminMailAddress = "app@ishintai.org";
@@ -123,4 +124,28 @@ exports.sendMail = functions
         console.error("エラー: " + e);
         return snap.ref.update({error: e.toString()});
       }
+    });
+
+exports.deleteImg = functions
+    .region("asia-northeast1")
+    .runWith({
+      // Ensure the function has enough memory and time
+      // to process large files
+      timeoutSeconds: 300,
+      memory: "2GB",
+    })
+    .pubsub.schedule("0 1 * * *")
+    .timeZone("Asia/Tokyo")
+    .onRun(async (context) => {
+      const storageRef = getStorage().ref();
+      // Create a reference to the file to delete
+      const delRef = storageRef.child("image/");
+      // フォルダ配下のアイテムをすべて取得
+      delRef.listAll().then((res) => {
+        res.items.forEach((itemRef) => {
+          // 削除
+          console.log("delete:" + itemRef.name);
+          itemRef.delete();
+        });
+      });
     });

@@ -43,8 +43,13 @@
         {{data.item.prize_nm}} <v-img width="50" :src="data.item.prize_img" />
       </template>
       <template #[`item.button`]="data">
-        <v-btn @click="accept(data.item)">受付</v-btn>
-        <v-btn @click="cancel(data.item)">取消</v-btn>
+        <div >
+          <v-btn v-if="data.item.accepted" color="error red" @click="cancel(data.item)">取消</v-btn>
+          <div v-else>
+            <v-btn color="success blue" @click="accept(data.item)">受付</v-btn>
+            <v-btn  color="success orange" @click="reject(data.item)">差戻し</v-btn>
+          </div>
+        </div>
       </template>
       <template #no-data>
         明細はありません
@@ -56,6 +61,8 @@
 <script>
 import PrizeExReq from '~/plugins/firestore/prizeExReq'
 import Places from '~/plugins/firestore/places'
+import Prizes from '~/plugins/firestore/prizes'
+import Users from '~/plugins/firestore/users'
 import appError, { ApplicationError } from '@/plugins/firestore/appError'
 
 export default {
@@ -103,14 +110,26 @@ export default {
         }
       }
     },
-    accept(item) {
-      
+    async accept(item) {
+      await PrizeExReq.accept(item.id)
+      await this.getRows()
     },
-    cancel(item) {
+    async cancel(item) {
+      await PrizeExReq.cancel(item.id)
+      await this.getRows()
+    },
+    async reject(item) {
+      const id = await this.$store.getters['auth/id']      
+      // 在庫を増やす
+      await Prizes.incStock(item.prize_id)
+      // ポイントを増やす
+      await Users.incPoint(id, item.prize_pt)
+      // 交換リクエスト削除
+      await PrizeExReq.delete(item.id)
 
-    },
+      await this.getRows()
+    },    
     rowClass(item) {
-      console.log(item)
       if (item.accepted) {
         return 'accepted'
       } 

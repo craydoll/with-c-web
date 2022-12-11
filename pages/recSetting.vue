@@ -68,8 +68,8 @@
               name="select_type"
               required
             >
-            <option value="original">オリジナル</option>
             <option value="google">グーグル</option>
+            <option value="original">オリジナル</option>
           </select>
           </div>
         </div>
@@ -107,7 +107,7 @@ export default {
       camera: {},
       subject: 'japanese',
       method: 'onhand',
-      engine: 'original',
+      engine: 'google',
       subjects: [],
       snackbar: false,
       message: '',

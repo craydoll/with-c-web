@@ -190,7 +190,6 @@ export default {
     this.$adobeFonts(document)
     this.isLoggedIn = await this.$store.getters['auth/isLoggedIn']
     this.user = await this.$store.getters['auth/user']
-    console.log('user is ' + JSON.stringify(this.user))
     // ログインしている場合
     if (this.isLoggedIn) {
       if (this.user !== null) {

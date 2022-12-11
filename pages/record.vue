@@ -175,7 +175,8 @@ export default {
       startTimeString: '',
       message: '',
       timeout: 5000,
-      snackbar:false,
+      snackbar: false,
+      counter: 0,
     }
   },
   async mounted () {
@@ -231,6 +232,7 @@ export default {
     },
     async stop() {
       clearInterval(this.timerId);
+      this.counter = 0
       this.overlay = true
       this.startTimeString = ''
       try {
@@ -275,6 +277,14 @@ export default {
     capture(measureId) {
       const id = this.user.id
       const storageRef = firebase.storage().ref();
+      this.counter++
+      // 5秒ごとに2160回 ＝３時間
+      if (this.counter > 2160) {
+        this.message = '3時間を超えたので測定を終了しました'
+        this.snackbar = true
+        this.stop()
+
+      }
 
       this.canvas = document.createElement("canvas");
       this.canvas.width = 400;
@@ -289,7 +299,7 @@ export default {
           if (this.engine === 'google') {
             url = "https://us-central1-with-c-web.cloudfunctions.net/calc_data_firebase_ML"
           }
-          console.log('request:' + url + " param:" + id + " : " + measureId)
+          console.log('count:' + this.counter + ' request:' + url + " param:" + id + " : " + measureId)
           const res = await this.$axios.$get(url, {
             params: {
               id,

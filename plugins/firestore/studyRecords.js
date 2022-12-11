@@ -1,5 +1,6 @@
 import { db } from '../firebase'
 import Subjects from './subjects'
+// import Users from './users'
 
 const tbName = 'study_records'
 
@@ -28,12 +29,23 @@ export default {
     const items = await Promise.all(snapshot.docs.map(async (doc) => {
       const item = doc.data()
       // 個別の変換処理
-      item.id = doc.id
-      item.start_date = item.start_date ? item.start_date.toDate() : null
-      item.end_date = item.end_date ? item.end_date.toDate() : null
-      const subject = await Subjects.getItem(item.subject)
-      item.subject_nm = subject.name
-      return item
+      try {
+        item.id = doc.id
+        item.start_date = item.start_date ? item.start_date.toDate() : null
+        item.end_date = item.end_date ? item.end_date.toDate() : null
+        let subject = ''
+        if (item.subject) {
+          subject = await Subjects.getItem(item.subject)
+        }
+        item.subject_nm = subject.name
+        const userDoc = await doc.ref.parent.parent.get()
+        const user = userDoc.data()
+        item.user_nm = user.name
+        return item
+      } catch (err) {
+        console.log('Err:' + err)
+        return item
+      }
     }))
     return items
   },

@@ -46,14 +46,17 @@ export default {
 
       // ポイントが書き換えられたか
       const oldItem = await this.getItem(docId)
-      if (obj.point !== oldItem.point) {
-        // ポイント履歴に書き込む
-        console.log('ポイント書き換え')
-        await db.collection(tbName).doc(docId).collection("point_log").add({
-          date: new Date(),
-          summary: "ユーザー情報編集によるポイント書き換え",
-          point: obj.point,
-        });          
+      if (!oldItem) {
+        console.log('初登録')
+        obj.point = 0
+      } else if (obj.point !== oldItem.point) {
+          // ポイント履歴に書き込む
+          console.log('ポイント書き換え')
+          await db.collection(tbName).doc(docId).collection("point_log").add({
+            date: new Date(),
+            summary: "ユーザー情報編集によるポイント書き換え",
+            point: obj.point,
+          });          
       }
       await db.collection(tbName).doc(docId).set(obj, { merge: true })
       return docId
@@ -71,7 +74,18 @@ export default {
       date: new Date(),
       summary: "商品引換によるポイント減少",
       point: -point,
-    });    
+    });
+  },
+  async incPoint (docId, point) {
+    await db.collection(tbName).doc(docId).update({
+      point: firebase.firestore.FieldValue.increment(point),
+    })
+    // ポイント履歴に書き込む
+    await db.collection(tbName).doc(docId).collection("point_log").add({
+      date: new Date(),
+      summary: "商品引換取り消しによるポイント増加",
+      point,
+    });
   },
   async getTotalBySubject(id) {
     const totalRef = db.collection(tbName).doc(id).collection('total')

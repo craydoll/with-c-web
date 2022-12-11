@@ -62,8 +62,29 @@ export default {
       prize_img: prize.img,
       place_id: prize.place_id,
       place_nm: prize.place,
+      prize_pt: prize.point,
       accepted: false,
     }
     await this.save('', doc)
-  }
+  },
+  async accept(docId) {
+    console.log('in accept:' + docId)
+    await db.collection(tbName).doc(docId).set({
+      accepted: true
+    }, { merge: true })
+    return docId
+  },
+  async cancel(docId) {
+    console.log('in cancel:' + docId)
+    await db.collection(tbName).doc(docId).set({
+      accepted: false
+    }, { merge: true })
+    return docId
+  },
+  async reject(docId) {
+    console.log('in reject:' + docId)
+    const obj = await this.getItem(docId)
+    console.log('obj:' + JSON.stringify(obj))
+
+  },
 }

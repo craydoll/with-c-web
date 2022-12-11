@@ -16,18 +16,29 @@
                 <div
                   v-for="(item, i) in studyRecords"
                   :key="i"
-                  class="recordBox_term"
+                  class="recordBox_term recordBox_term--user-page"
                 >
-                  <p class="recordBox_item_date_txt">
-                    <span>{{item.start_date | format-date}}</span>
-                  </p>
-                  <p class="recordBox_item_subject" :class="item.subject">{{item.subject_nm}}</p>
-                  <p class="recordBox_item_time">
-                    <span>開始時間：{{item.start_date | format-time}}</span>
-                    <span>終了時間：{{item.end_date | format-time}}</span>
-                    <!-- ここはミリ秒 -->
-                    <span>総学習時間：{{Math.round((item.end_date - item.start_date)/(60 * 1000))}}分</span>
-                  </p>
+                  <div class="recordBox_term--flex">
+                    <p class="recordBox_item_date_txt">
+                      <span>{{item.start_date | format-date}}</span>
+                    </p>
+                    <p class="recordBox_item_subject" :class="item.subject">{{item.subject_nm}}</p>
+                    <p class="recordBox_item_time">
+                      <span>開始：{{item.start_date | format-time}}</span>
+                      <span>終了：{{item.end_date | format-time}}</span>
+                      <!-- ここはミリ秒 -->
+                      <span>総学習時間：{{Math.round((item.end_date - item.start_date)/(60 * 1000))}}分</span>
+                      <span>ポイント：{{item.point}}pt</span>
+                    </p>
+                  </div>
+                  <div class="recordBox_item_time">
+                    <v-card height="250">
+                      <ChartContainer
+                        :val="item.concentration"
+                        :labels="item.concentration.map((idx,i) => i)"
+                      />
+                    </v-card>
+                  </div>
                 </div>
               </li>
             </ul>
@@ -45,14 +56,15 @@
 <script>
 import StudyRecords from '@/plugins/firestore/studyRecords'
 import Users from '@/plugins/firestore/users'
+import ChartContainer from '@/components/resultChart'
 export default {
+  components: {
+    ChartContainer
+  },
   layout: 'teacher',
   data() {
     return {
       studyRecords: [],
-      labels: [],
-      data: [],
-      totalTimes: [],
       user: {},
     }
   },
@@ -63,17 +75,18 @@ export default {
     this.user = await Users.getItem(id)
     if (this.user) {
       this.studyRecords = await StudyRecords.getItems(this.user.id)
-      this.totalTimes = await Users.getTotalBySubject(this.user.id)
-      console.log('in mounted:' + JSON.stringify(this.totalTimes))
-      this.totalTimes.forEach((item) => {
-        this.labels.push(item.subject)
-        // 時間は秒で保存されている
-        this.data.push(item.time / 60)
-      })
     }
-
+    console.log('studyRecords:' + JSON.stringify(this.studyRecords))
     }
   },
 }
 </script>
-
+<style scoped>
+    .recordBox_term--user-page{
+      display: block!important;
+    }
+    .recordBox_term--flex{
+      align-items: center;
+      display: flex;
+    }
+</style>

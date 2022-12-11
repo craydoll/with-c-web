@@ -30,6 +30,10 @@
                       <dd>{{item.stock}}セット</dd>
                     </dl>
                     <dl>
+                      <dt>交換場所：</dt>
+                      <dd>{{item.place}}</dd>
+                    </dl>
+                    <dl>
                       <dt>掲載日：</dt>
                       <dd>{{item.reg_date | format-date}}</dd>
                     </dl>
@@ -138,7 +142,6 @@ export default {
   },
   methods: {
     itemSelected(row) {
-      console.log("itemselected:" + JSON.stringify(row))
       this.selectedItem = row
       if (this.user.point >= row.point) {
         this.dialog=true
