@@ -1,6 +1,5 @@
-# with-c-web
-
-## Build Setup
+# WithPlusアプリ
+WithPlusは集中力を測定するアプリです
 
 ```bash
 # install dependencies

@@ -17,7 +17,6 @@
                 playsinline
               ></video>
               <v-img v-if="isPause" class="PauseImg" width="100%" height="100%" src="/assets/img/bg/pause.png"></v-img>
-              <v-img v-if="showGuide" class="PauseImg" width="100%" height="100%" src="/assets/img/bg/hand_measurement.png"></v-img>
               <v-btn
                 absolute
                 right
@@ -32,7 +31,6 @@
               </v-btn>
             </div>
           </div>
-          <div class="text-center"> ノートの四隅をカメラに入れてね！ </div>
           <div class="tac record_screen_btn_wrapper">
             <div class="ly_size_sm">
               <dl class="selected_camera">
@@ -170,7 +168,6 @@ export default {
       result: {},
       overlay: false,
       errDiag: false,
-      showGuide: true,
       showFullscr: false,
       startTimeString: '',
       message: '',
@@ -210,9 +207,6 @@ export default {
       })
     }
     this.user = await this.$store.getters['auth/user']
-    const turnOffGuideImg = () => { this.showGuide = false }
-    this.showGuide = true
-    this.timerId = setTimeout(turnOffGuideImg, 5000);
   },
   methods: {
     start() {
@@ -231,7 +225,6 @@ export default {
       this.isRecording = true
     },
     async stop() {
-      clearInterval(this.timerId);
       this.counter = 0
       this.overlay = true
       this.startTimeString = ''

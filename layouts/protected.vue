@@ -116,7 +116,7 @@
      </v-list>
       </div>
     </v-navigation-drawer>    
-    <v-main id="#body" app>
+    <v-main id="#body">
         <Nuxt />
     </v-main>
     <footer class="bgc_br" color="#c9bc9c">
