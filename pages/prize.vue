@@ -137,7 +137,7 @@ export default {
     }
   },
   async mounted () {
-    this.prizeList = await Prizes.getAllItems()
+    this.prizeList = await Prizes.getNotExpiredItems()
     this.user = await this.$store.getters['auth/user']
   },
   methods: {

@@ -44,6 +44,20 @@
           </div>
         </div>
         <div class="record_type">
+          <p class="el_deco_bracket">【テスト中】画像認識エンジン切替え</p>
+          <div class="select_wrapper">
+            <select
+              v-model="engine"
+              class="select_type"
+              name="select_type"
+              required
+            >
+              <option value="google">グーグル</option>
+              <option value="original">オリジナル</option>
+            </select>
+          </div>
+        </div>
+        <div class="record_type">
           <p>【テスト映像】</p>
           <div class="Video">
             <video
@@ -58,35 +72,30 @@
             <v-img v-if="showGuide" class="PauseImg" width="100%" height="100%" src="/assets/img/bg/hand_measurement.png"></v-img>
           </div>
         </div>
-        <div  class="record_type">
-          <div v-if="showGuide" class="red--text">
+        <div  class="record_type mx-auto">
+          <div v-if="showGuide && !noDetectNote" class="red--text">
               ノートの四隅をカメラに入れてね！（ノートを認識すると次の画面へ進めます）
-        </div>
-        <div v-else>
-          <h3>
-            ノートを検出しました！
-          </h3>
-          <div class="setting_btn el_btn_location">
-          <button class="el_btn el_btn__lor record_screen_btn" :disabled="showGuide" @click="toRecordPage">
-            録画測定の画面へ
-          </button>
-        </div>
-        <div class="record_type">
-          <p class="el_deco_bracket">【テスト中】画像認識エンジン切替え</p>
-          <div class="select_wrapper">
-            <select
-              v-model="engine"
-              class="select_type"
-              name="select_type"
-              required
-            >
-            <option value="google">グーグル</option>
-            <option value="original">オリジナル</option>
-          </select>
+              <v-flex xs12 md2 mx-auto>
+                <v-switch
+                  v-model="noDetectNote"
+                  color="red"
+                  hide-details
+                  label="ノートを認識しない"
+                  class="switch-center"
+                ></v-switch>
+              </v-flex>
+          </div>
+          <div v-else>
+            <h3>
+              ノートを検出しました！
+            </h3>
+            <div class="setting_btn el_btn_location">
+              <button class="el_btn el_btn__lor record_screen_btn" @click="toRecordPage">
+                録画測定の画面へ
+              </button>
+            </div>
           </div>
         </div>
-        </div>
-      </div>
       </div>
     </section>
       <v-snackbar
@@ -129,7 +138,8 @@ export default {
       message: '',
       timeout: 5000,
       showGuide: true,
-      timerId:0,
+      timerId: 0,
+      noDetectNote: false,
     }
   },
   watch: {
@@ -252,5 +262,9 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+}
+.switch-center {
+  display: flex;
+  justify-content: center;
 }
 </style>

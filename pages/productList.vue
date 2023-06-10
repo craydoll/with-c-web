@@ -77,10 +77,9 @@
                     <v-row>
                       <DatePicker
                         label="消費期限"
-                        :adate="editedItem.expiration"
-                        max=""
-                        @ok="editedItem.expiration=$event"
-                      />                    
+                        :adate="expiration"
+                        @ok="setExpiration"
+                      />
                     </v-row>
                     <v-row>
                       <v-file-input v-model="imgFile" accept="image/*" show-size label="画像" @change="onImagePicked" />
@@ -120,6 +119,9 @@
       <template #[`item.img`]="data">
         <v-img width="50" :src="data.item.img" />
       </template>
+      <template #[`item.expiration`]="data">
+        {{ data.item.expiration | format-date }}
+      </template>
       <template #no-data>
         明細はありません
       </template>
@@ -130,9 +132,12 @@
 import Prizes from '@/plugins/firestore/prizes'
 import Places from '@/plugins/firestore/places'
 import appError, { ApplicationError } from '@/plugins/firestore/appError'
+import DatePicker from '@/components/datePicker'
+import moment from '@/plugins/moment-ja'
 
 export default {
   components: {
+    DatePicker
   },
   layout: 'productAdmin',
   data () {
@@ -148,7 +153,7 @@ export default {
         { value: 'donor', text: '提供者' },
         { value: 'place', text: '引換会場' },
         { value: 'category', text: '商品カテゴリ' },
-        { value: 'expiration', text: '消費期限' },
+        { value: 'expiration', text: '消費期限' , },
       ],
       rows: [],
       editedItem: { img: [] },
@@ -179,6 +184,9 @@ export default {
     formTitle () {
       return this.editedIndex === -1 ? '新規登録' : '編集'
     },
+    expiration() {
+      return this.editedItem.expiration?moment(this.editedItem.expiration).format('YYYY-MM-DD'):''
+    }
   },
   async mounted () {
     await this.getRows()
@@ -209,6 +217,7 @@ export default {
       this.uploadImageUrl = this.editedItem.img
       this.placeObj = this.placeList.find((v) => v.id === this.editedItem.place_id);   
       this.dialog = true
+      console.log('item:' + JSON.stringify(this.editedItem))
     },
     async deleteItem (item) {
       try {
@@ -300,7 +309,7 @@ export default {
       img.src = imgB64Src
     },
     setExpiration(date) {
-      console.log('in setExpiration;' + date)
+      this.editedItem.expiration = new Date(date)
     }
   }
 }

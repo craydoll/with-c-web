@@ -43,7 +43,7 @@ props: {
     },
     max: {
       type: String,
-      default: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      default: '',
       requierd: false,
     }
   },
@@ -59,12 +59,21 @@ props: {
       val && setTimeout(() => (this.activePicker = 'YEAR'))
     },
     adate () {
-      this.date = this.adate
+      console.log('in DatePicker watch adate:' + this.date + '/' + this.adate)
+      if (this.adate) {
+        this.date = this.adate
+      } else {
+        this.date = ''
+      }
     }
   },
   mounted () {
     console.log('in DatePicker mounted:' + this.date + '/' + this.adate)
-    this.date = this.adate
+    if (this.adate) {
+      this.date = this.adate
+    } else {
+      this.date = ''
+    }
   },
   methods: {
     save(date) {
