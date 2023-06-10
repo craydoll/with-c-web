@@ -266,7 +266,6 @@ export default {
       return await this.getRows()
     },
     onImagePicked(file) {
-      console.log('onImagePicked:' + JSON.stringify(file))
       if (file !== undefined && file !== null) {
         if (file.name.lastIndexOf('.') <= 0) {
           return

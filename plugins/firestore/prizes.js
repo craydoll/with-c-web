@@ -30,7 +30,6 @@ export default {
     const snapshot = await docRef.get()
     const items = await Promise.all(snapshot.docs.map((doc) => {
       const item = doc.data()
-      console.log('in prize:' + JSON.stringify(item))
       // 個別の変換処理
       item.id = doc.id
       
@@ -45,7 +44,6 @@ export default {
   },
   async save (docId, obj) {
     if (docId === '') {
-      console.log('docId is empty')
       const newDoc = await db.collection(tbName).add(obj)
       console.log('docId = ' + newDoc.id)
       return newDoc.id
